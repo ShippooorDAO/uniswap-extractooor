@@ -21,7 +21,7 @@ const missingProviderError =
   'You forgot to wrap your code in a provider <UniswapV3SubgraphProvider>';
 
 const UniswapV3SubgraphContext = createContext<UniswapV3SubgraphProviderState>({
-  get tokens(): never {
+  get tokenService(): never {
     throw new Error(missingProviderError);
   },
 });

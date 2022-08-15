@@ -1,5 +1,4 @@
 import gql from "graphql-tag"
-import { makeBatchQuery } from "../Utils/Subgraph"
 
 export const TOKENS_BATCH_QUERY = gql`
     query batchQuery($pageSize: Int!, $lastID: String) {

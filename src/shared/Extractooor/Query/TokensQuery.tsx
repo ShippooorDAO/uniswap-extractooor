@@ -7,10 +7,6 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
-import {
-  parseBigDecimalTokenAmount,
-  parseBigDecimalUsdAmount,
-} from '@/shared/Utils/Subgraph';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
 interface Response {

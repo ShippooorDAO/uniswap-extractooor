@@ -60,9 +60,9 @@ export function TokenAmountWithUsdValueFormatter(
     return params.value.toDisplayString();
   }
   const { timestamp, amount } = params.value;
-  return `${amount.toDisplayString()} (${amount
-    .toUsd(timestamp)
-    .toDisplayString()})`;
+  return `${amount.toDisplayString()} (${
+    amount?.toUsd(timestamp)?.toDisplayString() ?? ''
+  })`;
 }
 
 export function AccountAddressRenderCell(params: GridRenderCellParams<string>) {
