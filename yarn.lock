@@ -1373,7 +1373,7 @@
     prop-types "^15.8.1"
     reselect "^4.1.6"
 
-"@mui/x-data-grid@5.15.1", "@mui/x-data-grid@^5.12.3":
+"@mui/x-data-grid@5.15.1":
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-5.15.1.tgz#1514bee45dc760a832349cf2a754aee802eb3514"
   integrity sha512-KTWrXRvhtudhONrjanpmSijgvMfWGiuX83RZxBpVPdiM4h0furLtltpmk++V3inEcGUeEFEj1qfx4ssiTuNJtw==

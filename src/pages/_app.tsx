@@ -9,11 +9,16 @@ import { UniswapV3SubgraphProvider } from '@/shared/UniswapV3Subgraph/UniswapV3S
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { ExtractoooorProvider } from '@/shared/Extractooor/ExtractooorProvider';
+import { LicenseInfo } from '@mui/x-license-pro';
 
 const apolloClient = new ApolloClient({
   uri: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
   cache: new InMemoryCache(),
 });
+
+if (process.env.NEXT_PUBLIC_MUI_DATA_GRID_PRO_LICENSE_KEY) {
+  LicenseInfo.setLicenseKey(process.env.NEXT_PUBLIC_MUI_DATA_GRID_PRO_LICENSE_KEY);
+}
 
 const providers = combineProviders();
 providers.push(ThemeProvider, { attribute: 'data-theme' });
