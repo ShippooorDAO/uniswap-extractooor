@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 
-import { GridRowsProp, GridColDef } from "@mui/x-data-grid-pro";
-import { ReactNode } from "react";
-import { ApolloClient, gql, NormalizedCacheObject } from "@apollo/client";
-import { ExtractooorQueryBase } from "./QueryBase";
-import { UsdAmount } from "@/shared/Currency/UsdAmount";
-import { AmountFormatter } from "@/shared/Utils/DataGrid";
-import { TokenService } from "@/shared/Currency/TokenService";
-import { TokenAmount } from "@/shared/Currency/TokenAmount";
+import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
+import { ReactNode } from 'react';
+import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
+import { ExtractooorQueryBase } from './QueryBase';
+import { UsdAmount } from '@/shared/Currency/UsdAmount';
+import { AmountFormatter } from '@/shared/Utils/DataGrid';
+import { TokenService } from '@/shared/Currency/TokenService';
+import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
 interface Response {
   pools: {
@@ -97,166 +97,166 @@ const QUERY = gql`
 export default class PoolsQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
-      field: "createdAtTimestamp",
-      headerName: "Created At Timestamp",
-      type: "string",
+      field: 'createdAtTimestamp',
+      headerName: 'Created At Timestamp',
+      type: 'string',
       width: 150,
     },
     {
-      field: "createdAtBlockNumber",
-      headerName: "Created At Block Number",
-      type: "string",
+      field: 'createdAtBlockNumber',
+      headerName: 'Created At Block Number',
+      type: 'string',
       width: 150,
     },
-    { field: "token0", headerName: "Token0 Name", type: "string", width: 150 },
-    { field: "token1", headerName: "Token1 Name", type: "string", width: 150 },
+    { field: 'token0', headerName: 'Token0 Name', type: 'string', width: 150 },
+    { field: 'token1', headerName: 'Token1 Name', type: 'string', width: 150 },
     {
-      field: "feeTier",
-      headerName: "Fee Tier",
-      type: "number",
-      width: 150,
-    },
-    {
-      field: "liquidity",
-      headerName: "Liquidity",
-      type: "number",
+      field: 'feeTier',
+      headerName: 'Fee Tier',
+      type: 'number',
       width: 150,
     },
     {
-      field: "sqrtPrice",
-      headerName: "Sqrt Price",
-      type: "number",
+      field: 'liquidity',
+      headerName: 'Liquidity',
+      type: 'number',
       width: 150,
     },
     {
-      field: "feeGrowthGlobal0X128",
-      headerName: "Fee Growth Global 0X128",
-      type: "number",
+      field: 'sqrtPrice',
+      headerName: 'Sqrt Price',
+      type: 'number',
       width: 150,
     },
     {
-      field: "feeGrowthGlobal1X128",
-      headerName: "Fee Growth Global 1X128",
-      type: "number",
+      field: 'feeGrowthGlobal0X128',
+      headerName: 'Fee Growth Global 0X128',
+      type: 'number',
       width: 150,
     },
     {
-      field: "token0Price",
-      headerName: "Token0 Price",
-      type: "number",
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: "token1Price",
-      headerName: "Token1 Price",
-      type: "number",
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    { field: "tick", headerName: "Tick", type: "number", width: 150 },
-    {
-      field: "observationIndex",
-      headerName: "Observation Index",
-      type: "number",
+      field: 'feeGrowthGlobal1X128',
+      headerName: 'Fee Growth Global 1X128',
+      type: 'number',
       width: 150,
     },
     {
-      field: "volumeToken0",
-      headerName: "Volume Token0",
-      type: "number",
+      field: 'token0Price',
+      headerName: 'Token0 Price',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "volumeToken1",
-      headerName: "Volume Token1",
-      type: "number",
+      field: 'token1Price',
+      headerName: 'Token1 Price',
+      type: 'number',
+      width: 150,
+      valueFormatter: AmountFormatter,
+    },
+    { field: 'tick', headerName: 'Tick', type: 'number', width: 150 },
+    {
+      field: 'observationIndex',
+      headerName: 'Observation Index',
+      type: 'number',
+      width: 150,
+    },
+    {
+      field: 'volumeToken0',
+      headerName: 'Volume Token0',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "volumeUSD",
-      headerName: "Volume USD",
-      type: "number",
+      field: 'volumeToken1',
+      headerName: 'Volume Token1',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "untrackedVolumeUSD",
-      headerName: "Untracked Volume USD",
-      type: "number",
+      field: 'volumeUSD',
+      headerName: 'Volume USD',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "feesUSD",
-      headerName: "Fees USD",
-      type: "number",
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    { field: "txCount", headerName: "TX Count", type: "number", width: 150 },
-    {
-      field: "collectedFeesToken0",
-      headerName: "Collected Fees Token0",
-      type: "number",
+      field: 'untrackedVolumeUSD',
+      headerName: 'Untracked Volume USD',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "collectedFeesToken1",
-      headerName: "Collected Fees Token1",
-      type: "number",
+      field: 'feesUSD',
+      headerName: 'Fees USD',
+      type: 'number',
+      width: 150,
+      valueFormatter: AmountFormatter,
+    },
+    { field: 'txCount', headerName: 'TX Count', type: 'number', width: 150 },
+    {
+      field: 'collectedFeesToken0',
+      headerName: 'Collected Fees Token0',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "collectedFeesUSD",
-      headerName: "Collected Fees USD",
-      type: "number",
+      field: 'collectedFeesToken1',
+      headerName: 'Collected Fees Token1',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "totalValueLockedToken0",
-      headerName: "Total Value Locked Token0",
-      type: "number",
+      field: 'collectedFeesUSD',
+      headerName: 'Collected Fees USD',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "totalValueLockedToken1",
-      headerName: "Total Value Locked Token1",
-      type: "number",
+      field: 'totalValueLockedToken0',
+      headerName: 'Total Value Locked Token0',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "totalValueLockedETH",
-      headerName: "Total Value Locked ETH",
-      type: "number",
+      field: 'totalValueLockedToken1',
+      headerName: 'Total Value Locked Token1',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "totalValueLockedUSD",
-      headerName: "Total Value Locked USD",
-      type: "number",
+      field: 'totalValueLockedETH',
+      headerName: 'Total Value Locked ETH',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "totalValueLockedUSDUntracked",
-      headerName: "Total Value Locked USD Untracked",
-      type: "number",
+      field: 'totalValueLockedUSD',
+      headerName: 'Total Value Locked USD',
+      type: 'number',
       width: 150,
       valueFormatter: AmountFormatter,
     },
     {
-      field: "liquidityProviderCount",
-      headerName: "Liquidity Provider Count",
-      type: "number",
+      field: 'totalValueLockedUSDUntracked',
+      headerName: 'Total Value Locked USD Untracked',
+      type: 'number',
+      width: 150,
+      valueFormatter: AmountFormatter,
+    },
+    {
+      field: 'liquidityProviderCount',
+      headerName: 'Liquidity Provider Count',
+      type: 'number',
       width: 150,
     },
   ];
@@ -265,7 +265,7 @@ export default class PoolsQuery extends ExtractooorQueryBase {
     private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
     private readonly tokenService: TokenService
   ) {
-    super("Pools", "Pools");
+    super('Pools', 'Pools');
   }
 
   private parseResponse(response: Response): GridRowsProp {
@@ -319,7 +319,7 @@ export default class PoolsQuery extends ExtractooorQueryBase {
       ),
       totalValueLockedETH: TokenAmount.fromBigDecimal(
         entry.totalValueLockedETH,
-        this.tokenService.getBySymbol("ETH")!
+        this.tokenService.getBySymbol('ETH')!
       ),
       totalValueLockedUSD: UsdAmount.fromBigDecimal(entry.totalValueLockedUSD),
       totalValueLockedUSDUntracked: UsdAmount.fromBigDecimal(

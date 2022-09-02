@@ -1,4 +1,4 @@
-import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import {
   createContext,
   FC,
@@ -6,15 +6,15 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { useUniswapV3SubgraphContext } from "../UniswapV3Subgraph/UniswapV3SubgraphProvider";
+} from 'react';
+import { useUniswapV3SubgraphContext } from '../UniswapV3Subgraph/UniswapV3SubgraphProvider';
 
-import { ExtractooorQuery, ExtractooorProviderState } from "./Extractooor.type";
-import TokensQuery from "./Query/TokensQuery";
-import PoolsQuery from "./Query/PoolsQuery";
+import { ExtractooorQuery, ExtractooorProviderState } from './Extractooor.type';
+import TokensQuery from './Query/TokensQuery';
+import PoolsQuery from './Query/PoolsQuery';
 
 const missingProviderError =
-  "You forgot to wrap your code in a provider <ExtractooorProvider>";
+  'You forgot to wrap your code in a provider <ExtractooorProvider>';
 
 const ExtractooorContext = createContext<ExtractooorProviderState>({
   get queries(): never {
