@@ -85,12 +85,6 @@ const QUERY = gql`
 export default class PositionsQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
       field: 'owner',
       headerName: 'Owner',
       type: 'string',
