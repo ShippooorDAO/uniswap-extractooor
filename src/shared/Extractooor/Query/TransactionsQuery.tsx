@@ -4,7 +4,6 @@ import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
 import { ReactNode } from 'react';
 import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
 import { ExtractooorQueryBase } from './QueryBase';
-import { TokenService } from '@/shared/Currency/TokenService';
 
 interface Response {
   transactions: {
