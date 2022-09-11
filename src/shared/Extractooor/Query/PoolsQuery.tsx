@@ -280,11 +280,11 @@ export default class PoolsQuery extends ExtractooorQueryBase {
       feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
       token0Price: TokenAmount.fromBigDecimal(
         entry.token0Price,
-        this.tokenService.getById(entry.token0.id)!
+        this.tokenService.getById(entry.token1.id)!
       ),
       token1Price: TokenAmount.fromBigDecimal(
         entry.token1Price,
-        this.tokenService.getById(entry.token1.id)!
+        this.tokenService.getById(entry.token0.id)!
       ),
       tick: Number(entry.tick),
       observationIndex: Number(entry.observationIndex),

@@ -205,8 +205,8 @@ export default class SwapsQuery extends ExtractooorQueryBase {
         this.tokenService.getById(entry.token1.id)!
       ),
       amountUSD: UsdAmount.fromBigDecimal(entry.amountUSD),
-      sqrticeX96: Number(entry.sqrticeX96),
-      tick: Number(entry.tickLower),
+      sqrtPriceX96: Number(entry.sqrtPriceX96),
+      tick: Number(entry.tick),
     }));
   }
 
