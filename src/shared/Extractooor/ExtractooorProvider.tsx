@@ -18,6 +18,7 @@ import PositionSnapshotsQuery from './Query/PositionSnapshotsQuery';
 import TransactionsQuery from './Query/TransactionsQuery';
 import MintsQuery from './Query/MintsQuery';
 import BurnsQuery from './Query/BurnsQuery';
+import SwapsQuery from './Query/SwapsQuery';
 
 const missingProviderError =
   'You forgot to wrap your code in a provider <ExtractooorProvider>';
@@ -57,6 +58,7 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         new TransactionsQuery(apolloClient),
         new MintsQuery(apolloClient, tokenService),
         new BurnsQuery(apolloClient, tokenService),
+        new SwapsQuery(apolloClient, tokenService),
       ]);
     }
   }, [tokenService]);
