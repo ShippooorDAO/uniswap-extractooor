@@ -119,14 +119,12 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
       headerName: 'Fee Growth Global 0 X128',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'feeGrowthGlobal1X128',
       headerName: 'Fee Growth Global 1 X128',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'tvlUSD',
