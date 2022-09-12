@@ -27,6 +27,7 @@ import PoolHourDatasQuery from './Query/PoolHourDatasQuery';
 import TickHourDatasQuery from './Query/TickHourDatasQuery';
 import TickDayDatasQuery from './Query/TickDayDatasQuery';
 import TokenDayDatasQuery from './Query/TokenDayDatasQuery';
+import TokenHourDatasQuery from './Query/TokenHourDatasQuery';
 
 const missingProviderError =
   'You forgot to wrap your code in a provider <ExtractooorProvider>';
@@ -75,6 +76,7 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         new TickHourDatasQuery(apolloClient, tokenService),
         new TickDayDatasQuery(apolloClient, tokenService),
         new TokenDayDatasQuery(apolloClient, tokenService),
+        new TokenHourDatasQuery(apolloClient, tokenService),
       ]);
     }
   }, [tokenService]);
