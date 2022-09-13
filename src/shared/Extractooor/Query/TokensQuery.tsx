@@ -28,7 +28,7 @@ interface Response {
     derivedETH: string; // BigDecimal!
 
     /**
-     * Ignored fields
+     * Ignored repeated fields
      * whitelistPools: [Pool!]!
      * tokenDayData: [TokenDayData!]!
      */
@@ -59,6 +59,7 @@ const QUERY = gql`
 
 export default class TokensQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', type: 'string', width: 150 },
     { field: 'symbol', headerName: 'Symbol', type: 'string', width: 150 },
     { field: 'name', headerName: 'Name', type: 'string', width: 150 },
     { field: 'decimals', headerName: 'Decimals', type: 'number', width: 150 },

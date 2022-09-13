@@ -80,13 +80,13 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase {
     {
       field: 'date',
       headerName: 'Date',
-      type: 'date',
+      type: 'dateTime',
       width: 150,
     },
     {
       field: 'dateTimestamp',
       headerName: 'Date Timestamp',
-      type: 'date',
+      type: 'dateTime',
       width: 150,
     },
     {

@@ -46,9 +46,15 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase {
       width: 150,
     },
     {
+      field: 'dateTimestamp',
+      headerName: 'Date Timestamp',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'date',
       headerName: 'Date',
-      type: 'date',
+      type: 'dateTime',
       width: 150,
     },
     {
@@ -104,6 +110,7 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.uniswapDayDatas.map((entry) => ({
       ...entry,
+      dateTimestamp: entry.date,
       date: new Date(Number(entry.date) * 1000),
       volumeETH: TokenAmount.fromBigDecimal(
         entry.volumeETH,

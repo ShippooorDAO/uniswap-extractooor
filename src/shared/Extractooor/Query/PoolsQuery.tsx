@@ -97,9 +97,21 @@ const QUERY = gql`
 export default class PoolsQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
+      field: 'id',
+      headerName: 'ID',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'createdAtTimestamp',
       headerName: 'Created At Timestamp',
       type: 'string',
+      width: 150,
+    },
+    {
+      field: 'createdAtDate',
+      headerName: 'Created At Date',
+      type: 'dateTime',
       width: 150,
     },
     {
@@ -145,14 +157,12 @@ export default class PoolsQuery extends ExtractooorQueryBase {
       headerName: 'Token0 Price',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'token1Price',
       headerName: 'Token1 Price',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     { field: 'tick', headerName: 'Tick', type: 'number', width: 150 },
     {
@@ -271,6 +281,7 @@ export default class PoolsQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.pools.map((entry) => ({
       ...entry,
+      createdAtDate: new Date(Number(entry.createdAtTimestamp) * 1000),
       token0: entry.token0.name,
       token1: entry.token1.name,
       feeTier: Number(entry.feeTier),
@@ -278,14 +289,8 @@ export default class PoolsQuery extends ExtractooorQueryBase {
       sqrtPrice: Number(entry.sqrtPrice),
       feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
       feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
-      token0Price: TokenAmount.fromBigDecimal(
-        entry.token0Price,
-        this.tokenService.getById(entry.token1.id)!
-      ),
-      token1Price: TokenAmount.fromBigDecimal(
-        entry.token1Price,
-        this.tokenService.getById(entry.token0.id)!
-      ),
+      token0Price: Number(entry.token0Price),
+      token1Price: Number(entry.token1Price),
       tick: Number(entry.tick),
       observationIndex: Number(entry.observationIndex),
       volumeToken0: TokenAmount.fromBigDecimal(

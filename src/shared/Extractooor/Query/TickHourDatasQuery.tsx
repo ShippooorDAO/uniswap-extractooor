@@ -68,9 +68,9 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase {
       width: 150,
     },
     {
-      field: 'periodStartUnixDate',
-      headerName: 'Period Start Unix Date',
-      type: 'date',
+      field: 'periodStartDate',
+      headerName: 'Period Start Date',
+      type: 'dateTime',
       width: 150,
     },
     {
@@ -143,7 +143,7 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.tickHourDatas.map((entry) => ({
       ...entry,
-      periodStartUnixDate: new Date(Number(entry.periodStartUnix) * 1000),
+      periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
       pool: entry.pool.id,
       poolName: entry.pool.token0.name.concat(' / ', entry.pool.token1.name),
       tick: entry.tick.id,

@@ -86,6 +86,12 @@ const QUERY = gql`
 export default class TicksQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
+      field: 'id',
+      headerName: 'ID',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'poolAddress',
       headerName: 'Pool Address',
       type: 'string',
@@ -192,6 +198,12 @@ export default class TicksQuery extends ExtractooorQueryBase {
       width: 150,
     },
     {
+      field: 'createdAtDate',
+      headerName: 'Created At Date',
+      type: 'dateTime',
+      width: 150,
+    },
+    {
       field: 'createdAtBlockNumber',
       headerName: 'Created At Block Number',
       type: 'string',
@@ -205,17 +217,15 @@ export default class TicksQuery extends ExtractooorQueryBase {
     },
     {
       field: 'feeGrowthOutside0X128',
-      headerName: 'Fee Growth Outside 0X128',
+      headerName: 'Fee Growth Outside 0 X128',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'feeGrowthOutside1X128',
-      headerName: 'Fee Growth Outside 1X128',
+      headerName: 'Fee Growth Outside 1 X128',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
   ];
 
@@ -263,16 +273,11 @@ export default class TicksQuery extends ExtractooorQueryBase {
       ),
       collectedFeesUSD: UsdAmount.fromBigDecimal(entry.collectedFeesUSD),
       // createdAtTimestamp: entry.createdAtTimestamp,
+      createdAtDate: new Date(Number(entry.createdAtTimestamp) * 1000),
       // createdAtBlockNumber: entry.createdAtBlockNumber,
       liquidityProviderCount: Number(entry.liquidityProviderCount),
-      feeGrowthOutside0X128: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken0,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
-      feeGrowthOutside1X128: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken1,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
+      feeGrowthOutside0X128: Number(entry.feeGrowthOutside0X128),
+      feeGrowthOutside1X128: Number(entry.feeGrowthOutside1X128),
     }));
   }
 

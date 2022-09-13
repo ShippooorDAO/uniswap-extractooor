@@ -47,6 +47,12 @@ const QUERY = gql`
 export default class TransactionsQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
+      field: 'id',
+      headerName: 'ID',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'blockNumber',
       headerName: 'Block Number',
       type: 'string',
@@ -56,6 +62,12 @@ export default class TransactionsQuery extends ExtractooorQueryBase {
       field: 'timestamp',
       headerName: 'Timestamp',
       type: 'string',
+      width: 150,
+    },
+    {
+      field: 'date',
+      headerName: 'Date',
+      type: 'dateTime',
       width: 150,
     },
     {
@@ -81,6 +93,7 @@ export default class TransactionsQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.transactions.map((entry) => ({
       ...entry,
+      date: new Date(Number(entry.timestamp) * 1000),
       gasUsed: Number(entry.gasUsed),
       gasPrice: Number(entry.gasPrice),
     }));

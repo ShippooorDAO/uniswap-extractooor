@@ -79,6 +79,12 @@ const QUERY = gql`
 export default class PositionSnapshotsQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     {
+      field: 'id',
+      headerName: 'ID',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'owner',
       headerName: 'Owner',
       type: 'string',
@@ -105,6 +111,12 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase {
     {
       field: 'timestamp',
       headerName: 'Timestamp',
+      type: 'string',
+      width: 150,
+    },
+    {
+      field: 'date',
+      headerName: 'Date',
       type: 'string',
       width: 150,
     },
@@ -188,6 +200,7 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.positionSnapshots.map((entry) => ({
       ...entry,
+      date: new Date(Number(entry.timestamp) * 1000),
       pool: entry.pool.id,
       position: entry.position.id,
       liquidity: Number(entry.liquidity),

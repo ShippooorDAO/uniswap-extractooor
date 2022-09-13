@@ -72,7 +72,7 @@ export default class TokenHourDatasQuery extends ExtractooorQueryBase {
     {
       field: 'periodStartDate',
       headerName: 'Period Start Date',
-      type: 'date',
+      type: 'dateTime',
       width: 150,
     },
     {

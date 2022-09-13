@@ -92,6 +92,12 @@ export default class SwapsQuery extends ExtractooorQueryBase {
       width: 150,
     },
     {
+      field: 'date',
+      headerName: 'Date',
+      type: 'string',
+      width: 150,
+    },
+    {
       field: 'pool',
       headerName: 'Pool ID',
       type: 'string',
@@ -190,6 +196,7 @@ export default class SwapsQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.swaps.map((entry) => ({
       ...entry,
+      date: new Date(Number(entry.timestamp) * 1000),
       transaction: entry.transaction.id,
       pool: entry.pool.id,
       token0: entry.token0.id,

@@ -122,6 +122,12 @@ export default class BurnsQuery extends ExtractooorQueryBase {
       width: 150,
     },
     {
+      field: 'date',
+      headerName: 'Date',
+      type: 'dateTime',
+      width: 150,
+    },
+    {
       field: 'owner',
       headerName: 'Owner',
       type: 'string',
@@ -190,6 +196,7 @@ export default class BurnsQuery extends ExtractooorQueryBase {
   private parseResponse(response: Response): GridRowsProp {
     return response.burns.map((entry) => ({
       ...entry,
+      date: new Date(Number(entry.timestamp) * 1000),
       transaction: entry.transaction.id,
       pool: entry.pool.id,
       token0: entry.token0.id,

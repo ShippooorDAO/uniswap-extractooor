@@ -66,7 +66,7 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase {
     {
       field: 'date',
       headerName: 'Date',
-      type: 'date',
+      type: 'dateTime',
       width: 150,
     },
     {

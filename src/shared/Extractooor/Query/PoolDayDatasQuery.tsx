@@ -82,6 +82,8 @@ const QUERY = gql`
 export default class PoolDayDatasQuery extends ExtractooorQueryBase {
   private readonly baseColumns: GridColDef[] = [
     { field: 'pool', headerName: 'Pool ID', type: 'string', width: 150 },
+    { field: 'token0', headerName: 'Token 0 Name', type: 'string', width: 150 },
+    { field: 'token1', headerName: 'Token 1 Name', type: 'string', width: 150 },
     {
       field: 'liquidity',
       headerName: 'Liquidity',
@@ -99,14 +101,12 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
       headerName: 'Token0 Price',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'token1Price',
       headerName: 'Token1 Price',
       type: 'number',
       width: 150,
-      valueFormatter: AmountFormatter,
     },
     {
       field: 'tick',
@@ -172,24 +172,28 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
       headerName: 'Open',
       type: 'number',
       width: 150,
+      valueFormatter: AmountFormatter,
     },
     {
       field: 'high',
       headerName: 'High',
       type: 'number',
       width: 150,
+      valueFormatter: AmountFormatter,
     },
     {
       field: 'low',
       headerName: 'Low',
       type: 'number',
       width: 150,
+      valueFormatter: AmountFormatter,
     },
     {
       field: 'close',
       headerName: 'Close',
       type: 'number',
       width: 150,
+      valueFormatter: AmountFormatter,
     },
   ];
 
@@ -204,16 +208,12 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
     return response.poolDayDatas.map((entry) => ({
       ...entry,
       pool: entry.pool.id,
+      token0: entry.pool.token0.name,
+      token1: entry.pool.token1.name,
       liquidity: Number(entry.liquidity),
       sqrtPrice: Number(entry.sqrtPrice),
-      token0Price: TokenAmount.fromBigDecimal(
-        entry.token0Price,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      token1Price: TokenAmount.fromBigDecimal(
-        entry.token1Price,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
+      token0Price: Number(entry.token0Price),
+      token1Price: Number(entry.token1Price),
       tick: Number(entry.tick),
       feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
       feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
@@ -229,10 +229,22 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
       volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
       feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
       txCount: Number(entry.txCount),
-      open: Number(entry.open),
-      high: Number(entry.high),
-      low: Number(entry.low),
-      close: Number(entry.close),
+      open: TokenAmount.fromBigDecimal(
+        entry.open,
+        this.tokenService.getById(entry.pool.token1.id)!
+      ),
+      high: TokenAmount.fromBigDecimal(
+        entry.high,
+        this.tokenService.getById(entry.pool.token1.id)!
+      ),
+      low: TokenAmount.fromBigDecimal(
+        entry.low,
+        this.tokenService.getById(entry.pool.token1.id)!
+      ),
+      close: TokenAmount.fromBigDecimal(
+        entry.close,
+        this.tokenService.getById(entry.pool.token1.id)!
+      ),
     }));
   }
 
