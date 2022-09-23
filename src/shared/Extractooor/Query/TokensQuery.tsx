@@ -8,36 +8,40 @@ import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { batchQuery } from '@/shared/Utils/Subgraph';
 
-interface Response {
-  tokens: {
-    id: string; // ID!
-    symbol: string; // String!
-    name: symbol; // String!
-    decimals: string; // BigInt!
-    totalSupply: string; // BigInt!
-    volume: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    untrackedVolumeUSD: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-    txCount: string; // BigInt!
-    poolCount: string; // BigInt!
-    totalValueLocked: string; // BigDecimal!
-    totalValueLockedUSD: string; // BigDecimal!
-    totalValueLockedUSDUntracked: string; // BigDecimal!
-    derivedETH: string; // BigDecimal!
+interface BatchResponseItem {
+  id: string; // ID!
+  symbol: string; // String!
+  name: symbol; // String!
+  decimals: string; // BigInt!
+  totalSupply: string; // BigInt!
+  volume: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  untrackedVolumeUSD: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
+  txCount: string; // BigInt!
+  poolCount: string; // BigInt!
+  totalValueLocked: string; // BigDecimal!
+  totalValueLockedUSD: string; // BigDecimal!
+  totalValueLockedUSDUntracked: string; // BigDecimal!
+  derivedETH: string; // BigDecimal!
 
-    /**
-     * Ignored repeated fields
-     * whitelistPools: [Pool!]!
-     * tokenDayData: [TokenDayData!]!
-     */
-  }[];
+  /**
+   * Ignored repeated fields
+   * whitelistPools: [Pool!]!
+   * tokenDayData: [TokenDayData!]!
+   */
 }
 
-const QUERY = gql`
-  {
-    tokens {
+export const BATCH_QUERY = gql`
+  query batchQuery($pageSize: Int!, $lastID: String) {
+    batch: tokens(
+      first: $pageSize
+      where: { id_gt: $lastID }
+      orderBy: id
+      orderDirection: asc
+    ) {
       id
       symbol
       name
@@ -147,9 +151,9 @@ export default class TokensQuery extends ExtractooorQueryBase {
     super('Tokens', 'Tokens');
   }
 
-  private parseResponse(response: Response): GridRowsProp {
+  private parseBatchResponseItems(items: BatchResponseItem[]): GridRowsProp {
     const ethToken = this.tokenService.getBySymbol('ETH')!;
-    return response.tokens.map((entry) => ({
+    return items.map((entry) => ({
       ...entry,
       decimals: Number(entry.decimals),
       totalSupply: TokenAmount.fromBigDecimal(
@@ -178,10 +182,12 @@ export default class TokensQuery extends ExtractooorQueryBase {
   }
 
   async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
+    const items = await batchQuery<BatchResponseItem>(
+      BATCH_QUERY,
+      this.apolloClient
+    );
+
+    const rows = this.parseBatchResponseItems(items);
     return { rows, columns: this.baseColumns };
   }
 
