@@ -72,19 +72,22 @@ function Extractooor() {
           </option>
         ))}
       </Select>
-      <DataGridPro
-        loading={loading}
-        columns={columns}
-        rows={rows}
-        rowHeight={38}
-        pagination
-        pageSize={25}
-        rowsPerPageOptions={[25]}
-        components={{
-          Toolbar: ExtractooorToolbar,
-          LoadingOverlay: LinearProgress,
-        }}
-      />
+
+      <div className="h-96">
+        <DataGridPro
+          loading={loading}
+          columns={columns}
+          rows={rows}
+          rowHeight={38}
+          pagination
+          pageSize={25}
+          rowsPerPageOptions={[25]}
+          components={{
+            Toolbar: ExtractooorToolbar,
+            LoadingOverlay: LinearProgress,
+          }}
+        />
+      </div>
     </div>
   );
 }
