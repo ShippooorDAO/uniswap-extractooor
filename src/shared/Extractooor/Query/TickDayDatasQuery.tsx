@@ -3,7 +3,7 @@
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
 import { ReactNode } from 'react';
 import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
@@ -69,110 +69,99 @@ const QUERY = gql`
   }
 `;
 
-export default class TickDayDatasQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'dateTimestamp',
-      headerName: 'Date Timestamp',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'pool',
-      headerName: 'Pool ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'poolName',
-      headerName: 'Pool Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'tick',
-      headerName: 'Tick',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'liquidityGross',
-      headerName: 'Liquidity Gross',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'liquidityNet',
-      headerName: 'Liquidity Net',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'volumeToken0',
-      headerName: 'Volume Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeToken1',
-      headerName: 'Volume Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feeGrowthOutside0X128',
-      headerName: 'Fee Growth Outside 0 X128',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthOutside1X128',
-      headerName: 'Fee Growth Outside 1 X128',
-      type: 'number',
-      width: 150,
-    },
-  ];
+export default class TickDayDatasQuery extends ExtractooorQueryBase<Response> {
+  getColumns() {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'date',
+        headerName: 'Date',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'pool',
+        headerName: 'Pool ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'poolName',
+        headerName: 'Pool Name',
+        ...baseFields.string,
+      },
+      {
+        field: 'tick',
+        headerName: 'Tick',
+        ...baseFields.id,
+      },
+      {
+        field: 'liquidityGross',
+        headerName: 'Liquidity Gross',
+        type: 'number',
+        width: 150,
+      },
+      {
+        field: 'liquidityNet',
+        headerName: 'Liquidity Net',
+        type: 'number',
+        width: 150,
+      },
+      {
+        field: 'volumeToken0',
+        headerName: 'Volume Token 0',
+        type: 'number',
+        width: 150,
+        valueFormatter: AmountFormatter,
+      },
+      {
+        field: 'volumeToken1',
+        headerName: 'Volume Token 1',
+        type: 'number',
+        width: 150,
+        valueFormatter: AmountFormatter,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        type: 'number',
+        width: 150,
+        valueFormatter: AmountFormatter,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        type: 'number',
+        width: 150,
+        valueFormatter: AmountFormatter,
+      },
+      {
+        field: 'feeGrowthOutside0X128',
+        headerName: 'Fee Growth Outside 0 X128',
+        type: 'number',
+        width: 150,
+      },
+      {
+        field: 'feeGrowthOutside1X128',
+        headerName: 'Fee Growth Outside 1 X128',
+        type: 'number',
+        width: 150,
+      },
+    ];
+  }
 
   constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
+    apolloClient: ApolloClient<NormalizedCacheObject>,
     private readonly tokenService: TokenService
   ) {
-    super('TickDayData', 'TickDayData');
+    super('TickDayData', 'TickDayData', apolloClient);
   }
 
   private parseResponse(response: Response): GridRowsProp {
     return response.tickDayDatas.map((entry) => ({
       ...entry,
-      date: new Date(Number(entry.date) * 1000),
-      dateTimestamp: entry.date,
       pool: entry.pool.id,
       poolName: entry.pool.token0.name.concat(' / ', entry.pool.token1.name),
       tick: entry.tick.id,

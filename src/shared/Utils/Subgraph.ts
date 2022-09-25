@@ -42,20 +42,24 @@ export async function batchQuery<
   const batchResult: TData[] = [];
 
   do {
-    const results = await apolloClient.query<BatchQueryResponse<TData>>({
-      query,
-      variables: {
-        ...variables,
-        pageSize,
-        lastID,
-    },
-    });
-    const dataList: TData[] = results.data.batch ?? [];
-    batchResult.push(...dataList);
+    try {
+      const results = await apolloClient.query<BatchQueryResponse<TData>>({
+        query,
+        variables: {
+          ...variables,
+          pageSize,
+          lastID,
+      },
+      });
+      const dataList: TData[] = results.data.batch ?? [];
+      batchResult.push(...dataList);
 
-    hasMoreResults = dataList.length > 0;
-    if (hasMoreResults) {
-      lastID = dataList.at(-1)!.id;
+      hasMoreResults = dataList.length > 0;
+      if (hasMoreResults) {
+        lastID = dataList.at(-1)!.id;
+      }
+    } catch (e: unknown) {
+      continue;
     }
   } while (hasMoreResults);
 
