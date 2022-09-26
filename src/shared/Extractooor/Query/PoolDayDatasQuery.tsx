@@ -1,61 +1,76 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  poolDayDatas: {
+interface Entity {
+  id: string; // ID!
+  pool: {
     id: string; // ID!
-    pool: {
+    token0: {
       id: string; // ID!
-      token0: {
-        id: string; // ID!
-        name: string; // String!
-      }; // Token!
-      token1: {
-        id: string; // ID!
-        name: string; // String!
-      }; // Token!
-    }; // Pool!
-    liquidity: string; // BigInt!
-    sqrtPrice: string; //  BigInt!
-    token0Price: string; //  BigDecimal!
-    token1Price: string; //  BigDecimal!
-    tick: string; //  BigInt
-    feeGrowthGlobal0X128: string; //  BigInt!
-    feeGrowthGlobal1X128: string; //  BigInt!
-    tvlUSD: string; //  BigDecimal!
-    volumeToken0: string; //  BigDecimal!
-    volumeToken1: string; //  BigDecimal!
-    volumeUSD: string; //  BigDecimal!
-    feesUSD: string; //  BigDecimal
-    txCount: string; //  BigInt!
-    open: string; //  BigDecimal!
-    high: string; //  BigDecimal!
-    low: string; //  BigDecimal!
-    close: string; //  BigDecimal
-  }[];
+      symbol: string; // String!
+    }; // Token!
+    token1: {
+      id: string; // ID!
+      symbol: string; // String!
+    }; // Token!
+  }; // Pool!
+  liquidity: string; // BigInt!
+  sqrtPrice: string; //  BigInt!
+  token0Price: string; //  BigDecimal!
+  token1Price: string; //  BigDecimal!
+  tick: string; //  BigInt
+  feeGrowthGlobal0X128: string; //  BigInt!
+  feeGrowthGlobal1X128: string; //  BigInt!
+  tvlUSD: string; //  BigDecimal!
+  volumeToken0: string; //  BigDecimal!
+  volumeToken1: string; //  BigDecimal!
+  volumeUSD: string; //  BigDecimal!
+  feesUSD: string; //  BigDecimal
+  txCount: string; //  BigInt!
+  open: string; //  BigDecimal!
+  high: string; //  BigDecimal!
+  low: string; //  BigDecimal!
+  close: string; //  BigDecimal
 }
 
-const QUERY = gql`
-  {
-    poolDayDatas {
+interface Response {
+  poolDayDatas: Entity[];
+}
+
+export default class PoolDayDatasQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('PoolDayDatas', 'PoolDayDatas', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'poolDayDatas';
+  }
+
+  getQueryBody() {
+    return `
+    {
       id
       pool {
         id
         token0 {
           id
-          name
+          symbol
         }
         token1 {
           id
-          name
+          symbol
         }
       }
       liquidity
@@ -75,141 +90,128 @@ const QUERY = gql`
       high
       low
       close
-    }
-  }
-`;
-
-export default class PoolDayDatasQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    { field: 'pool', headerName: 'Pool ID', type: 'string', width: 150 },
-    { field: 'token0', headerName: 'Token 0 Name', type: 'string', width: 150 },
-    { field: 'token1', headerName: 'Token 1 Name', type: 'string', width: 150 },
-    {
-      field: 'liquidity',
-      headerName: 'Liquidity',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'sqrtPrice',
-      headerName: 'Sqrt Price',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'token0Price',
-      headerName: 'Token0 Price',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'token1Price',
-      headerName: 'Token1 Price',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'tick',
-      headerName: 'Tick',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthGlobal0X128',
-      headerName: 'Fee Growth Global 0 X128',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthGlobal1X128',
-      headerName: 'Fee Growth Global 1 X128',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'tvlUSD',
-      headerName: 'TVL USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeToken0',
-      headerName: 'Volume Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeToken1',
-      headerName: 'Volume Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'txCount',
-      headerName: 'TX Count',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'open',
-      headerName: 'Open',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'high',
-      headerName: 'High',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'low',
-      headerName: 'Low',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'close',
-      headerName: 'Close',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('PoolDayDatas', 'PoolDayDatas');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.poolDayDatas.map((entry) => ({
+  getColumns(): GridColDef[] {
+    return [
+      { field: 'id', headerName: 'Pool ID', ...baseFields.id },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1Symbol',
+        headerName: 'Token 1 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'liquidity',
+        headerName: 'Liquidity',
+        ...baseFields.integer,
+      },
+      {
+        field: 'sqrtPrice',
+        headerName: 'Sqrt Price',
+        ...baseFields.integer,
+      },
+      {
+        field: 'token0Price',
+        headerName: 'Token0 Price',
+        ...baseFields.amount,
+      },
+      {
+        field: 'token1Price',
+        headerName: 'Token1 Price',
+        ...baseFields.amount,
+      },
+      {
+        field: 'tick',
+        headerName: 'Tick',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthGlobal0X128',
+        headerName: 'Fee Growth Global 0 X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthGlobal1X128',
+        headerName: 'Fee Growth Global 1 X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'tvlUSD',
+        headerName: 'TVL USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeToken0',
+        headerName: 'Volume Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeToken1',
+        headerName: 'Volume Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'txCount',
+        headerName: 'TX Count',
+        ...baseFields.integer,
+      },
+      {
+        field: 'open',
+        headerName: 'Open',
+        ...baseFields.amount,
+      },
+      {
+        field: 'high',
+        headerName: 'High',
+        ...baseFields.amount,
+      },
+      {
+        field: 'low',
+        headerName: 'Low',
+        ...baseFields.amount,
+      },
+      {
+        field: 'close',
+        headerName: 'Close',
+        ...baseFields.amount,
+      },
+    ];
+  }
+
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
       pool: entry.pool.id,
-      token0: entry.pool.token0.name,
-      token1: entry.pool.token1.name,
+      token0: entry.pool.token0.id,
+      token1: entry.pool.token1.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1Symbol: entry.pool.token1.symbol,
       liquidity: Number(entry.liquidity),
       sqrtPrice: Number(entry.sqrtPrice),
       token0Price: Number(entry.token0Price),
@@ -246,17 +248,5 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase {
         this.tokenService.getById(entry.pool.token1.id)!
       ),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

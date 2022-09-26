@@ -1,44 +1,58 @@
 /* eslint-disable class-methods-use-this */
 
-import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { GridRowsProp } from '@mui/x-data-grid-pro';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  tokenHourDatas: {
-    id: string; // ID!
-    periodStartUnix: string; // Int!
-    token: {
-      id: string;
-      name: string;
-    }; // Token!
-    volume: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    untrackedVolumeUSD: string; // BigDecimal!
-    totalValueLocked: string; // BigDecimal!
-    totalValueLockedUSD: string; // BigDecimal!
-    priceUSD: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-    open: string; // BigDecimal!
-    high: string; // BigDecimal!
-    low: string; // BigDecimal!
-    close: string; // BigDecimal!
-  }[];
+interface Entity {
+  id: string; // ID!
+  periodStartUnix: string; // Int!
+  token: {
+    id: string;
+    symbol: string;
+  }; // Token!
+  volume: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  untrackedVolumeUSD: string; // BigDecimal!
+  totalValueLocked: string; // BigDecimal!
+  totalValueLockedUSD: string; // BigDecimal!
+  priceUSD: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
+  open: string; // BigDecimal!
+  high: string; // BigDecimal!
+  low: string; // BigDecimal!
+  close: string; // BigDecimal!
 }
 
-const QUERY = gql`
-  {
-    tokenHourDatas {
+interface Response {
+  tokenHourDatas: Entity[];
+}
+
+export default class TokenHourDatasQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('TokenHourData', 'TokenHourData', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'tokenHourDatas';
+  }
+
+  getQueryBody() {
+    return `{
       id
       periodStartUnix
       token {
         id
-        name
+        symbol
       }
       volume
       volumeUSD
@@ -51,135 +65,15 @@ const QUERY = gql`
       high
       low
       close
-    }
-  }
-`;
-
-export default class TokenHourDatasQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'periodStartTimestamp',
-      headerName: 'Period Start Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'periodStartDate',
-      headerName: 'Period Start Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'token',
-      headerName: 'Token ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'tokenName',
-      headerName: 'Token Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'volume',
-      headerName: 'Volume',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'untrackedVolumeUSD',
-      headerName: 'Untracked Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLocked',
-      headerName: 'Total Value Locked',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedUSD',
-      headerName: 'Total Value Locked USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'priceUSD',
-      headerName: 'Price USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'open',
-      headerName: 'Open Price USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'high',
-      headerName: 'High Price USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'low',
-      headerName: 'Low Price USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'close',
-      headerName: 'Close Price USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('TokenHourData', 'TokenHourData');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.tokenHourDatas.map((entry) => ({
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
-      periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
-      periodStartTimestamp: entry.periodStartUnix,
+      periodStartTimestamp: new Date(Number(entry.periodStartUnix) * 1000),
       token: entry.token.id,
-      tokenName: entry.token.name,
+      tokenSymbol: entry.token.symbol,
       volume: TokenAmount.fromBigDecimal(
         entry.volume,
         this.tokenService.getById(entry.token.id)!
@@ -200,15 +94,83 @@ export default class TokenHourDatasQuery extends ExtractooorQueryBase {
     }));
   }
 
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
+  getColumns() {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'periodStartTimestamp',
+        headerName: 'Period Start Timestamp',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'token',
+        headerName: 'Token ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'tokenSymbol',
+        headerName: 'Token Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'volume',
+        headerName: 'Volume',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'untrackedVolumeUSD',
+        headerName: 'Untracked Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLocked',
+        headerName: 'Total Value Locked',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedUSD',
+        headerName: 'Total Value Locked USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'priceUSD',
+        headerName: 'Price USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'open',
+        headerName: 'Open Price USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'high',
+        headerName: 'High Price USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'low',
+        headerName: 'Low Price USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'close',
+        headerName: 'Close Price USD',
+        ...baseFields.amount,
+      },
+    ];
   }
 }

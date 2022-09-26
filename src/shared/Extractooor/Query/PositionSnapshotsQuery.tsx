@@ -1,49 +1,64 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  positionSnapshots: {
+interface Entity {
+  id: string; // ID!
+  owner: string; //  Bytes!
+  pool: {
     id: string; // ID!
-    owner: string; //  Bytes!
-    pool: {
+    token0: {
       id: string; // ID!
-      token0: {
-        id: string; // ID!
-      };
-      token1: {
-        id: string; // ID!
-      };
-    }; //  Pool!
-    position: {
+    };
+    token1: {
       id: string; // ID!
-    }; // Position!
-    blockNumber: string; // BigInt!
-    timestamp: string; // BigInt!
-    liquidity: string; // BigInt!
-    depositedToken0: string; // BigDecimal!
-    depositedToken1: string; // BigDecimal!
-    withdrawnToken0: string; // BigDecimal!
-    withdrawnToken1: string; // BigDecimal!
-    collectedFeesToken0: string; // BigDecimal!
-    collectedFeesToken1: string; // BigDecimal!
-    transaction: {
-      id: string; // ID!
-    }; // Transaction!
-    feeGrowthInside0LastX128: string; // BigInt!
-    feeGrowthInside1LastX128: string; // BigInt!
-  }[];
+    };
+  }; //  Pool!
+  position: {
+    id: string; // ID!
+  }; // Position!
+  blockNumber: string; // BigInt!
+  timestamp: string; // BigInt!
+  liquidity: string; // BigInt!
+  depositedToken0: string; // BigDecimal!
+  depositedToken1: string; // BigDecimal!
+  withdrawnToken0: string; // BigDecimal!
+  withdrawnToken1: string; // BigDecimal!
+  collectedFeesToken0: string; // BigDecimal!
+  collectedFeesToken1: string; // BigDecimal!
+  transaction: {
+    id: string; // ID!
+  }; // Transaction!
+  feeGrowthInside0LastX128: string; // BigInt!
+  feeGrowthInside1LastX128: string; // BigInt!
 }
 
-const QUERY = gql`
-  {
-    positionSnapshots {
+interface Response {
+  positionSnapshots: Entity[];
+}
+
+export default class PositionSnapshotsQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('Position Snapshots', 'Position Snapshots', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'positionSnapshots';
+  }
+
+  getQueryBody() {
+    return `
+    {
       id
       owner
       pool {
@@ -72,133 +87,96 @@ const QUERY = gql`
       }
       feeGrowthInside0LastX128
       feeGrowthInside1LastX128
-    }
-  }
-`;
-
-export default class PositionSnapshotsQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'owner',
-      headerName: 'Owner',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'pool',
-      headerName: 'Pool ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'position',
-      headerName: 'Position ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'blockNumber',
-      headerName: 'Block Number',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'timestamp',
-      headerName: 'Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'liquidity',
-      headerName: 'Liquidity',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'depositedToken0',
-      headerName: 'Deposited Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'depositedToken1',
-      headerName: 'Deposited Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'withdrawnToken0',
-      headerName: 'Withdrawn Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'withdrawnToken1',
-      headerName: 'Withdrawn Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesToken0',
-      headerName: 'Collected Fees Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesToken1',
-      headerName: 'Collected Fees Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'transaction',
-      headerName: 'Transaction',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthInside0LastX128',
-      headerName: 'Fee Growth Inside 0 Last X128',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feeGrowthInside1LastX128',
-      headerName: 'Fee Growth Inside 1 Last X128',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('Position Snapshots', 'Position Snapshots');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.positionSnapshots.map((entry) => ({
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'owner',
+        headerName: 'Owner',
+        ...baseFields.string,
+      },
+      {
+        field: 'pool',
+        headerName: 'Pool ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'position',
+        headerName: 'Position ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'blockNumber',
+        headerName: 'Block Number',
+        ...baseFields.integer,
+      },
+      {
+        field: 'timestamp',
+        headerName: 'Timestamp',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'liquidity',
+        headerName: 'Liquidity',
+        ...baseFields.integer,
+      },
+      {
+        field: 'depositedToken0',
+        headerName: 'Deposited Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'depositedToken1',
+        headerName: 'Deposited Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'withdrawnToken0',
+        headerName: 'Withdrawn Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'withdrawnToken1',
+        headerName: 'Withdrawn Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesToken0',
+        headerName: 'Collected Fees Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesToken1',
+        headerName: 'Collected Fees Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'transaction',
+        headerName: 'Transaction',
+        ...baseFields.string,
+      },
+      {
+        field: 'feeGrowthInside0LastX128',
+        headerName: 'Fee Growth Inside 0 Last X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthInside1LastX128',
+        headerName: 'Fee Growth Inside 1 Last X128',
+        ...baseFields.integer,
+      },
+    ];
+  }
+
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
       date: new Date(Number(entry.timestamp) * 1000),
       pool: entry.pool.id,
@@ -238,17 +216,5 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase {
         this.tokenService.getById(entry.pool.token1.id)!
       ),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

@@ -1,44 +1,58 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  tickHourDatas: {
+interface Entity {
+  id: string; // ID!
+  periodStartUnix: string; // Int!
+  pool: {
     id: string; // ID!
-    periodStartUnix: string; // Int!
-    pool: {
+    token0: {
       id: string; // ID!
-      token0: {
-        id: string; // ID!
-        name: string; // String!
-      };
-      token1: {
-        id: string; // ID!
-        name: string; // String!
-      };
-    }; // Pool!
-    tick: {
+      name: string; // String!
+    };
+    token1: {
       id: string; // ID!
-    }; // Tick!
-    liquidityGross: string; // BigInt!
-    liquidityNet: string; // BigInt!
-    volumeToken0: string; // BigDecimal!
-    volumeToken1: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-  }[];
+      name: string; // String!
+    };
+  }; // Pool!
+  tick: {
+    id: string; // ID!
+  }; // Tick!
+  liquidityGross: string; // BigInt!
+  liquidityNet: string; // BigInt!
+  volumeToken0: string; // BigDecimal!
+  volumeToken1: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
 }
 
-const QUERY = gql`
-  {
-    tickHourDatas {
+interface Response {
+  tickHourDatas: Entity[];
+}
+
+export default class TickHourDatasQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('TickHourData', 'TickHourData', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'tickHourDatas';
+  }
+
+  getQueryBody() {
+    return `{
       id
       periodStartUnix
       pool
@@ -49,101 +63,13 @@ const QUERY = gql`
       volumeToken1
       volumeUSD
       feesUSD
-    }
-  }
-`;
-
-export default class TickHourDatasQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'periodStartUnix',
-      headerName: 'Period Start Unix Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'periodStartDate',
-      headerName: 'Period Start Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'pool',
-      headerName: 'Pool ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'poolName',
-      headerName: 'Pool Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'tick',
-      headerName: 'Tick',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'liquidityGross',
-      headerName: 'Liquidity Gross',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'liquidityNet',
-      headerName: 'Liquidity Net',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'volumeToken0',
-      headerName: 'Volume Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeToken1',
-      headerName: 'Volume Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('TickHourData', 'TickHourData');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.tickHourDatas.map((entry) => ({
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
-      periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
+      periodStartUnix: new Date(Number(entry.periodStartUnix) * 1000),
       pool: entry.pool.id,
       poolName: entry.pool.token0.name.concat(' / ', entry.pool.token1.name),
       tick: entry.tick.id,
@@ -162,15 +88,63 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase {
     }));
   }
 
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'periodStartTimestamp',
+        headerName: 'Period Start Timestamp',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'pool',
+        headerName: 'Pool ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'poolName',
+        headerName: 'Pool Name',
+        ...baseFields.string,
+      },
+      {
+        field: 'tick',
+        headerName: 'Tick',
+        ...baseFields.integer,
+      },
+      {
+        field: 'liquidityGross',
+        headerName: 'Liquidity Gross',
+        ...baseFields.integer,
+      },
+      {
+        field: 'liquidityNet',
+        headerName: 'Liquidity Net',
+        ...baseFields.integer,
+      },
+      {
+        field: 'volumeToken0',
+        headerName: 'Volume Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeToken1',
+        headerName: 'Volume Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        ...baseFields.amount,
+      },
+    ];
   }
 }

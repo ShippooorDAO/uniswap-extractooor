@@ -1,43 +1,139 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  tokens: {
-    id: string; // ID!
-    symbol: string; // String!
-    name: symbol; // String!
-    decimals: string; // BigInt!
-    totalSupply: string; // BigInt!
-    volume: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    untrackedVolumeUSD: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-    txCount: string; // BigInt!
-    poolCount: string; // BigInt!
-    totalValueLocked: string; // BigDecimal!
-    totalValueLockedUSD: string; // BigDecimal!
-    totalValueLockedUSDUntracked: string; // BigDecimal!
-    derivedETH: string; // BigDecimal!
+interface Entity {
+  id: string; // ID!
+  symbol: string; // String!
+  name: symbol; // String!
+  decimals: string; // BigInt!
+  totalSupply: string; // BigInt!
+  volume: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  untrackedVolumeUSD: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
+  txCount: string; // BigInt!
+  poolCount: string; // BigInt!
+  totalValueLocked: string; // BigDecimal!
+  totalValueLockedUSD: string; // BigDecimal!
+  totalValueLockedUSDUntracked: string; // BigDecimal!
+  derivedETH: string; // BigDecimal!
 
-    /**
-     * Ignored repeated fields
-     * whitelistPools: [Pool!]!
-     * tokenDayData: [TokenDayData!]!
-     */
-  }[];
+  /**
+   * Ignored repeated fields
+   * whitelistPools: [Pool!]!
+   * tokenDayData: [TokenDayData!]!
+   */
 }
 
-const QUERY = gql`
-  {
-    tokens {
+interface Response {
+  tokens: Entity[];
+}
+
+export default class TokensQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('Tokens', 'Tokens', apolloClient);
+  }
+
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'symbol',
+        headerName: 'Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'name',
+        headerName: 'Name',
+        type: 'string',
+        width: 150,
+        ...baseFields.string,
+      },
+      {
+        field: 'decimals',
+        headerName: 'Decimals',
+        ...baseFields.integer,
+      },
+      {
+        field: 'totalSupply',
+        headerName: 'Total Supply',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volume',
+        headerName: 'Volume',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'untrackedVolumeUSD',
+        headerName: 'Untracked Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'txCount',
+        headerName: 'Tx Count',
+        ...baseFields.integer,
+      },
+      {
+        field: 'poolCount',
+        headerName: 'Pool Count',
+        ...baseFields.integer,
+      },
+      {
+        field: 'totalValueLocked',
+        headerName: 'Total Value Locked',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedUSD',
+        headerName: 'Total Value Locked (USD)',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedUSDUntracked',
+        headerName: 'Untracked Total Value Locked (USD)',
+        ...baseFields.amount,
+      },
+      {
+        field: 'derivedETH',
+        headerName: 'Derived ETH',
+        ...baseFields.amount,
+      },
+    ];
+  }
+
+  getQueryEntityName() {
+    return 'tokens';
+  }
+
+  getQueryBody() {
+    return `{
       id
       symbol
       name
@@ -53,103 +149,12 @@ const QUERY = gql`
       totalValueLockedUSD
       totalValueLockedUSDUntracked
       derivedETH
-    }
-  }
-`;
-
-export default class TokensQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', type: 'string', width: 150 },
-    { field: 'symbol', headerName: 'Symbol', type: 'string', width: 150 },
-    { field: 'name', headerName: 'Name', type: 'string', width: 150 },
-    { field: 'decimals', headerName: 'Decimals', type: 'number', width: 150 },
-    {
-      field: 'totalSupply',
-      headerName: 'Total Supply',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volume',
-      headerName: 'Volume',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'untrackedVolumeUSD',
-      headerName: 'Untracked Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'txCount',
-      headerName: 'Tx Count',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'poolCount',
-      headerName: 'Pool Count',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'totalValueLocked',
-      headerName: 'Total Value Locked',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedUSD',
-      headerName: 'Total Value Locked (USD)',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedUSDUntracked',
-      headerName: 'Untracked Total Value Locked (USD)',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'derivedETH',
-      headerName: 'Derived ETH',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('Tokens', 'Tokens');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
+  getRows(response: Entity[]): GridRowsProp {
     const ethToken = this.tokenService.getBySymbol('ETH')!;
-    return response.tokens.map((entry) => ({
+    return response.map((entry) => ({
       ...entry,
       decimals: Number(entry.decimals),
       totalSupply: TokenAmount.fromBigDecimal(
@@ -175,17 +180,5 @@ export default class TokensQuery extends ExtractooorQueryBase {
       ),
       derivedETH: TokenAmount.fromBigDecimal(entry.derivedETH, ethToken),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

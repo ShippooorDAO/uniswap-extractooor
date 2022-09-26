@@ -3,7 +3,6 @@
 import { GridRowsProp } from '@mui/x-data-grid-pro';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { baseFields, ExtractooorQueryBase } from './QueryBase';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
@@ -73,30 +72,6 @@ export default class SwapsQuery extends ExtractooorQueryBase<
         ...baseFields.string,
       },
       {
-        field: 'token0',
-        headerName: 'Token 0 ID',
-        ...baseFields.string,
-      },
-      {
-        field: 'token0Symbol',
-        headerName: 'Token 0 Symbol',
-        ...baseFields.string,
-        filterable: false,
-        sortable: false,
-      },
-      {
-        field: 'token1',
-        headerName: 'Token 1 ID',
-        ...baseFields.string,
-      },
-      {
-        field: 'token1Symbol',
-        headerName: 'Token 1 Symbol',
-        ...baseFields.string,
-        filterable: false,
-        sortable: false,
-      },
-      {
         field: 'sender',
         headerName: 'Sender',
         ...baseFields.string,
@@ -109,6 +84,30 @@ export default class SwapsQuery extends ExtractooorQueryBase<
       {
         field: 'origin',
         headerName: 'Origin',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0 ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...baseFields.string,
+        filterable: false,
+        sortable: false,
+      },
+      {
+        field: 'token1Symbol',
+        headerName: 'Token 1 Symbol',
+        ...baseFields.string,
+        filterable: false,
+        sortable: false,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1 ID',
         ...baseFields.string,
       },
       {

@@ -1,52 +1,67 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  positions: {
+interface Entity {
+  id: string; // ID!
+  owner: string; // Bytes!
+  pool: {
     id: string; // ID!
-    owner: string; // Bytes!
-    pool: {
-      id: string; // ID!
-    }; // Pool!
-    token0: {
-      id: string; // ID!
-      name: string;
-    }; // !Token
-    token1: {
-      id: string;
-      name: string;
-    }; // !Token
-    tickLower: {
-      id: string; // ID!
-    }; // !Tick;
-    tickUpper: {
-      id: string; // ID!
-    }; // !Tick;
-    liquidity: string; // !BigInt;
-    depositedToken0: string; // BigDecimal!
-    depositedToken1: string; // BigDecimal!
-    withdrawnToken0: string; // BigDecimal!
-    withdrawnToken1: string; // BigDecimal!
-    collectedFeesToken0: string; // BigDecimal!
-    collectedFeesToken1: string; // BigDecimal!
-    transaction: {
-      id: string;
-    }; // Transaction!
-    feeGrowthInside0LastX128: string; // BigInt!
-    feeGrowthInside1LastX128: string; // BigInt!
-  }[];
+  }; // Pool!
+  token0: {
+    id: string; // ID!
+    name: string;
+  }; // !Token
+  token1: {
+    id: string;
+    name: string;
+  }; // !Token
+  tickLower: {
+    id: string; // ID!
+  }; // !Tick;
+  tickUpper: {
+    id: string; // ID!
+  }; // !Tick;
+  liquidity: string; // !BigInt;
+  depositedToken0: string; // BigDecimal!
+  depositedToken1: string; // BigDecimal!
+  withdrawnToken0: string; // BigDecimal!
+  withdrawnToken1: string; // BigDecimal!
+  collectedFeesToken0: string; // BigDecimal!
+  collectedFeesToken1: string; // BigDecimal!
+  transaction: {
+    id: string;
+  }; // Transaction!
+  feeGrowthInside0LastX128: string; // BigInt!
+  feeGrowthInside1LastX128: string; // BigInt!
 }
 
-const QUERY = gql`
-  {
-    positions {
+interface Response {
+  positions: Entity[];
+}
+
+export default class PositionsQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('Positions', 'Positions', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'positions';
+  }
+
+  getQueryBody() {
+    return `
+    {
       id
       owner
       pool {
@@ -78,145 +93,11 @@ const QUERY = gql`
       }
       feeGrowthInside0LastX128
       feeGrowthInside1LastX128
-    }
-  }
-`;
-
-export default class PositionsQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'owner',
-      headerName: 'Owner',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'pool',
-      headerName: 'Pool ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token0',
-      headerName: 'Token 0 ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token0Name',
-      headerName: 'Token 0 Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token1',
-      headerName: 'Token 1 ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token1Name',
-      headerName: 'Token 1 Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'tickLower',
-      headerName: 'Tick Lower ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'tickUpper',
-      headerName: 'Tick Upper ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'liquidity',
-      headerName: 'Liquidity',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'depositedToken0',
-      headerName: 'Deposited Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'depositedToken1',
-      headerName: 'Deposited Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'withdrawnToken0',
-      headerName: 'Withdrawn Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'withdrawnToken1',
-      headerName: 'Withdrawn Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesToken0',
-      headerName: 'Collected Fees Token 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesToken1',
-      headerName: 'Collected Fees Token 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'transaction',
-      headerName: 'Transaction ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthInside0LastX128',
-      headerName: 'Fee Growth Inside 0 Last X128',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feeGrowthInside1LastX128',
-      headerName: 'Fee Growth Inside 1 Last X128',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('Positions', 'Positions');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.positions.map((entry) => ({
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
 
       // owner
@@ -264,15 +145,103 @@ export default class PositionsQuery extends ExtractooorQueryBase {
     }));
   }
 
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'owner',
+        headerName: 'Owner',
+        ...baseFields.string,
+      },
+      {
+        field: 'pool',
+        headerName: 'Pool ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0 ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0Name',
+        headerName: 'Token 0 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1 ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1Name',
+        headerName: 'Token 1 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'tickLower',
+        headerName: 'Tick Lower ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'tickUpper',
+        headerName: 'Tick Upper ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'liquidity',
+        headerName: 'Liquidity',
+        ...baseFields.integer,
+      },
+      {
+        field: 'depositedToken0',
+        headerName: 'Deposited Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'depositedToken1',
+        headerName: 'Deposited Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'withdrawnToken0',
+        headerName: 'Withdrawn Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'withdrawnToken1',
+        headerName: 'Withdrawn Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesToken0',
+        headerName: 'Collected Fees Token 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesToken1',
+        headerName: 'Collected Fees Token 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'transaction',
+        headerName: 'Transaction ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'feeGrowthInside0LastX128',
+        headerName: 'Fee Growth Inside 0 Last X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthInside1LastX128',
+        headerName: 'Fee Growth Inside 1 Last X128',
+        ...baseFields.integer,
+      },
+    ];
   }
 }

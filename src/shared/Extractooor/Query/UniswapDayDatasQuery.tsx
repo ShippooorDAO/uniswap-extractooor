@@ -1,30 +1,44 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 
-interface Response {
-  uniswapDayDatas: {
-    id: string; // ID!
-    date: string; // Int!
-    volumeETH: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    volumeUSDUntracked: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-    txCount: string; // BigInt!
-    tvlUSD: string; // BigDecimal!
-  }[];
+interface Entity {
+  id: string; // ID!
+  date: string; // Int!
+  volumeETH: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  volumeUSDUntracked: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
+  txCount: string; // BigInt!
+  tvlUSD: string; // BigDecimal!
 }
 
-const QUERY = gql`
-  {
-    uniswapDayDatas {
+interface Response {
+  uniswapDayDatas: Entity[];
+}
+
+export default class UniswapDayDatasQuery extends ExtractooorQueryBase<
+  Response,
+  Entity
+> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('UniswapDayData', 'UniswapDayData', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'uniswapDayDatas';
+  }
+
+  getQueryBody() {
+    return `{
       id
       date
       volumeETH
@@ -33,84 +47,57 @@ const QUERY = gql`
       feesUSD
       txCount
       tvlUSD
-    }
-  }
-`;
-
-export default class UniswapDayDatasQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'dateTimestamp',
-      headerName: 'Date Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'volumeETH',
-      headerName: 'Volume ETH',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSDUntracked',
-      headerName: 'Volume USD Untracked',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Feed USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'txCount',
-      headerName: 'TX Count',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'tvlUSD',
-      headerName: 'TVL USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('UniswapDayData', 'UniswapDayData');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.uniswapDayDatas.map((entry) => ({
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'date',
+        headerName: 'Date',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'volumeETH',
+        headerName: 'Volume ETH',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSDUntracked',
+        headerName: 'Volume USD Untracked',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Feed USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'txCount',
+        headerName: 'TX Count',
+        ...baseFields.integer,
+      },
+      {
+        field: 'tvlUSD',
+        headerName: 'TVL USD',
+        ...baseFields.amount,
+      },
+    ];
+  }
+
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
-      dateTimestamp: entry.date,
       date: new Date(Number(entry.date) * 1000),
       volumeETH: TokenAmount.fromBigDecimal(
         entry.volumeETH,
@@ -122,17 +109,5 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase {
       txCount: Number(entry.txCount),
       tvlUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

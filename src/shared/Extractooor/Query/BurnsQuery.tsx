@@ -1,47 +1,58 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 
-interface Response {
-  burns: {
+interface Entity {
+  id: string; // ID!
+  transaction: {
     id: string; // ID!
-    transaction: {
-      id: string; // ID!
-    }; // Transaction!
-    pool: {
-      id: string; // ID!
-    }; // Pool!
-    token0: {
-      id: string;
-      name: string;
-    }; // Token!
-    token1: {
-      id: string;
-      name: string;
-    }; // Token!
-    timestamp: string;
-    owner: string; // Bytes!
-    origin: string; // Bytes!
-    amount: string; // BigInt!
-    amount0: string; // BigDecimal!
-    amount1: string; // BigDecimal!
-    amountUSD: string; // BigDecimal
-    tickLower: string; // BigInt!
-    tickUpper: string; // BigInt!
-    logIndex: string; // BigInt
-  }[];
+  }; // Transaction!
+  pool: {
+    id: string; // ID!
+  }; // Pool!
+  token0: {
+    id: string;
+    symbol: string;
+  }; // Token!
+  token1: {
+    id: string;
+    symbol: string;
+  }; // Token!
+  timestamp: string;
+  owner: string; // Bytes!
+  origin: string; // Bytes!
+  amount: string; // BigInt!
+  amount0: string; // BigDecimal!
+  amount1: string; // BigDecimal!
+  amountUSD: string; // BigDecimal
+  tickLower: string; // BigInt!
+  tickUpper: string; // BigInt!
+  logIndex: string; // BigInt
 }
 
-const QUERY = gql`
-  {
-    burns {
+interface Response {
+  burns: Entity[];
+}
+
+export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('Burns', 'Burns', apolloClient);
+  }
+
+  getQueryEntityName() {
+    return 'burns';
+  }
+
+  getQueryBody() {
+    return `{
       id
       transaction {
         id
@@ -51,11 +62,11 @@ const QUERY = gql`
       }
       token0 {
         id
-        name
+        symbol
       }
       token1 {
         id
-        name
+        symbol
       }
       timestamp
       owner
@@ -67,142 +78,109 @@ const QUERY = gql`
       tickLower
       tickUpper
       logIndex
-    }
-  }
-`;
-
-export default class BurnsQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'transaction',
-      headerName: 'Transaction ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'pool',
-      headerName: 'Pool ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token0',
-      headerName: 'Token 0 ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token0Name',
-      headerName: 'Token 0 Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token1',
-      headerName: 'Token 1 ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'token1Name',
-      headerName: 'Token 1 Name',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'timestamp',
-      headerName: 'Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'owner',
-      headerName: 'Owner',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'origin',
-      headerName: 'Origin',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'amount',
-      headerName: 'Amount',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'amount0',
-      headerName: 'Amount 0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'amount1',
-      headerName: 'Amount 1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'amountUSD',
-      headerName: 'Amount USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'tickLower',
-      headerName: 'Tick Lower',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'tickUpper',
-      headerName: 'Tick Upper',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'logIndex',
-      headerName: 'Log Index',
-      type: 'string',
-      width: 150,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('Burns', 'Burns');
+    }`;
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.burns.map((entry) => ({
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'transaction',
+        headerName: 'Transaction ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'pool',
+        headerName: 'Pool ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0 ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1 ID',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1Symbol',
+        headerName: 'Token 1 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'timestamp',
+        headerName: 'Timestamp',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'owner',
+        headerName: 'Owner',
+        ...baseFields.string,
+      },
+      {
+        field: 'origin',
+        headerName: 'Origin',
+        ...baseFields.string,
+      },
+      {
+        field: 'amount',
+        headerName: 'Amount',
+        ...baseFields.integer,
+      },
+      {
+        field: 'amount0',
+        headerName: 'Amount 0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'amount1',
+        headerName: 'Amount 1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'amountUSD',
+        headerName: 'Amount USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'tickLower',
+        headerName: 'Tick Lower',
+        ...baseFields.integer,
+      },
+      {
+        field: 'tickUpper',
+        headerName: 'Tick Upper',
+        ...baseFields.integer,
+      },
+      {
+        field: 'logIndex',
+        headerName: 'Log Index',
+        ...baseFields.integer,
+      },
+    ];
+  }
+
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
       date: new Date(Number(entry.timestamp) * 1000),
       transaction: entry.transaction.id,
       pool: entry.pool.id,
       token0: entry.token0.id,
-      token0Name: entry.token0.name,
+      token0Symbol: entry.token0.symbol,
       token1: entry.token1.id,
-      token1Name: entry.token1.name,
+      token1Symbol: entry.token1.symbol,
       amount: Number(entry.amount),
       amount0: TokenAmount.fromBigDecimal(
         entry.amount0,
@@ -216,17 +194,5 @@ export default class BurnsQuery extends ExtractooorQueryBase {
       tickLower: Number(entry.tickLower),
       tickUpper: Number(entry.tickUpper),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

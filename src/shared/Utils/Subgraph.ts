@@ -1,5 +1,6 @@
 import { ApolloClient, DocumentNode, gql, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { BigNumber } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
 import { USD_INTERNAL_DECIMALS } from "../Constants";
 import { Token } from "../Currency/Token";
 import { TokenAmount } from "../Currency/TokenAmount";
@@ -95,17 +96,17 @@ export async function batchQuery<
     let str: string;
 
     if (!intPart && !decimalPart) {
-        return null;
+      return null;
     } else if (!decimalPart) {
-        const padding = [];
-        for (let i = 0; i < decimals; i += 1) {
-            padding.push('0');
-        }
-        str = `${intPart}${padding.join('')}`;
+      const padding = [];
+      for (let i = 0; i < decimals; i += 1) {
+          padding.push('0');
+      }
+      str = `${intPart}${padding.join('')}`;
     } else if (!intPart || intPart.length === 0 || intPart === '0') {
-        str = `${decimalPart.slice(0, decimals).padEnd(decimals, '0')}`;
+      str = `${decimalPart.slice(0, decimals).padEnd(decimals, '0')}`;
     } else {
-        str = `${intPart}${decimalPart}`.slice(0, 18);
+      str = `${intPart}${decimalPart}`.slice(0, 18);
     }
     return BigNumber.from(str);
   }
@@ -122,11 +123,14 @@ export async function batchQuery<
    * @returns 
    */
   export function parseBigDecimalTokenAmount(value: string, token: Token): TokenAmount | null {
+    if (!value || value === '') {
+      return null;
+    }
     const parsed = parseBigDecimalToBigNumber(value, token.decimals);
     return parsed ? new TokenAmount(parsed, token) : null;
   }
 
-/**
+  /**
    * Parses a BigDecimal value coming from a subgraph response to a UsdAmount.
    * 
    * BigDecimal has to be formatted as such, with no shift in decimals:
@@ -137,6 +141,9 @@ export async function batchQuery<
    * @returns 
    */
   export function parseBigDecimalUsdAmount(value: string): UsdAmount | null {
-    const parsed = parseBigDecimalToBigNumber(value, USD_INTERNAL_DECIMALS);
+    if (!value || value === '') {
+      return null;
+    }
+    const parsed = parseBigDecimalToBigNumber(value, 18);
     return parsed ? new UsdAmount(parsed) : null;
   }

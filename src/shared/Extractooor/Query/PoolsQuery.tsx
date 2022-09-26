@@ -1,70 +1,83 @@
 /* eslint-disable class-methods-use-this */
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
-import { ReactNode } from 'react';
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client';
-import { ExtractooorQueryBase } from './QueryBase';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
-import { AmountFormatter } from '@/shared/Utils/DataGrid';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { parseBigDecimalUsdAmount } from '@/shared/Utils/Subgraph';
 
-interface Response {
-  pools: {
-    id: string; // ID!
-    createdAtTimestamp: string; // BigInt!
-    createdAtBlockNumber: string; // BigInt!
-    token0: { id: string; name: string }; // Token!
-    token1: { id: string; name: string }; // Token!
-    feeTier: string; // BigInt!
-    liquidity: string; // BigInt!
-    sqrtPrice: string; // BigInt!
-    feeGrowthGlobal0X128: string; // BigInt!
-    feeGrowthGlobal1X128: string; // BigInt!
-    token0Price: string; // BigDecimal!
-    token1Price: string; // BigDecimal!
-    tick: string; // BigInt
-    observationIndex: string; // BigInt!
-    volumeToken0: string; // BigDecimal!
-    volumeToken1: string; // BigDecimal!
-    volumeUSD: string; // BigDecimal!
-    untrackedVolumeUSD: string; // BigDecimal!
-    feesUSD: string; // BigDecimal!
-    txCount: string; // BigInt!
-    collectedFeesToken0: string; // BigDecimal!
-    collectedFeesToken1: string; // BigDecimal!
-    collectedFeesUSD: string; // BigDecimal!
-    totalValueLockedToken0: string; // BigDecimal!
-    totalValueLockedToken1: string; // BigDecimal!
-    totalValueLockedETH: string; // BigDecimal!
-    totalValueLockedUSD: string; // BigDecimal!
-    totalValueLockedUSDUntracked: string; // BigDecimal!
-    liquidityProviderCount: string; // BigInt!
+interface Entity {
+  id: string; // ID!
+  createdAtTimestamp: string; // BigInt!
+  createdAtBlockNumber: string; // BigInt!
+  token0: { id: string; symbol: string }; // Token!
+  token1: { id: string; symbol: string }; // Token!
+  feeTier: string; // BigInt!
+  liquidity: string; // BigInt!
+  sqrtPrice: string; // BigInt!
+  feeGrowthGlobal0X128: string; // BigInt!
+  feeGrowthGlobal1X128: string; // BigInt!
+  token0Price: string; // BigDecimal!
+  token1Price: string; // BigDecimal!
+  tick: string; // BigInt
+  observationIndex: string; // BigInt!
+  volumeToken0: string; // BigDecimal!
+  volumeToken1: string; // BigDecimal!
+  volumeUSD: string; // BigDecimal!
+  untrackedVolumeUSD: string; // BigDecimal!
+  feesUSD: string; // BigDecimal!
+  txCount: string; // BigInt!
+  collectedFeesToken0: string; // BigDecimal!
+  collectedFeesToken1: string; // BigDecimal!
+  collectedFeesUSD: string; // BigDecimal!
+  totalValueLockedToken0: string; // BigDecimal!
+  totalValueLockedToken1: string; // BigDecimal!
+  totalValueLockedETH: string; // BigDecimal!
+  totalValueLockedUSD: string; // BigDecimal!
+  totalValueLockedUSDUntracked: string; // BigDecimal!
+  liquidityProviderCount: string; // BigInt!
 
-    /// Ignored fields:
-    // poolHourData: string; //  [PoolHourData!]!
-    // poolDayData: string; //  [PoolDayData!]!
-    // mints: string; //  [Mint!]!
-    // burns: string; //  [Burn!]!
-    // swaps: string; //  [Swap!]!
-    // collects: string; //  [Collect!]!
-    // ticks: string; //  [Tick!]!
-  }[];
+  /// Ignored fields:
+  // poolHourData: string; //  [PoolHourData!]!
+  // poolDayData: string; //  [PoolDayData!]!
+  // mints: string; //  [Mint!]!
+  // burns: string; //  [Burn!]!
+  // swaps: string; //  [Swap!]!
+  // collects: string; //  [Collect!]!
+  // ticks: string; //  [Tick!]!
 }
 
-const QUERY = gql`
-  {
-    pools {
+interface Response {
+  pools: Entity[];
+}
+
+export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    private readonly tokenService: TokenService
+  ) {
+    super('Pools', 'Pools', apolloClient);
+  }
+
+  protected getQueryEntityName(): string {
+    return 'pools';
+  }
+
+  getQueryBody() {
+    return `
+    {
       id
       createdAtTimestamp
       createdAtBlockNumber
       token0 {
         id
-        name
+        symbol
       }
       token1 {
         id
-        name
+        symbol
       }
       feeTier
       liquidity
@@ -90,207 +103,163 @@ const QUERY = gql`
       totalValueLockedUSD
       totalValueLockedUSDUntracked
       liquidityProviderCount
-    }
+    }`;
   }
-`;
-
-export default class PoolsQuery extends ExtractooorQueryBase {
-  private readonly baseColumns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'createdAtTimestamp',
-      headerName: 'Created At Timestamp',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'createdAtDate',
-      headerName: 'Created At Date',
-      type: 'dateTime',
-      width: 150,
-    },
-    {
-      field: 'createdAtBlockNumber',
-      headerName: 'Created At Block Number',
-      type: 'string',
-      width: 150,
-    },
-    { field: 'token0', headerName: 'Token0 Name', type: 'string', width: 150 },
-    { field: 'token1', headerName: 'Token1 Name', type: 'string', width: 150 },
-    {
-      field: 'feeTier',
-      headerName: 'Fee Tier',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'liquidity',
-      headerName: 'Liquidity',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'sqrtPrice',
-      headerName: 'Sqrt Price',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthGlobal0X128',
-      headerName: 'Fee Growth Global 0X128',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'feeGrowthGlobal1X128',
-      headerName: 'Fee Growth Global 1X128',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'token0Price',
-      headerName: 'Token0 Price',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'token1Price',
-      headerName: 'Token1 Price',
-      type: 'number',
-      width: 150,
-    },
-    { field: 'tick', headerName: 'Tick', type: 'number', width: 150 },
-    {
-      field: 'observationIndex',
-      headerName: 'Observation Index',
-      type: 'number',
-      width: 150,
-    },
-    {
-      field: 'volumeToken0',
-      headerName: 'Volume Token0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeToken1',
-      headerName: 'Volume Token1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'volumeUSD',
-      headerName: 'Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'untrackedVolumeUSD',
-      headerName: 'Untracked Volume USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'feesUSD',
-      headerName: 'Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    { field: 'txCount', headerName: 'TX Count', type: 'number', width: 150 },
-    {
-      field: 'collectedFeesToken0',
-      headerName: 'Collected Fees Token0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesToken1',
-      headerName: 'Collected Fees Token1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'collectedFeesUSD',
-      headerName: 'Collected Fees USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedToken0',
-      headerName: 'Total Value Locked Token0',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedToken1',
-      headerName: 'Total Value Locked Token1',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedETH',
-      headerName: 'Total Value Locked ETH',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedUSD',
-      headerName: 'Total Value Locked USD',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'totalValueLockedUSDUntracked',
-      headerName: 'Total Value Locked USD Untracked',
-      type: 'number',
-      width: 150,
-      valueFormatter: AmountFormatter,
-    },
-    {
-      field: 'liquidityProviderCount',
-      headerName: 'Liquidity Provider Count',
-      type: 'number',
-      width: 150,
-    },
-  ];
-
-  constructor(
-    private readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
-  ) {
-    super('Pools', 'Pools');
+  getColumns(): GridColDef[] {
+    return [
+      {
+        field: 'id',
+        headerName: 'ID',
+        ...baseFields.id,
+      },
+      {
+        field: 'createdAtTimestamp',
+        headerName: 'Created At Timestamp',
+        ...baseFields.timestamp,
+      },
+      {
+        field: 'createdAtBlockNumber',
+        headerName: 'Created At Block Number',
+        ...baseFields.integer,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token0 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token1 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'feeTier',
+        headerName: 'Fee Tier',
+        ...baseFields.integer,
+      },
+      {
+        field: 'liquidity',
+        headerName: 'Liquidity',
+        ...baseFields.integer,
+      },
+      {
+        field: 'sqrtPrice',
+        headerName: 'Sqrt Price',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthGlobal0X128',
+        headerName: 'Fee Growth Global 0X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'feeGrowthGlobal1X128',
+        headerName: 'Fee Growth Global 1X128',
+        ...baseFields.integer,
+      },
+      {
+        field: 'token0Price',
+        headerName: 'Token0 Price',
+        ...baseFields.amount,
+      },
+      {
+        field: 'token1Price',
+        headerName: 'Token1 Price',
+        ...baseFields.amount,
+      },
+      { field: 'tick', headerName: 'Tick', ...baseFields.integer },
+      {
+        field: 'observationIndex',
+        headerName: 'Observation Index',
+        ...baseFields.integer,
+      },
+      {
+        field: 'volumeToken0',
+        headerName: 'Volume Token0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeToken1',
+        headerName: 'Volume Token1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'volumeUSD',
+        headerName: 'Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'untrackedVolumeUSD',
+        headerName: 'Untracked Volume USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'feesUSD',
+        headerName: 'Fees USD',
+        ...baseFields.amount,
+      },
+      { field: 'txCount', headerName: 'TX Count', ...baseFields.integer },
+      {
+        field: 'collectedFeesToken0',
+        headerName: 'Collected Fees Token0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesToken1',
+        headerName: 'Collected Fees Token1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'collectedFeesUSD',
+        headerName: 'Collected Fees USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedToken0',
+        headerName: 'Total Value Locked Token0',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedToken1',
+        headerName: 'Total Value Locked Token1',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedETH',
+        headerName: 'Total Value Locked ETH',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedUSD',
+        headerName: 'Total Value Locked USD',
+        ...baseFields.amount,
+      },
+      {
+        field: 'totalValueLockedUSDUntracked',
+        headerName: 'Total Value Locked USD Untracked',
+        ...baseFields.amount,
+      },
+      {
+        field: 'liquidityProviderCount',
+        headerName: 'Liquidity Provider Count',
+        ...baseFields.integer,
+      },
+    ];
   }
 
-  private parseResponse(response: Response): GridRowsProp {
-    return response.pools.map((entry) => ({
+  getRows(response: Entity[]): GridRowsProp {
+    return response.map((entry) => ({
       ...entry,
       createdAtDate: new Date(Number(entry.createdAtTimestamp) * 1000),
-      token0: entry.token0.name,
-      token1: entry.token1.name,
+      token0: entry.token0.symbol,
+      token1: entry.token1.symbol,
       feeTier: Number(entry.feeTier),
       liquidity: Number(entry.liquidity),
       sqrtPrice: Number(entry.sqrtPrice),
       feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
       feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
-      token0Price: Number(entry.token0Price),
-      token1Price: Number(entry.token1Price),
+      token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
+      token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
       tick: Number(entry.tick),
       observationIndex: Number(entry.observationIndex),
       volumeToken0: TokenAmount.fromBigDecimal(
@@ -332,17 +301,5 @@ export default class PoolsQuery extends ExtractooorQueryBase {
       ),
       liquidityProviderCount: Number(entry.liquidityProviderCount),
     }));
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    const response = await this.apolloClient.query<Response>({
-      query: QUERY,
-    });
-    const rows = this.parseResponse(response.data);
-    return { rows, columns: this.baseColumns };
-  }
-
-  form(): ReactNode {
-    return <div />;
   }
 }

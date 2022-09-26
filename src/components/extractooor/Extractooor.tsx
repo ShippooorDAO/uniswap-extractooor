@@ -162,7 +162,7 @@ function Extractooor() {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={currentQueryIndex}
-            onChange={(value) => maybeResetDataGrid(Number(value))}
+            onChange={(event) => maybeResetDataGrid(Number(event.target.value))}
             label="Dataset"
           >
             {(queries || []).map((q, i) => (

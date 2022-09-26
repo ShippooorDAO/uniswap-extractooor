@@ -109,6 +109,7 @@ export abstract class ExtractooorQueryBase<
       } catch (e: unknown) {
         attempt += 1;
         if (attempt === maxAttempts) {
+          throw e;
           throw (
             'Max number of fetch attempts reached caused by subgraph failure: ' +
             e
