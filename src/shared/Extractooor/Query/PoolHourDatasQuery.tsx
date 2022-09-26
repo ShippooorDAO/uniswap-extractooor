@@ -6,7 +6,6 @@ import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
-import { parseBigDecimalUsdAmount } from '@/shared/Utils/Subgraph';
 
 interface Entity {
   id: string; // ID!
@@ -56,12 +55,54 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
     super('PoolHourDatas', 'PoolHourDatas', apolloClient);
   }
 
+  getQueryEntityName() {
+    return 'poolHourDatas';
+  }
+
+  getQueryBody() {
+    return `
+    {
+      id
+      periodStartUnix
+      pool {
+        id
+        token0 {
+          id
+          symbol
+        }
+        token1 {
+          id
+          symbol
+        }
+      }
+      liquidity
+      sqrtPrice
+      token0Price
+      token1Price
+      tick
+      feeGrowthGlobal0X128
+      feeGrowthGlobal1X128
+      tvlUSD
+      volumeToken0
+      volumeToken1
+      volumeUSD
+      feesUSD
+      txCount
+      open
+      high
+      low
+      close
+    }`;
+  }
+
   getRows(response: Entity[]): GridRowsProp {
     return response.map((entry) => ({
       ...entry,
       periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
-      token0: entry.pool.token0.symbol,
-      token1: entry.pool.token1.symbol,
+      token0: entry.pool.token0.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1: entry.pool.token1.id,
+      token1Symbol: entry.pool.token1.symbol,
       pool: entry.pool.id,
       liquidity: Number(entry.liquidity),
       sqrtPrice: Number(entry.sqrtPrice),
@@ -120,7 +161,17 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
         ...baseFields.string,
       },
       {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...baseFields.string,
+      },
+      {
         field: 'token1',
+        headerName: 'Token 1 Symbol',
+        ...baseFields.string,
+      },
+      {
+        field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...baseFields.string,
       },
@@ -210,45 +261,5 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
         ...baseFields.amount,
       },
     ];
-  }
-
-  getQueryEntityName() {
-    return 'poolHourDatas';
-  }
-
-  getQueryBody() {
-    return `
-    {
-      id
-      periodStartUnix
-      pool {
-        id
-        token0 {
-          id
-          symbol
-        }
-        token1 {
-          id
-          symbol
-        }
-      }
-      liquidity
-      sqrtPrice
-      token0Price
-      token1Price
-      tick
-      feeGrowthGlobal0X128
-      feeGrowthGlobal1X128
-      tvlUSD
-      volumeToken0
-      volumeToken1
-      volumeUSD
-      feesUSD
-      txCount
-      open
-      high
-      low
-      close
-    }`;
   }
 }
