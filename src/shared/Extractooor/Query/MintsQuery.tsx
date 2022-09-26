@@ -2,7 +2,7 @@
 
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import { baseFields, ExtractooorQueryBase } from './QueryBase';
+import { ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
