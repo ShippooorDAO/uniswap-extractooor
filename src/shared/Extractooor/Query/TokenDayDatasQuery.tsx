@@ -81,13 +81,15 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase<
       },
       {
         field: 'token',
-        headerName: 'Token ID',
-        ...this.baseFields.string,
+        headerName: 'Token',
+        ...this.baseFields.token,
       },
       {
         field: 'tokenSymbol',
         headerName: 'Token Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'volume',

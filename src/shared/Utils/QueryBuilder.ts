@@ -17,6 +17,8 @@ export enum Operator {
   STARTS_WITH = '_starts_with',
   ENDS_WITH = '_ends_with',
   CONTAINS = '_contains',
+
+  IN = '_in',
 }
 
 export class QueryBuilder {

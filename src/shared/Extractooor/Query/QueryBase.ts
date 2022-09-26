@@ -1,5 +1,4 @@
 import { AmountFormatter } from "@/shared/Utils/DataGrid";
-import { batchQuery } from '@/shared/Utils/Subgraph';
 import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
 import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
@@ -8,29 +7,45 @@ import { BaseEntity, BatchQueryResponse } from "@/shared/UniswapV3Subgraph/Unisw
 import { TokenService } from "@/shared/Currency/TokenService";
 
 type Column = GridColDef & {
-  filterParser?: (value: string) => string | number;
+  filterParser?: (value: string|string[]) => string | number;
 };
 
-function parseStringFilter(value: string) {
-  return `"${value}"`;
+function parseStringFilter(value: string|string[]) {
+  if (typeof value === 'string') {
+    return `"${value}"`;
+  } else {
+    return `[${value.map((v) => `"${v}"`).join(",")}]`;
+  }
 }
-function parseNumberFilter(value: string) {
-  return Number(value);
+function parseNumberFilter(value: string | string[]) {
+  if (typeof value === 'string') {
+    return Number(value);
+  } else {
+    return `[${value.join(",")}]`;
+  }
 }
 
-function parseIntegerFilter(value: string) {
-  return Math.floor(Number(value));
+function parseIntegerFilter(value: string | string[]) {
+  if (typeof value === 'string') {
+    return Math.floor(Number(value));
+  } else {
+    return `[${value.map((v) => Math.floor(Number(v))).join(',')}]`;
+  }
 }
 
-function parseTimestampFilter(value: string) {
-  return Math.floor(new Date(value).getTime() / 1000);
+function parseTimestampFilter(value: string | string[]) {
+  if (typeof value === 'string') {
+    return Math.floor(new Date(value).getTime() / 1000);
+  } else {
+    return `[${value.map((v) => Math.floor(new Date(v).getTime() / 1000)).join(',')}]`;
+  }
 }
 
 /**
  * Max subgraph query size
  */
 const MAX_QUERY_PAGE_SIZE = 1000;
-const DEFAULT_FILTER_PARSER = (value: string) => value;
+const DEFAULT_FILTER_PARSER = parseStringFilter;
 
 export abstract class ExtractooorQueryBase<
   TResponse,
@@ -54,8 +69,13 @@ export abstract class ExtractooorQueryBase<
     },
     token: {
       type: 'singleSelect',
-      valueOptions: this.tokenService.getAll().map((token) => ({label: token.symbol, value: token.symbol})),
-      filterOperators: getGridSingleSelectOperators(),
+      valueOptions: this.tokenService
+        .getAll()
+        .map((token) => ({
+          label: `${token.symbol} (${token.id})`,
+          value: token.id,
+        })),
+      filterOperators: getGridSingleSelectOperators().filter((operator) => ['isAnyOf'].includes(operator.value)),
     },
     amount: {
       type: 'number',
@@ -201,7 +221,7 @@ export abstract class ExtractooorQueryBase<
     return promise;
   }
 
-  addFilter(field: string, operator: Operator, value: string) {
+  addFilter(field: string, operator: Operator, value: string | string[]) {
     const filterParser =
       this.getColumns().find((column) => column.field === field)
         ?.filterParser || DEFAULT_FILTER_PARSER;

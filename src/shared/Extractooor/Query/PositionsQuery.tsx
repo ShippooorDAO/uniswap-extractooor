@@ -14,11 +14,11 @@ interface Entity {
   }; // Pool!
   token0: {
     id: string; // ID!
-    name: string;
+    symbol: string;
   }; // !Token
   token1: {
     id: string;
-    name: string;
+    symbol: string;
   }; // !Token
   tickLower: {
     id: string; // ID!
@@ -69,11 +69,11 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       }
       token0 {
         id
-        name
+        symbol
       }
       token1 {
         id
-        name
+        symbol
       }
       tickLower {
         id
@@ -103,9 +103,9 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       // owner
       pool: entry.pool.id,
       token0: entry.token0.id,
-      token0Name: entry.token0.name,
+      token0Symbol: entry.token0.symbol,
       token1: entry.token1.id,
-      token1Name: entry.token1.name,
+      token1Symbol: entry.token1.symbol,
       tickLower: entry.tickLower.id,
       tickUpper: entry.tickUpper.id,
       liquidity: Number(entry.liquidity),
@@ -164,23 +164,27 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       },
       {
         field: 'token0',
-        headerName: 'Token 0 ID',
-        ...this.baseFields.string,
+        headerName: 'Token 0',
+        ...this.baseFields.token,
       },
       {
         field: 'token0Name',
         headerName: 'Token 0 Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'token1',
-        headerName: 'Token 1 ID',
-        ...this.baseFields.string,
+        headerName: 'Token 1',
+        ...this.baseFields.token,
       },
       {
         field: 'token1Name',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'tickLower',

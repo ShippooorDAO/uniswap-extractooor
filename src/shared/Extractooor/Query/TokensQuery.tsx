@@ -62,7 +62,6 @@ export default class TokensQuery extends ExtractooorQueryBase<
         field: 'name',
         headerName: 'Name',
         type: 'string',
-        width: 150,
         ...this.baseFields.string,
       },
       {

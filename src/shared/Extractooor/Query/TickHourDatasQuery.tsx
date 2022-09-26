@@ -109,6 +109,8 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<
         field: 'poolName',
         headerName: 'Pool Name',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'tick',

@@ -122,14 +122,28 @@ export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
         ...this.baseFields.integer,
       },
       {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
+      },
+      {
         field: 'token0',
-        headerName: 'Token0 Symbol',
+        headerName: 'Token 0',
         ...this.baseFields.token,
       },
       {
-        field: 'token1',
-        headerName: 'Token1 Symbol',
+        field: 'token1Symbol',
+        headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1',
+        ...this.baseFields.token,
       },
       {
         field: 'feeTier',

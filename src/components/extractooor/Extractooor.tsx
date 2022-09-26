@@ -9,6 +9,7 @@ import {
   useGridApiContext,
   GridCsvExportOptions,
   useGridApiRef,
+  GridFilterPanel,
 } from '@mui/x-data-grid-pro';
 import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -58,6 +59,9 @@ const dataGridOperatorsMapping: { [key: string]: Operator } = {
   startsWith: Operator.STARTS_WITH,
   endsWith: Operator.ENDS_WITH,
   contains: Operator.CONTAINS,
+
+  // multi-select
+  isAnyOf: Operator.IN,
 };
 
 export const ExtractorDecimals = (params: GridValueFormatterParams<number>) =>
@@ -363,6 +367,7 @@ function Extractooor() {
         components={{
           Toolbar: ExtractooorToolbar,
           LoadingOverlay: LinearProgress,
+          FilterPanel: GridFilterPanel,
         }}
       />
     </div>

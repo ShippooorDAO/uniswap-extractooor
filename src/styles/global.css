@@ -67,6 +67,14 @@ a:hover {
   @apply text-base-content border-base-content border-opacity-20;
 }
 
+.MuiDataGrid-panelWrapper {
+  width: 830px;
+}
+
+.MuiDataGrid-filterFormValueInput {
+  width: 450px;
+}
+
 button, [type='button'] {
   @apply text-base-content;
 }

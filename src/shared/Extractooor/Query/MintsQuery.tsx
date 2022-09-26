@@ -107,23 +107,27 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       },
       {
         field: 'token0',
-        headerName: 'Token 0 ID',
-        ...this.baseFields.string,
+        headerName: 'Token 0',
+        ...this.baseFields.token,
       },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'token1',
-        headerName: 'Token 1 ID',
-        ...this.baseFields.string,
+        headerName: 'Token 1',
+        ...this.baseFields.token,
       },
       {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'sender',

@@ -87,16 +87,16 @@ export default class SwapsQuery extends ExtractooorQueryBase<
         ...this.baseFields.string,
       },
       {
-        field: 'token0',
-        headerName: 'Token 0 ID',
-        ...this.baseFields.string,
-      },
-      {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
         ...this.baseFields.string,
         filterable: false,
         sortable: false,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...this.baseFields.token,
       },
       {
         field: 'token1Symbol',
@@ -107,8 +107,8 @@ export default class SwapsQuery extends ExtractooorQueryBase<
       },
       {
         field: 'token1',
-        headerName: 'Token 1 ID',
-        ...this.baseFields.string,
+        headerName: 'Token 1',
+        ...this.baseFields.token,
       },
       {
         field: 'amount0',
