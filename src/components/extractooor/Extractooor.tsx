@@ -124,7 +124,7 @@ function Extractooor() {
     setLoadingAll(true);
     const queryIsSlowTimeout = setTimeout(() => {
       setQueryIsSlow(true);
-    }, 5000);
+    }, 10000);
     setQueryIsSlowTimeout(queryIsSlowTimeout);
 
     const result = await query?.fetchAll();
