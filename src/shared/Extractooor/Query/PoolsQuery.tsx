@@ -6,7 +6,6 @@ import { baseFields, ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
-import { parseBigDecimalUsdAmount } from '@/shared/Utils/Subgraph';
 
 interface Entity {
   id: string; // ID!
@@ -56,9 +55,9 @@ interface Response {
 export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Pools', 'Pools', apolloClient);
+    super('Pools', 'Pools', apolloClient, tokenService);
   }
 
   protected getQueryEntityName(): string {
@@ -110,139 +109,139 @@ export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'createdAtTimestamp',
         headerName: 'Created At Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'createdAtBlockNumber',
         headerName: 'Created At Block Number',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'token0',
         headerName: 'Token0 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.token,
       },
       {
         field: 'token1',
         headerName: 'Token1 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'feeTier',
         headerName: 'Fee Tier',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidity',
         headerName: 'Liquidity',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'sqrtPrice',
         headerName: 'Sqrt Price',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthGlobal0X128',
         headerName: 'Fee Growth Global 0X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthGlobal1X128',
         headerName: 'Fee Growth Global 1X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'token0Price',
         headerName: 'Token0 Price',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'token1Price',
         headerName: 'Token1 Price',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
-      { field: 'tick', headerName: 'Tick', ...baseFields.integer },
+      { field: 'tick', headerName: 'Tick', ...this.baseFields.integer },
       {
         field: 'observationIndex',
         headerName: 'Observation Index',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'volumeToken0',
         headerName: 'Volume Token0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken1',
         headerName: 'Volume Token1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'untrackedVolumeUSD',
         headerName: 'Untracked Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
-      { field: 'txCount', headerName: 'TX Count', ...baseFields.integer },
+      { field: 'txCount', headerName: 'TX Count', ...this.baseFields.integer },
       {
         field: 'collectedFeesToken0',
         headerName: 'Collected Fees Token0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesToken1',
         headerName: 'Collected Fees Token1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesUSD',
         headerName: 'Collected Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedToken0',
         headerName: 'Total Value Locked Token0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedToken1',
         headerName: 'Total Value Locked Token1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedETH',
         headerName: 'Total Value Locked ETH',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedUSD',
         headerName: 'Total Value Locked USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedUSDUntracked',
         headerName: 'Total Value Locked USD Untracked',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'liquidityProviderCount',
         headerName: 'Liquidity Provider Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

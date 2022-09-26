@@ -50,9 +50,9 @@ export default class PositionsQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Positions', 'Positions', apolloClient);
+    super('Positions', 'Positions', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -150,97 +150,97 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'owner',
         headerName: 'Owner',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token0',
         headerName: 'Token 0 ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token0Name',
         headerName: 'Token 0 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1',
         headerName: 'Token 1 ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1Name',
         headerName: 'Token 1 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tickLower',
         headerName: 'Tick Lower ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tickUpper',
         headerName: 'Tick Upper ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'liquidity',
         headerName: 'Liquidity',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'depositedToken0',
         headerName: 'Deposited Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'depositedToken1',
         headerName: 'Deposited Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'withdrawnToken0',
         headerName: 'Withdrawn Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'withdrawnToken1',
         headerName: 'Withdrawn Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesToken0',
         headerName: 'Collected Fees Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesToken1',
         headerName: 'Collected Fees Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'feeGrowthInside0LastX128',
         headerName: 'Fee Growth Inside 0 Last X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthInside1LastX128',
         headerName: 'Fee Growth Inside 1 Last X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

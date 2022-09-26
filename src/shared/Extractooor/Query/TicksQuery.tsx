@@ -48,9 +48,9 @@ interface Response {
 export default class TicksQuery extends ExtractooorQueryBase<Response, Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Ticks', 'Ticks', apolloClient);
+    super('Ticks', 'Ticks', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -98,107 +98,107 @@ export default class TicksQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'poolAddress',
         headerName: 'Pool Address',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tickIdx',
         headerName: 'Tick Idx',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'pool',
         headerName: 'Pool Name',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'liquidityGross',
         headerName: 'Liquidity Gross',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidityNet',
         headerName: 'Liquidity Net',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'price0',
         headerName: 'Price 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'price1',
         headerName: 'Price 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken0',
         headerName: 'Volume Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken1',
         headerName: 'Volume Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'untrackedVolumeUSD',
         headerName: 'Untracked Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesToken0',
         headerName: 'Collected Fees Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesToken1',
         headerName: 'Collected Fees Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'collectedFeesUSD',
         headerName: 'Collected Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'createdAtTimestamp',
         headerName: 'Created At Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'createdAtBlockNumber',
         headerName: 'Created At Block Number',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidityProviderCount',
         headerName: 'Liquidity Provider Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthOutside0X128',
         headerName: 'Fee Growth Outside 0 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthOutside1X128',
         headerName: 'Fee Growth Outside 1 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

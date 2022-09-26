@@ -44,9 +44,9 @@ export default class FlashesQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Flashes', 'Flashes', apolloClient);
+    super('Flashes', 'Flashes', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -87,62 +87,62 @@ export default class FlashesQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'timestamp',
         headerName: 'Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'sender',
         headerName: 'Sender',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'recipient',
         headerName: 'Recipient',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'amount0',
         headerName: 'Amount 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amount1',
         headerName: 'Amount 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amountUSD',
         headerName: 'Amount USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amount0Paid',
         headerName: 'Amount 0 Paid',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amount1Paid',
         headerName: 'Amount 1 Paid',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'logIndex',
         headerName: 'Log Index',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

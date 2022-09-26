@@ -44,9 +44,9 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('TickDayData', 'TickDayData', apolloClient);
+    super('TickDayData', 'TickDayData', apolloClient, tokenService);
   }
 
   getColumns() {
@@ -54,67 +54,67 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'date',
         headerName: 'Date',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'poolName',
         headerName: 'Pool Name',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tick',
         headerName: 'Tick',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'liquidityGross',
         headerName: 'Liquidity Gross',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidityNet',
         headerName: 'Liquidity Net',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'volumeToken0',
         headerName: 'Volume Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken1',
         headerName: 'Volume Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feeGrowthOutside0X128',
         headerName: 'Fee Growth Outside 0 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthOutside1X128',
         headerName: 'Fee Growth Outside 1 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

@@ -36,9 +36,9 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('TokenDayData', 'TokenDayData', apolloClient);
+    super('TokenDayData', 'TokenDayData', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -72,77 +72,77 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'date',
         headerName: 'Date',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'token',
         headerName: 'Token ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tokenSymbol',
         headerName: 'Token Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'volume',
         headerName: 'Volume',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'untrackedVolumeUSD',
         headerName: 'Untracked Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLocked',
         headerName: 'Total Value Locked',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedUSD',
         headerName: 'Total Value Locked USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'priceUSD',
         headerName: 'Price USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'open',
         headerName: 'Open Price USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'high',
         headerName: 'High Price USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'low',
         headerName: 'Low Price USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'close',
         headerName: 'Close Price USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
     ];
   }

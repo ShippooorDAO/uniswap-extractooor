@@ -64,7 +64,7 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         new TicksQuery(apolloClient, tokenService),
         new PositionsQuery(apolloClient, tokenService),
         new PositionSnapshotsQuery(apolloClient, tokenService),
-        new TransactionsQuery(apolloClient),
+        new TransactionsQuery(apolloClient, tokenService),
         new MintsQuery(apolloClient, tokenService),
         new BurnsQuery(apolloClient, tokenService),
         new SwapsQuery(apolloClient, tokenService),

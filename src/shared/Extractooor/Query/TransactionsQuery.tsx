@@ -3,6 +3,7 @@
 import { GridRowsProp } from '@mui/x-data-grid-pro';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { baseFields, ExtractooorQueryBase } from './QueryBase';
+import { TokenService } from '@/shared/Currency/TokenService';
 
 interface Entity {
   id: string; // ID!
@@ -37,8 +38,11 @@ export default class TransactionsQuery extends ExtractooorQueryBase<
   Response,
   Entity
 > {
-  constructor(apolloClient: ApolloClient<NormalizedCacheObject>) {
-    super('Transactions', 'Transactions', apolloClient);
+  constructor(
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    tokenService: TokenService
+  ) {
+    super('Transactions', 'Transactions', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -60,27 +64,27 @@ export default class TransactionsQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'blockNumber',
         headerName: 'Block Number',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'timestamp',
         headerName: 'Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'gasUsed',
         headerName: 'Gas Used',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'gasPrice',
         headerName: 'Gas Price',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

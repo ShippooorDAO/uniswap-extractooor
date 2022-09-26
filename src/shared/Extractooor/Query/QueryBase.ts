@@ -2,9 +2,10 @@ import { AmountFormatter } from "@/shared/Utils/DataGrid";
 import { batchQuery } from '@/shared/Utils/Subgraph';
 import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
 import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
-import { getGridDateOperators, getGridNumericOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
+import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
 import { ExtractooorQuery } from "../Extractooor.type";
 import { BaseEntity, BatchQueryResponse } from "@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type";
+import { TokenService } from "@/shared/Currency/TokenService";
 
 type Column = GridColDef & {
   filterParser?: (value: string) => string | number;
@@ -25,45 +26,6 @@ function parseTimestampFilter(value: string) {
   return Math.floor(new Date(value).getTime() / 1000);
 }
 
-export const baseFields = {
-  id: {
-    filterOperators: getGridStringOperators().filter((operator) =>
-      ['equals'].includes(operator.value)
-    ),
-    filterParser: parseStringFilter,
-  },
-  amount: {
-    type: 'number',
-    filterOperators: getGridNumericOperators().filter((operator) =>
-      ['=', '<=', '<', '>=', '>'].includes(operator.value)
-    ),
-    valueFormatter: AmountFormatter,
-    filterParser: parseNumberFilter,
-  },
-  integer: {
-    type: 'number',
-    filterOperators: getGridNumericOperators().filter((operator) =>
-      ['=', '<=', '<', '>=', '>'].includes(operator.value)
-    ),
-    filterParser: parseIntegerFilter,
-  },
-  string: {
-    filterOperators: getGridStringOperators().filter((operator) =>
-      ['equals', 'startsWith', 'endsWith', 'contains'].includes(operator.value)
-    ),
-    filterParser: parseStringFilter,
-  },
-  timestamp: {
-    type: 'dateTime',
-    filterOperators: getGridDateOperators().filter((operator) =>
-      ['is', 'after', 'onOrAfter', 'before', 'onOrBefore'].includes(
-        operator.value
-      )
-    ),
-    filterParser: parseTimestampFilter,
-  },
-};
-
 /**
  * Max subgraph query size
  */
@@ -83,15 +45,65 @@ export abstract class ExtractooorQueryBase<
     columns: GridColDef[];
   }>;
 
+  protected readonly baseFields = {
+    id: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals'].includes(operator.value)
+      ),
+      filterParser: parseStringFilter,
+    },
+    token: {
+      type: 'singleSelect',
+      valueOptions: this.tokenService.getAll().map((token) => ({label: token.symbol, value: token.symbol})),
+      filterOperators: getGridSingleSelectOperators(),
+    },
+    amount: {
+      type: 'number',
+      filterOperators: getGridNumericOperators().filter((operator) =>
+        ['=', '<=', '<', '>=', '>'].includes(operator.value)
+      ),
+      valueFormatter: AmountFormatter,
+      filterParser: parseNumberFilter,
+    },
+    integer: {
+      type: 'number',
+      filterOperators: getGridNumericOperators().filter((operator) =>
+        ['=', '<=', '<', '>=', '>'].includes(operator.value)
+      ),
+      filterParser: parseIntegerFilter,
+    },
+    string: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals', 'startsWith', 'endsWith', 'contains'].includes(
+          operator.value
+        )
+      ),
+      filterParser: parseStringFilter,
+    },
+    timestamp: {
+      type: 'dateTime',
+      filterOperators: getGridDateOperators().filter((operator) =>
+        ['is', 'after', 'onOrAfter', 'before', 'onOrBefore'].includes(
+          operator.value
+        )
+      ),
+      filterParser: parseTimestampFilter,
+    },
+  };
+
   constructor(
     readonly title: string,
     readonly description: string,
-    readonly apolloClient: ApolloClient<NormalizedCacheObject>
+    readonly apolloClient: ApolloClient<NormalizedCacheObject>,
+    readonly tokenService: TokenService
   ) {
     this.reset();
   }
 
-  private async fetchInternal(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
+  private async fetchInternal(): Promise<{
+    rows: GridRowsProp;
+    columns: GridColDef[];
+  }> {
     const maxAttempts = 10;
     const startCancelCount = Number(this.cancelCount);
 

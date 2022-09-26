@@ -28,9 +28,9 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('UniswapDayData', 'UniswapDayData', apolloClient);
+    super('UniswapDayData', 'UniswapDayData', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -55,42 +55,42 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'date',
         headerName: 'Date',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'volumeETH',
         headerName: 'Volume ETH',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSDUntracked',
         headerName: 'Volume USD Untracked',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Feed USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'txCount',
         headerName: 'TX Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'tvlUSD',
         headerName: 'TVL USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
     ];
   }

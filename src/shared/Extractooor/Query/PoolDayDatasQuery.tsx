@@ -49,9 +49,9 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('PoolDayDatas', 'PoolDayDatas', apolloClient);
+    super('PoolDayDatas', 'PoolDayDatas', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -95,111 +95,111 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<
 
   getColumns(): GridColDef[] {
     return [
-      { field: 'id', headerName: 'Pool ID', ...baseFields.id },
+      { field: 'id', headerName: 'Pool ID', ...this.baseFields.id },
       {
         field: 'token0',
         headerName: 'Token 0',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1',
         headerName: 'Token 1',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'liquidity',
         headerName: 'Liquidity',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'sqrtPrice',
         headerName: 'Sqrt Price',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'token0Price',
         headerName: 'Token0 Price',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'token1Price',
         headerName: 'Token1 Price',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'tick',
         headerName: 'Tick',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthGlobal0X128',
         headerName: 'Fee Growth Global 0 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'feeGrowthGlobal1X128',
         headerName: 'Fee Growth Global 1 X128',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'tvlUSD',
         headerName: 'TVL USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken0',
         headerName: 'Volume Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken1',
         headerName: 'Volume Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'txCount',
         headerName: 'TX Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'open',
         headerName: 'Open',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'high',
         headerName: 'High',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'low',
         headerName: 'Low',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'close',
         headerName: 'Close',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
     ];
   }

@@ -42,9 +42,9 @@ interface Response {
 export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Burns', 'Burns', apolloClient);
+    super('Burns', 'Burns', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -86,87 +86,87 @@ export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token0',
         headerName: 'Token 0 ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1',
         headerName: 'Token 1 ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'timestamp',
         headerName: 'Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'owner',
         headerName: 'Owner',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'origin',
         headerName: 'Origin',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'amount',
         headerName: 'Amount',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'amount0',
         headerName: 'Amount 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amount1',
         headerName: 'Amount 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amountUSD',
         headerName: 'Amount USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'tickLower',
         headerName: 'Tick Lower',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'tickUpper',
         headerName: 'Tick Upper',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'logIndex',
         headerName: 'Log Index',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

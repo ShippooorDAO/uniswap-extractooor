@@ -38,9 +38,9 @@ interface Response {
 export default class SwapsQuery extends ExtractooorQueryBase<Response, Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Collects', 'Collects', apolloClient);
+    super('Collects', 'Collects', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -78,57 +78,57 @@ export default class SwapsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'timestamp',
         headerName: 'Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'owner',
         headerName: 'Owner',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'amount0',
         headerName: 'Amount 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amount1',
         headerName: 'Amount 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'amountUSD',
         headerName: 'Amount USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'tickLower',
         headerName: 'Tick Lower',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'tickUpper',
         headerName: 'Tick Upper',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'logIndex',
         headerName: 'Log Index',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
     ];
   }

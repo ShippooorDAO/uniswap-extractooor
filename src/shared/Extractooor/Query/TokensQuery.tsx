@@ -41,9 +41,9 @@ export default class TokensQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('Tokens', 'Tokens', apolloClient);
+    super('Tokens', 'Tokens', apolloClient, tokenService);
   }
 
   getColumns(): GridColDef[] {
@@ -51,79 +51,79 @@ export default class TokensQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'symbol',
         headerName: 'Symbol',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'name',
         headerName: 'Name',
         type: 'string',
         width: 150,
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'decimals',
         headerName: 'Decimals',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'totalSupply',
         headerName: 'Total Supply',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volume',
         headerName: 'Volume',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'untrackedVolumeUSD',
         headerName: 'Untracked Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'txCount',
         headerName: 'Tx Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'poolCount',
         headerName: 'Pool Count',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'totalValueLocked',
         headerName: 'Total Value Locked',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedUSD',
         headerName: 'Total Value Locked (USD)',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'totalValueLockedUSDUntracked',
         headerName: 'Untracked Total Value Locked (USD)',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'derivedETH',
         headerName: 'Derived ETH',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
     ];
   }

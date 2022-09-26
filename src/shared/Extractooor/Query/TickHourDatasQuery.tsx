@@ -42,9 +42,9 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<
 > {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    private readonly tokenService: TokenService
+    tokenService: TokenService
   ) {
-    super('TickHourData', 'TickHourData', apolloClient);
+    super('TickHourData', 'TickHourData', apolloClient, tokenService);
   }
 
   getQueryEntityName() {
@@ -93,57 +93,57 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...baseFields.id,
+        ...this.baseFields.id,
       },
       {
         field: 'periodStartTimestamp',
         headerName: 'Period Start Timestamp',
-        ...baseFields.timestamp,
+        ...this.baseFields.timestamp,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'poolName',
         headerName: 'Pool Name',
-        ...baseFields.string,
+        ...this.baseFields.string,
       },
       {
         field: 'tick',
         headerName: 'Tick',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidityGross',
         headerName: 'Liquidity Gross',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'liquidityNet',
         headerName: 'Liquidity Net',
-        ...baseFields.integer,
+        ...this.baseFields.integer,
       },
       {
         field: 'volumeToken0',
         headerName: 'Volume Token 0',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeToken1',
         headerName: 'Volume Token 1',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'volumeUSD',
         headerName: 'Volume USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
       {
         field: 'feesUSD',
         headerName: 'Fees USD',
-        ...baseFields.amount,
+        ...this.baseFields.amount,
       },
     ];
   }
