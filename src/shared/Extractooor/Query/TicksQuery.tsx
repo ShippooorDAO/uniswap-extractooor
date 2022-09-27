@@ -114,6 +114,8 @@ export default class TicksQuery extends ExtractooorQueryBase<Response, Entity> {
         field: 'pool',
         headerName: 'Pool Name',
         ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'liquidityGross',
