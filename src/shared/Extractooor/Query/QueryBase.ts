@@ -1,11 +1,10 @@
-import { WalletAddressRenderCell, AmountFormatter, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell } from "@/shared/Utils/DataGrid";
+import { WalletAddressRenderCell, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell } from "@/shared/Utils/DataGrid";
 import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
 import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
 import { ExtractooorQuery } from "../Extractooor.type";
 import { BaseEntity, BatchQueryResponse } from "@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type";
 import { TokenService } from "@/shared/Currency/TokenService";
-import { Token } from "@/shared/Currency/Token";
 
 type Column = GridColDef & {
   filterParser?: (value: string|string[]) => string | number;
@@ -191,10 +190,6 @@ export abstract class ExtractooorQueryBase<
         attempt += 1;
         if (attempt === maxAttempts) {
           throw e;
-          throw (
-            'Max number of fetch attempts reached caused by subgraph failure: ' +
-            e
-          );
         }
       }
     }

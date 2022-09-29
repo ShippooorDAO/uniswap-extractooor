@@ -6,7 +6,6 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
-import { AddressRenderCell } from '@/shared/Utils/DataGrid';
 
 interface Entity {
   id: string; // ID!

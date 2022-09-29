@@ -1,7 +1,5 @@
 import { ApolloClient, DocumentNode, gql, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { BigNumber } from "ethers";
-import { parseUnits } from "ethers/lib/utils";
-import { USD_INTERNAL_DECIMALS } from "../Constants";
 import { Token } from "../Currency/Token";
 import { TokenAmount } from "../Currency/TokenAmount";
 import { UsdAmount } from "../Currency/UsdAmount";

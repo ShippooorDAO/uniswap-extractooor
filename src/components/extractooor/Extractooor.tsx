@@ -30,7 +30,6 @@ import {
   Typography,
 } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import {
@@ -217,7 +216,9 @@ function Extractooor() {
           </Select>
         </FormControl>
         <GridToolbarColumnsButton variant="outlined" />
-        <GridToolbarFilterButton variant="outlined" />
+        <GridToolbarFilterButton
+          componentsProps={{ button: { variant: 'outlined' } }}
+        />
 
         <LoadingButton
           {...buttonBaseProps}
