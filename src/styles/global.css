@@ -52,7 +52,7 @@ a:hover {
 }
 
 .MuiDataGrid-booleanCell.MuiDataGrid-booleanCell.MuiDataGrid-booleanCell,
-.MuiSvgIcon-root.MuiSvgIcon-root,
+.MuiDataGrid-root .MuiSvgIcon-root.MuiSvgIcon-root,
 .MuiDataGrid-virtualScrollerContent,
 .MuiDataGrid-overlay,
 .MuiTablePagination-root, .MuiTablePagination-selectIcon,

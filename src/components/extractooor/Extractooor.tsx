@@ -8,11 +8,12 @@ import {
   GridLinkOperator,
   useGridApiContext,
   GridCsvExportOptions,
-  useGridApiRef,
   GridFilterPanel,
 } from '@mui/x-data-grid-pro';
 import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import {
   Button,
   ButtonProps,
@@ -22,19 +23,18 @@ import {
   MenuItem,
   LinearProgress,
   InputLabel,
+  IconButton,
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
-  GridToolbarExport,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
 import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider';
 import { ExtractooorQuery } from '@/shared/Extractooor/Extractooor.type';
 import { Operator } from '@/shared/Utils/QueryBuilder';
-
 const ExportIcon = createSvgIcon(
   <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
   'SaveAlt'
@@ -68,7 +68,7 @@ export const ExtractorDecimals = (params: GridValueFormatterParams<number>) =>
   params.value ? Number(params.value) : '';
 
 function Extractooor() {
-  const { queries } = useExtractooorContext();
+  const { queries, fullscreen, setFullscreen } = useExtractooorContext();
   const [query, setQuery] = useState<ExtractooorQuery | undefined>();
   const [currentQueryIndex, setCurrentQueryIndex] = useState<number>(0);
   const [columns, setColumns] = useState<GridColDef[]>([]);
@@ -192,6 +192,17 @@ function Extractooor() {
         >
           {loadingAll ? 'Loading all...' : 'Load all'}
         </LoadingButton>
+        <IconButton
+          size="large"
+          className="hidden xl:inline-flex ml-auto mr-2"
+          onClick={() => setFullscreen(!fullscreen)}
+        >
+          {fullscreen ? (
+            <FullscreenExitIcon fontSize="inherit" />
+          ) : (
+            <FullscreenIcon fontSize="inherit" />
+          )}
+        </IconButton>
         <Stack sx={{ width: '100%' }} spacing={2}>
           {rows.length < 1000 && rows.length > 0 && (
             <Alert
@@ -330,7 +341,7 @@ function Extractooor() {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-[calc(100vh-64px)] sm:h-[calc(100vh-150px)]">
       <DataGridPro
         rows={rows}
         columns={columns}

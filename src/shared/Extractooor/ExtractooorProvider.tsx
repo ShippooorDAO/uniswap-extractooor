@@ -36,6 +36,12 @@ const ExtractooorContext = createContext<ExtractooorProviderState>({
   get queries(): never {
     throw new Error(missingProviderError);
   },
+  get fullscreen(): never {
+    throw new Error(missingProviderError);
+  },
+  get setFullscreen(): never {
+    throw new Error(missingProviderError);
+  },
 });
 
 interface ExtractooorProviderProps {
@@ -52,6 +58,7 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
 }: ExtractooorProviderProps) => {
   const { tokenService } = useUniswapV3SubgraphContext();
   const [queries, setQueries] = useState<ExtractooorQuery[] | undefined>();
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
 
   useEffect(() => {
     if (tokenService) {
@@ -85,6 +92,8 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
     <ExtractooorContext.Provider
       value={{
         queries,
+        fullscreen,
+        setFullscreen,
       }}
     >
       {children}

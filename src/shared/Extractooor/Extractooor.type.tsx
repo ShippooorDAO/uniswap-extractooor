@@ -1,5 +1,4 @@
 import { GridColDef, GridRowsProp } from '@mui/x-data-grid-pro';
-import { CurrencyAmount } from '../Currency/CurrencyAmount';
 import { Operator } from '../Utils/QueryBuilder';
 
 export interface ExtractooorQuery {
@@ -21,4 +20,6 @@ export interface ExtractooorQuery {
 
 export interface ExtractooorProviderState {
   queries?: ExtractooorQuery[];
+  fullscreen: boolean;
+  setFullscreen: (value: boolean) => void;
 }
