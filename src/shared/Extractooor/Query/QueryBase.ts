@@ -1,4 +1,4 @@
-import { AmountFormatter } from "@/shared/Utils/DataGrid";
+import { WalletAddressRenderCell, AmountFormatter, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell } from "@/shared/Utils/DataGrid";
 import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
 import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
@@ -67,23 +67,42 @@ export abstract class ExtractooorQueryBase<
       ),
       filterParser: parseStringFilter,
     },
+    addressId: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals'].includes(operator.value)
+      ),
+      filterParser: parseStringFilter,
+      renderCell: AddressRenderCell,
+      width: 150,
+    },
+    transactionId: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals'].includes(operator.value)
+      ),
+      filterParser: parseStringFilter,
+      renderCell: TransactionRenderCell,
+      width: 150,
+    },
     token: {
       type: 'singleSelect',
-      valueOptions: this.tokenService
-        .getAll()
-        .map((token) => ({
-          label: `${token.symbol} (${token.id})`,
-          value: token.id,
-        })),
-      filterOperators: getGridSingleSelectOperators().filter((operator) => ['isAnyOf'].includes(operator.value)),
+      valueOptions: this.tokenService.getAll().map((token) => ({
+        label: `${token.symbol} (${token.id})`,
+        value: token.id,
+      })),
+      filterOperators: getGridSingleSelectOperators().filter((operator) =>
+        ['isAnyOf'].includes(operator.value)
+      ),
+      renderCell: AddressRenderCell,
     },
     amount: {
       type: 'number',
       filterOperators: getGridNumericOperators().filter((operator) =>
         ['=', '<=', '<', '>=', '>'].includes(operator.value)
       ),
-      valueFormatter: AmountFormatter,
+      valueFormatter: ExportAmountFormatter,
+      renderCell: AmountRenderCell,
       filterParser: parseNumberFilter,
+      width: 250,
     },
     integer: {
       type: 'number',
@@ -94,15 +113,42 @@ export abstract class ExtractooorQueryBase<
     },
     string: {
       filterOperators: getGridStringOperators().filter((operator) =>
-        ['equals', 'startsWith', 'endsWith', 'contains'].includes(
+        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
           operator.value
         )
       ),
       filterParser: parseStringFilter,
     },
+    walletAddress: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
+          operator.value
+        )
+      ),
+      renderCell: WalletAddressRenderCell,
+      width: 200,
+    },
+    address: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
+          operator.value
+        )
+      ),
+      renderCell: AddressRenderCell,
+      width: 150,
+    },
+    transaction: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
+          operator.value
+        )
+      ),
+      renderCell: TransactionRenderCell,
+      width: 150,
+    },
     timestamp: {
       type: 'dateTime',
-      filterOperators: getGridDateOperators().filter((operator) =>
+      filterOperators: getGridDateOperators(true).filter((operator) =>
         ['is', 'after', 'onOrAfter', 'before', 'onOrBefore'].includes(
           operator.value
         )
@@ -255,6 +301,10 @@ export abstract class ExtractooorQueryBase<
 
   setOrderDirection(orderDirection: 'asc' | 'desc') {
     this.queryBuilder.setOrderDirection(orderDirection);
+  }
+
+  getQueryBody() {
+    return this.queryBuilder.build();
   }
 
   reset() {

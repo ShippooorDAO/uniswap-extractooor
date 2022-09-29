@@ -64,7 +64,7 @@ export default class TransactionsQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...this.baseFields.id,
+        ...this.baseFields.transactionId,
       },
       {
         field: 'blockNumber',

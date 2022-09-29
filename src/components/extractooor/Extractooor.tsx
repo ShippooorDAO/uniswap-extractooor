@@ -73,7 +73,6 @@ function Extractooor() {
   const [currentQueryIndex, setCurrentQueryIndex] = useState<number>(0);
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const [rows, setRows] = useState<GridRowsProp>([]);
-  const [tablePageNumber, setTablePageNumber] = useState<number>(0);
   const [tablePageSize, setTablePageSize] = useState<number>(25);
   const [loadingAll, setLoadingAll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);

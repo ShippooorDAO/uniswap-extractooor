@@ -157,7 +157,7 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
       { field: 'pool', headerName: 'Pool ID', ...this.baseFields.string },
       {
         field: 'token0',
-        headerName: 'Token 0 Symbol',
+        headerName: 'Token 0',
         ...this.baseFields.token,
       },
       {
@@ -170,7 +170,7 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
       {
         field: 'token1',
         headerName: 'Token 1',
-        ...this.baseFields.string,
+        ...this.baseFields.token,
       },
       {
         field: 'token1Symbol',

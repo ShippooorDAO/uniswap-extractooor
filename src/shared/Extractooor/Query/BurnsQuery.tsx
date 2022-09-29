@@ -91,12 +91,12 @@ export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...this.baseFields.string,
+        ...this.baseFields.transaction,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'token0',
@@ -130,12 +130,12 @@ export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'owner',
         headerName: 'Owner',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'origin',
         headerName: 'Origin',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'amount',

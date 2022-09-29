@@ -83,7 +83,7 @@ export default class SwapsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'timestamp',
@@ -93,12 +93,12 @@ export default class SwapsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'owner',
         headerName: 'Owner',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'amount0',

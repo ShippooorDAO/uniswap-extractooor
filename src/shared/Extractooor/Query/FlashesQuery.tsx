@@ -92,7 +92,7 @@ export default class FlashesQuery extends ExtractooorQueryBase<
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...this.baseFields.string,
+        ...this.baseFields.transaction,
       },
       {
         field: 'timestamp',
@@ -102,17 +102,17 @@ export default class FlashesQuery extends ExtractooorQueryBase<
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'sender',
         headerName: 'Sender',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'recipient',
         headerName: 'Recipient',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'amount0',

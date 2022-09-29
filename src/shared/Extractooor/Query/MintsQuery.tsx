@@ -93,7 +93,7 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...this.baseFields.string,
+        ...this.baseFields.transaction,
       },
       {
         field: 'timestamp',
@@ -103,7 +103,7 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'token0',
@@ -132,12 +132,12 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'sender',
         headerName: 'Sender',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'origin',
         headerName: 'Origin',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'amount',

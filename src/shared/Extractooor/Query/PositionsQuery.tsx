@@ -155,12 +155,12 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       {
         field: 'owner',
         headerName: 'Owner',
-        ...this.baseFields.string,
+        ...this.baseFields.walletAddress,
       },
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'token0',
@@ -234,7 +234,7 @@ export default class PositionsQuery extends ExtractooorQueryBase<
       {
         field: 'transaction',
         headerName: 'Transaction ID',
-        ...this.baseFields.string,
+        ...this.baseFields.transaction,
       },
       {
         field: 'feeGrowthInside0LastX128',

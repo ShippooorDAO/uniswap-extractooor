@@ -103,7 +103,7 @@ export default class TicksQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'poolAddress',
         headerName: 'Pool Address',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'tickIdx',
