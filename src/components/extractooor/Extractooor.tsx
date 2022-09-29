@@ -329,30 +329,19 @@ function Extractooor() {
     await fetch();
   };
 
-  const tablePagesPerQuery = Math.floor(
-    (query?.getPageSize() || 1000) / tablePageSize
-  );
-  const tableRows = rows.slice(
-    (tablePageNumber % tablePagesPerQuery) * tablePageSize,
-    (tablePageNumber % tablePagesPerQuery) * tablePageSize + tablePageSize
-  );
-
   return (
     <div className="h-full">
       <DataGridPro
-        rows={tableRows}
+        rows={rows}
         columns={columns}
         rowsPerPageOptions={[tablePageSize]}
         rowCount={rows.length}
         getRowClassName={() => 'cursor-pointer'}
         pagination
-        paginationMode="server"
         filterMode="server"
         sortingMode="server"
         loading={loading}
         pageSize={tablePageSize}
-        page={tablePageNumber}
-        onPageChange={setTablePageNumber}
         onPageSizeChange={setTablePageSize}
         onFilterModelChange={handleFilterModelChange}
         onSortModelChange={handleSortModelChange}
