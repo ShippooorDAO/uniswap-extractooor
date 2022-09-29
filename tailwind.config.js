@@ -1,6 +1,7 @@
 const daisyui = require('daisyui');
 
 module.exports = {
+  important: true,
   darkMode: ['class', '[data-theme="dark"]'],
   purge: {
     enabled: true,

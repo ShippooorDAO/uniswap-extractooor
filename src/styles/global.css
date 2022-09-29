@@ -10,38 +10,43 @@ body {
 }
 
 [data-reactroot] {
-  @apply h-full;
+  @apply h-full !important;
 }
 
 a {
-  @apply underline;
+  @apply underline !important;
 }
 
 a:hover {
-  @apply font-semibold;
+  @apply font-semibold !important;
 }
 
 .content p {
-  @apply my-6;
+  @apply my-6 !important;
 }
 
 .content ul {
-  @apply my-6;
+  @apply my-6 !important;
 }
 
 /**
  * Material UI Alert
  */
 [data-theme="dark"] .MuiAlert-root {
-  @apply bg-base-300 text-neutral-content;
+  @apply bg-base-300 text-neutral-content !important;
 }
 
 /**
  * Material UI Modal
  */
 .MuiModal-root .MuiBox-root {
-  @apply bg-base-100 text-neutral-content;
+  @apply bg-base-100 text-neutral-content !important;
 }
+
+.MuiInputBase-formControl::before {
+  @apply border-base-content !important;
+}
+
 
 /**
   * Material UI DataGrid
@@ -54,15 +59,15 @@ a:hover {
   .MuiDataGrid-footerContainer,
   .MuiTablePagination-root,
   .MuiSvgIcon-root {
-    @apply text-base-content border-base-content border-opacity-20;
+    @apply text-base-content border-base-content border-opacity-20 !important;
   }
 }
 
 .MuiDataGrid-virtualScrollerContent {
-  @apply bg-base-100 text-neutral-content;
+  @apply bg-base-100 text-neutral-content !important;
 }
 .MuiDataGrid-overlay {
-  @apply text-neutral-content;
+  @apply text-neutral-content !important;
 }
 
 .MuiDataGrid-booleanCell.MuiDataGrid-booleanCell.MuiDataGrid-booleanCell,
@@ -78,17 +83,17 @@ a:hover {
 .MuiInputLabel-root.MuiInputLabel-root,
 .MuiOutlinedInput-notchedOutline,
 .MuiInputAdornment-root .MuiTypography-root {
-  @apply text-base-content border-base-content border-opacity-20;
+  @apply text-base-content border-base-content border-opacity-20 !important;
 }
 
 .MuiDataGrid-panelWrapper {
-  width: 830px;
+  @apply bg-base-100 text-base-content border-base-content w-[830px] !important;
 }
 
 .MuiDataGrid-filterFormValueInput {
-  width: 450px;
+  @apply bg-base-100 text-base-content border-base-content w-[450px] !important;
 }
 
 button, [type='button'] {
-  @apply text-base-content;
+  @apply text-base-content border-base-content !important;
 }
