@@ -1,4 +1,5 @@
 import { GridColDef, GridRowsProp } from '@mui/x-data-grid-pro';
+import { DocumentNode } from 'graphql';
 import { Operator } from '../Utils/QueryBuilder';
 
 export interface ExtractooorQuery {
@@ -14,6 +15,7 @@ export interface ExtractooorQuery {
   getPageSize(): void;
   setOrderBy(field: string): void;
   setOrderDirection(orderDirection: 'asc' | 'desc'): void;
+  getSubgraphQuery(): DocumentNode;
   reset(): void;
   cancel(): void;
 }

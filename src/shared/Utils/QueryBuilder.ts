@@ -95,10 +95,12 @@ export class QueryBuilder {
     const orderBy = this.buildSortByStatement();
     const orderDirection = this.buildSortDirectionStatement();
 
-    const statements = [where, skip, first, orderBy, orderDirection].join(', ');
+    const statements = [where, skip, first, orderBy, orderDirection]
+      .filter((value) => !!value)
+      .join(', ');
 
     return gql`
-        query queryName {
+        {
             ${this.entityName} (${statements}) 
                 ${this.body}
         }

@@ -108,6 +108,9 @@ export async function batchQuery<
     } else {
       str = `${intPart}${decimalPart}`.slice(0, 18);
     }
+    if (str === "") {
+      `wrong input: ${console.log(value)}`;
+    }
     return BigNumber.from(str);
   }
 

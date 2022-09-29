@@ -14,11 +14,11 @@ interface TickDayDataEntity {
     id: string; // ID!
     token0: {
       id: string; // ID!
-      name: string; // String!
+      symbol: string; // String!
     };
     token1: {
       id: string; // ID!
-      name: string; // String!
+      symbol: string; // String!
     };
   }; // Pool!
   tick: {
@@ -64,7 +64,7 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.address,
       },
       {
         field: 'poolName',
@@ -72,6 +72,7 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<
         ...this.baseFields.string,
         filterable: false,
         sortable: false,
+        width: 150,
       },
       {
         field: 'tick',
@@ -160,7 +161,10 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<
       ...entry,
       date: new Date(Number(entry.date) * 1000),
       pool: entry.pool.id,
-      poolName: entry.pool.token0.name.concat(' / ', entry.pool.token1.name),
+      poolName: entry.pool.token0.symbol.concat(
+        ' / ',
+        entry.pool.token1.symbol
+      ),
       tick: entry.tick.id,
       liquidityGross: Number(entry.liquidityGross),
       liquidityNet: Number(entry.liquidityNet),

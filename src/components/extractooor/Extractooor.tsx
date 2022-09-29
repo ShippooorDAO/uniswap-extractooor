@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import CodeIcon from '@mui/icons-material/Code';
 import {
   Button,
   ButtonProps,
@@ -24,7 +25,12 @@ import {
   LinearProgress,
   InputLabel,
   IconButton,
+  Box,
+  Modal,
+  Typography,
 } from '@mui/material';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import {
@@ -32,9 +38,12 @@ import {
   GridToolbarContainer,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider';
 import { ExtractooorQuery } from '@/shared/Extractooor/Extractooor.type';
 import { Operator } from '@/shared/Utils/QueryBuilder';
+import { print } from 'graphql/language/printer';
+
 const ExportIcon = createSvgIcon(
   <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
   'SaveAlt'
@@ -67,6 +76,19 @@ const dataGridOperatorsMapping: { [key: string]: Operator } = {
 export const ExtractorDecimals = (params: GridValueFormatterParams<number>) =>
   params.value ? Number(params.value) : '';
 
+const CopyToClipboardButton = ({ content }: { content: string }) => {
+  const handleClick = () => navigator.clipboard.writeText(content);
+  return (
+    <Button
+      variant="outlined"
+      onClick={handleClick}
+      startIcon={<ContentCopyIcon />}
+    >
+      Copy
+    </Button>
+  );
+};
+
 function Extractooor() {
   const { queries, fullscreen, setFullscreen } = useExtractooorContext();
   const [query, setQuery] = useState<ExtractooorQuery | undefined>();
@@ -81,6 +103,9 @@ function Extractooor() {
   const [queryIsSlowTimeout, setQueryIsSlowTimeout] = useState<
     NodeJS.Timeout | undefined
   >();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const cancel = async () => {
     setCancelling(true);
@@ -168,11 +193,10 @@ function Extractooor() {
     const buttonBaseProps: ButtonProps = {
       color: 'primary',
       size: 'small',
-      startIcon: <ExportIcon />,
     };
 
     return (
-      <GridToolbarContainer>
+      <GridToolbarContainer className="flex gap-2">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
           <InputLabel id="demo-simple-select-standard-label">
             Dataset
@@ -192,22 +216,35 @@ function Extractooor() {
             ))}
           </Select>
         </FormControl>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <Button
-          {...buttonBaseProps}
-          onClick={() => handleExport({ delimiter: ';' })}
-        >
-          Export to CSV
-        </Button>
+        <GridToolbarColumnsButton variant="outlined" />
+        <GridToolbarFilterButton variant="outlined" />
+
         <LoadingButton
           {...buttonBaseProps}
+          variant="outlined"
+          startIcon={<ExportIcon />}
           loading={loadingAll}
           loadingPosition="start"
           onClick={() => fetchAll()}
         >
           {loadingAll ? 'Loading all...' : 'Load all'}
         </LoadingButton>
+        <Button
+          {...buttonBaseProps}
+          variant="outlined"
+          startIcon={<ViewListIcon />}
+          onClick={() => handleExport({ delimiter: ';' })}
+        >
+          Export to CSV
+        </Button>
+        <Button
+          {...buttonBaseProps}
+          variant="outlined"
+          startIcon={<CodeIcon />}
+          onClick={handleOpen}
+        >
+          View GraphQL Query
+        </Button>
         <IconButton
           size="large"
           className="hidden xl:inline-flex ml-auto mr-2"
@@ -348,6 +385,62 @@ function Extractooor() {
 
   return (
     <div className="h-[calc(100vh-64px)] sm:h-[calc(100vh-150px)]">
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute' as 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '80%',
+            height: '80%',
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Subgraph Query
+          </Typography>
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, height: '80%' }}
+          >
+            <div className="flex gap-2 pb-4">
+              {query && (
+                <CopyToClipboardButton
+                  content={print(query.getSubgraphQuery())}
+                />
+              )}
+              <Button
+                variant="outlined"
+                startIcon={
+                  <img
+                    className="h-5 w-5"
+                    src="/assets/images/the-graph-logo.svg"
+                  />
+                }
+                onClick={() =>
+                  window.open(
+                    'https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3'
+                  )
+                }
+              >
+                Open Subgraph explorer
+              </Button>
+            </div>
+            <textarea className="w-full h-full" disabled>
+              {query ? print(query.getSubgraphQuery()) : 'No Query'}
+            </textarea>
+          </Typography>
+        </Box>
+      </Modal>
       <DataGridPro
         rows={rows}
         columns={columns}

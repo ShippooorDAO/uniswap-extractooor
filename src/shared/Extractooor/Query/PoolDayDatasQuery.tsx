@@ -95,7 +95,7 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<
 
   getColumns(): GridColDef[] {
     return [
-      { field: 'id', headerName: 'Pool ID', ...this.baseFields.id },
+      { field: 'id', headerName: 'Pool ID', ...this.baseFields.addressId },
       {
         field: 'token0',
         headerName: 'Token 0',
@@ -218,8 +218,8 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<
       token1Symbol: entry.pool.token1.symbol,
       liquidity: Number(entry.liquidity),
       sqrtPrice: Number(entry.sqrtPrice),
-      token0Price: Number(entry.token0Price),
-      token1Price: Number(entry.token1Price),
+      token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
+      token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
       tick: Number(entry.tick),
       feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
       feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),

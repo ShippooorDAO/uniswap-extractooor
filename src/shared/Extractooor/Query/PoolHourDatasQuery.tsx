@@ -154,12 +154,7 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
         headerName: 'Period Start Timestamp',
         ...this.baseFields.timestamp,
       },
-      { field: 'pool', headerName: 'Pool ID', ...this.baseFields.string },
-      {
-        field: 'token0',
-        headerName: 'Token 0',
-        ...this.baseFields.token,
-      },
+      { field: 'pool', headerName: 'Pool ID', ...this.baseFields.address },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
@@ -168,16 +163,21 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
         sortable: false,
       },
       {
-        field: 'token1',
-        headerName: 'Token 1',
-        ...this.baseFields.token,
-      },
-      {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
         filterable: false,
         sortable: false,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...this.baseFields.token,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1',
+        ...this.baseFields.token,
       },
       {
         field: 'liquidity',

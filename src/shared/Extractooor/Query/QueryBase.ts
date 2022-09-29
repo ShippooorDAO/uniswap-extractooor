@@ -5,6 +5,7 @@ import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOpera
 import { ExtractooorQuery } from "../Extractooor.type";
 import { BaseEntity, BatchQueryResponse } from "@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type";
 import { TokenService } from "@/shared/Currency/TokenService";
+import { Token } from "@/shared/Currency/Token";
 
 type Column = GridColDef & {
   filterParser?: (value: string|string[]) => string | number;
@@ -93,6 +94,7 @@ export abstract class ExtractooorQueryBase<
         ['isAnyOf'].includes(operator.value)
       ),
       renderCell: AddressRenderCell,
+      width: 150,
     },
     amount: {
       type: 'number',
@@ -154,6 +156,7 @@ export abstract class ExtractooorQueryBase<
         )
       ),
       filterParser: parseTimestampFilter,
+      width: 200,
     },
   };
 
@@ -303,7 +306,7 @@ export abstract class ExtractooorQueryBase<
     this.queryBuilder.setOrderDirection(orderDirection);
   }
 
-  getQueryBody() {
+  getSubgraphQuery() {
     return this.queryBuilder.build();
   }
 

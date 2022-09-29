@@ -129,16 +129,16 @@ export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
         sortable: false,
       },
       {
-        field: 'token0',
-        headerName: 'Token 0',
-        ...this.baseFields.token,
-      },
-      {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
         filterable: false,
         sortable: false,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...this.baseFields.token,
       },
       {
         field: 'token1',
@@ -261,58 +261,64 @@ export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
   }
 
   getRows(response: Entity[]): GridRowsProp {
-    return response.map((entry) => ({
-      ...entry,
-      createdAtDate: new Date(Number(entry.createdAtTimestamp) * 1000),
-      token0: entry.token0.symbol,
-      token1: entry.token1.symbol,
-      feeTier: Number(entry.feeTier),
-      liquidity: Number(entry.liquidity),
-      sqrtPrice: Number(entry.sqrtPrice),
-      feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
-      feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
-      token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
-      token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
-      tick: Number(entry.tick),
-      observationIndex: Number(entry.observationIndex),
-      volumeToken0: TokenAmount.fromBigDecimal(
-        entry.volumeToken0,
-        this.tokenService.getById(entry.token0.id)!
-      ),
-      volumeToken1: TokenAmount.fromBigDecimal(
-        entry.volumeToken1,
-        this.tokenService.getById(entry.token1.id)!
-      ),
-      volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
-      untrackedVolumeUSD: UsdAmount.fromBigDecimal(entry.untrackedVolumeUSD),
-      feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
-      txCount: Number(entry.txCount),
-      collectedFeesToken0: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken0,
-        this.tokenService.getById(entry.token0.id)!
-      ),
-      collectedFeesToken1: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken1,
-        this.tokenService.getById(entry.token1.id)!
-      ),
-      collectedFeesUSD: UsdAmount.fromBigDecimal(entry.collectedFeesUSD),
-      totalValueLockedToken0: TokenAmount.fromBigDecimal(
-        entry.totalValueLockedToken0,
-        this.tokenService.getById(entry.token0.id)!
-      ),
-      totalValueLockedToken1: TokenAmount.fromBigDecimal(
-        entry.totalValueLockedToken1,
-        this.tokenService.getById(entry.token1.id)!
-      ),
-      totalValueLockedETH: TokenAmount.fromBigDecimal(
-        entry.totalValueLockedETH,
-        this.tokenService.getBySymbol('ETH')!
-      ),
-      totalValueLockedUSD: UsdAmount.fromBigDecimal(entry.totalValueLockedUSD),
-      totalValueLockedUSDUntracked: UsdAmount.fromBigDecimal(
-        entry.totalValueLockedUSDUntracked
-      ),
-      liquidityProviderCount: Number(entry.liquidityProviderCount),
-    }));
+    return response.map((entry) => {
+      return {
+        ...entry,
+        createdAtTimestamp: new Date(Number(entry.createdAtTimestamp) * 1000),
+        token0: entry.token0.id,
+        token1: entry.token1.id,
+        token0Symbol: entry.token0.symbol,
+        token1Symbol: entry.token1.symbol,
+        feeTier: Number(entry.feeTier),
+        liquidity: Number(entry.liquidity),
+        sqrtPrice: Number(entry.sqrtPrice),
+        feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
+        feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
+        token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
+        token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
+        tick: Number(entry.tick),
+        observationIndex: Number(entry.observationIndex),
+        volumeToken0: TokenAmount.fromBigDecimal(
+          entry.volumeToken0,
+          this.tokenService.getById(entry.token0.id)!
+        ),
+        volumeToken1: TokenAmount.fromBigDecimal(
+          entry.volumeToken1,
+          this.tokenService.getById(entry.token1.id)!
+        ),
+        volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
+        untrackedVolumeUSD: UsdAmount.fromBigDecimal(entry.untrackedVolumeUSD),
+        feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
+        txCount: Number(entry.txCount),
+        collectedFeesToken0: TokenAmount.fromBigDecimal(
+          entry.collectedFeesToken0,
+          this.tokenService.getById(entry.token0.id)!
+        ),
+        collectedFeesToken1: TokenAmount.fromBigDecimal(
+          entry.collectedFeesToken1,
+          this.tokenService.getById(entry.token1.id)!
+        ),
+        collectedFeesUSD: UsdAmount.fromBigDecimal(entry.collectedFeesUSD),
+        totalValueLockedToken0: TokenAmount.fromBigDecimal(
+          entry.totalValueLockedToken0,
+          this.tokenService.getById(entry.token0.id)!
+        ),
+        totalValueLockedToken1: TokenAmount.fromBigDecimal(
+          entry.totalValueLockedToken1,
+          this.tokenService.getById(entry.token1.id)!
+        ),
+        totalValueLockedETH: TokenAmount.fromBigDecimal(
+          entry.totalValueLockedETH,
+          this.tokenService.getBySymbol('ETH')!
+        ),
+        totalValueLockedUSD: UsdAmount.fromBigDecimal(
+          entry.totalValueLockedUSD
+        ),
+        totalValueLockedUSDUntracked: UsdAmount.fromBigDecimal(
+          entry.totalValueLockedUSDUntracked
+        ),
+        liquidityProviderCount: Number(entry.liquidityProviderCount),
+      };
+    });
   }
 }

@@ -51,7 +51,7 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase<
       date
       token {
         id
-        name
+        symbol
       }
       volume
       volumeUSD

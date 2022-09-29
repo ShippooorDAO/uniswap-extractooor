@@ -5,7 +5,7 @@
 
 html,
 body {
-  @apply h-full text-base font-sans antialiased font-normal;
+  @apply h-full text-base font-sans antialiased font-normal bg-base-100;
   font-family: "Relative Pro", sans-serif !important;
 }
 
@@ -27,6 +27,20 @@ a:hover {
 
 .content ul {
   @apply my-6;
+}
+
+/**
+ * Material UI Alert
+ */
+[data-theme="dark"] .MuiAlert-root {
+  @apply bg-base-300 text-neutral-content;
+}
+
+/**
+ * Material UI Modal
+ */
+.MuiModal-root .MuiBox-root {
+  @apply bg-base-100 text-neutral-content;
 }
 
 /**

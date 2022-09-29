@@ -10,7 +10,7 @@ import { TokenResponse } from "./UniswapV3Subgraph.type";
 export function processTokens(responses: TokenResponse[]): Token[] {
     return responses.map((entry) => ({
         ...entry,
-        decimals: Number(entry.decimals),
+        decimals: Number(entry.decimals) || 18,
         precision: BigNumber.from(10).pow(Number(entry.decimals)),
     }));
 }
