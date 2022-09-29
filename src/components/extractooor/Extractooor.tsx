@@ -76,7 +76,7 @@ function Extractooor() {
   const [tablePageNumber, setTablePageNumber] = useState<number>(0);
   const [tablePageSize, setTablePageSize] = useState<number>(25);
   const [loadingAll, setLoadingAll] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [queryIsSlow, setQueryIsSlow] = useState<boolean>(false);
   const [cancelling, setCancelling] = useState<boolean>(false);
   const [queryIsSlowTimeout, setQueryIsSlowTimeout] = useState<
@@ -98,9 +98,9 @@ function Extractooor() {
   };
 
   const fetch = async () => {
+    await cancel();
     setLoadingAll(false);
     setLoading(true);
-    await cancel();
     const results = await query?.fetch();
     if (results) {
       setRows(results.rows);
@@ -111,6 +111,7 @@ function Extractooor() {
 
   const maybeResetDataGrid = (queryIndex: number) => {
     if (queries && queries[queryIndex] !== query) {
+      setLoading(true);
       setColumns([]);
       setRows([]);
       setCurrentQueryIndex(queryIndex);
@@ -141,6 +142,22 @@ function Extractooor() {
     }
     return result;
   };
+
+  useEffect(() => {
+    if (query) {
+      fetch();
+    } else {
+      setLoading(true);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (queries && queries.length > 0) {
+      setQuery(queries[0]);
+    } else {
+      setLoading(true);
+    }
+  }, [queries]);
 
   function ExtractooorToolbar() {
     const apiRef = useGridApiContext();
@@ -289,16 +306,6 @@ function Extractooor() {
       </GridToolbarContainer>
     );
   }
-
-  useEffect(() => {
-    fetch();
-  }, [query]);
-
-  useEffect(() => {
-    if (queries && queries.length > 0) {
-      setQuery(queries[0]);
-    }
-  }, [queries]);
 
   const handleFilterModelChange = async (model: GridFilterModel) => {
     query?.clearFilters();
