@@ -40,17 +40,19 @@ a:hover {
  * Material UI Modal
  */
 .MuiModal-root .MuiBox-root {
-  @apply bg-base-100 text-neutral-content !important;
+  @apply bg-base-100 text-base-content !important;
 }
 
+/**
+ * Material UI Select
+ */
 .MuiInputBase-formControl::before {
   @apply border-base-content !important;
 }
 
-
 /**
-  * Material UI DataGrid
-  */
+ * Material UI DataGrid
+ */
 .MuiDataGrid-root {
   @apply text-base-content border-base-content border-opacity-20 !important;
 

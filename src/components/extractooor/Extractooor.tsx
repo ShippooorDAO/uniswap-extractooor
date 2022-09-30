@@ -28,6 +28,7 @@ import {
   Box,
   Modal,
   Typography,
+  Tooltip,
 } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Alert from '@mui/material/Alert';
@@ -76,15 +77,26 @@ export const ExtractorDecimals = (params: GridValueFormatterParams<number>) =>
   params.value ? Number(params.value) : '';
 
 const CopyToClipboardButton = ({ content }: { content: string }) => {
-  const handleClick = () => navigator.clipboard.writeText(content);
+  const [tooltipText, setTooltipText] = useState<string>('Click to copy');
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(content);
+    setTooltipText('Copied!');
+  };
+
   return (
-    <Button
-      variant="outlined"
-      onClick={handleClick}
-      startIcon={<ContentCopyIcon />}
-    >
-      Copy
-    </Button>
+    <Tooltip title={tooltipText} placement="top">
+      <Button
+        variant="outlined"
+        onClick={handleClick}
+        startIcon={<ContentCopyIcon />}
+        onMouseOut={() =>
+          setTimeout(() => setTooltipText('Click to copy'), 500)
+        }
+      >
+        Copy
+      </Button>
+    </Tooltip>
   );
 };
 
