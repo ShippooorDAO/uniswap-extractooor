@@ -105,6 +105,7 @@ function Extractooor() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [page, setPage] = useState<number>(0);
 
   const cancel = async () => {
     setCancelling(true);
@@ -360,6 +361,8 @@ function Extractooor() {
     });
 
     await fetch();
+
+    setPage(0);
   };
 
   const handleSortModelChange = async (model: GridSortModel) => {
@@ -382,6 +385,8 @@ function Extractooor() {
     }
 
     await fetch();
+
+    setPage(0);
   };
 
   return (
@@ -449,6 +454,8 @@ function Extractooor() {
         rowCount={rows.length}
         getRowClassName={() => 'cursor-pointer'}
         pagination
+        onPageChange={(newPage) => setPage(newPage)}
+        page={page}
         filterMode="server"
         sortingMode="server"
         loading={loading}
