@@ -162,7 +162,7 @@ export default class PositionsQuery extends ExtractooorQueryBase<
         ...this.baseFields.token,
       },
       {
-        field: 'token0Name',
+        field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
         ...this.baseFields.string,
         filterable: false,
@@ -174,7 +174,7 @@ export default class PositionsQuery extends ExtractooorQueryBase<
         ...this.baseFields.token,
       },
       {
-        field: 'token1Name',
+        field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
         filterable: false,
