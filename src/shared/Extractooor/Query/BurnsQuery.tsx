@@ -111,16 +111,16 @@ export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
         sortable: false,
       },
       {
-        field: 'token1',
-        headerName: 'Token 1 ID',
-        ...this.baseFields.token,
-      },
-      {
         field: 'token1Symbol',
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
         filterable: false,
         sortable: false,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1 ID',
+        ...this.baseFields.token,
       },
       {
         field: 'timestamp',
