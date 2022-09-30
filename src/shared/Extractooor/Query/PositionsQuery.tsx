@@ -134,14 +134,8 @@ export default class PositionsQuery extends ExtractooorQueryBase<
         this.tokenService.getById(entry.token1.id)!
       ),
       transaction: entry.transaction.id,
-      feeGrowthInside0LastX128: TokenAmount.fromBigDecimal(
-        entry.feeGrowthInside0LastX128,
-        this.tokenService.getById(entry.token0.id)!
-      ),
-      feeGrowthInside1LastX128: TokenAmount.fromBigDecimal(
-        entry.feeGrowthInside1LastX128,
-        this.tokenService.getById(entry.token1.id)!
-      ),
+      feeGrowthInside0LastX128: Number(entry.feeGrowthInside0LastX128),
+      feeGrowthInside1LastX128: Number(entry.feeGrowthInside1LastX128),
     }));
   }
 
