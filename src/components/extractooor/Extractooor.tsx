@@ -448,7 +448,7 @@ function Extractooor() {
                 Open Subgraph explorer
               </Button>
             </div>
-            <textarea className="w-full h-full" disabled>
+            <textarea className="w-full h-full font-mono py-4 px-4" disabled>
               {query ? print(query.getSubgraphQuery()) : 'No Query'}
             </textarea>
           </Typography>
