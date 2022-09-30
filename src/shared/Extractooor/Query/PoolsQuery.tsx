@@ -104,12 +104,13 @@ export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
       liquidityProviderCount
     }`;
   }
+
   getColumns(): GridColDef[] {
     return [
       {
         field: 'id',
         headerName: 'ID',
-        ...this.baseFields.id,
+        ...this.baseFields.poolId,
       },
       {
         field: 'createdAtTimestamp',

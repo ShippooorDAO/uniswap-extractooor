@@ -103,7 +103,7 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.string,
+        ...this.baseFields.pool,
       },
       {
         field: 'poolName',

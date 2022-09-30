@@ -69,7 +69,7 @@ export default class SwapsQuery extends ExtractooorQueryBase<
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.address,
+        ...this.baseFields.pool,
       },
       {
         field: 'sender',

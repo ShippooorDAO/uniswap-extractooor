@@ -103,7 +103,7 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.address,
+        ...this.baseFields.pool,
       },
       {
         field: 'token0Symbol',

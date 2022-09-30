@@ -51,7 +51,7 @@ export default class TokensQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...this.baseFields.addressId,
+        ...this.baseFields.tokenId,
       },
       {
         field: 'symbol',

@@ -1,4 +1,4 @@
-import { WalletAddressRenderCell, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell } from "@/shared/Utils/DataGrid";
+import { WalletAddressRenderCell, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell, UniswapTokenRenderCell, UniswapPoolRenderCell } from "@/shared/Utils/DataGrid";
 import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
 import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
 import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
@@ -60,27 +60,37 @@ export abstract class ExtractooorQueryBase<
     columns: GridColDef[];
   }>;
 
+  protected readonly idFilterOperators = getGridStringOperators().filter(
+    (operator) => ['equals', 'isAnyOf'].includes(operator.value)
+  );
+
   protected readonly baseFields = {
     id: {
-      filterOperators: getGridStringOperators().filter((operator) =>
-        ['equals'].includes(operator.value)
-      ),
+      filterOperators: this.idFilterOperators,
       filterParser: parseStringFilter,
     },
     addressId: {
-      filterOperators: getGridStringOperators().filter((operator) =>
-        ['equals'].includes(operator.value)
-      ),
+      filterOperators: this.idFilterOperators,
       filterParser: parseStringFilter,
       renderCell: AddressRenderCell,
       width: 150,
     },
     transactionId: {
-      filterOperators: getGridStringOperators().filter((operator) =>
-        ['equals'].includes(operator.value)
-      ),
+      filterOperators: this.idFilterOperators,
       filterParser: parseStringFilter,
       renderCell: TransactionRenderCell,
+      width: 150,
+    },
+    poolId: {
+      filterOperators: this.idFilterOperators,
+      filterParser: parseStringFilter,
+      renderCell: UniswapPoolRenderCell,
+      width: 150,
+    },
+    tokenId: {
+      filterOperators: this.idFilterOperators,
+      filterParser: parseStringFilter,
+      renderCell: UniswapTokenRenderCell,
       width: 150,
     },
     token: {
@@ -92,7 +102,16 @@ export abstract class ExtractooorQueryBase<
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
-      renderCell: AddressRenderCell,
+      renderCell: UniswapTokenRenderCell,
+      width: 150,
+    },
+    pool: {
+      filterOperators: getGridStringOperators().filter((operator) =>
+        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
+          operator.value
+        )
+      ),
+      renderCell: UniswapPoolRenderCell,
       width: 150,
     },
     amount: {

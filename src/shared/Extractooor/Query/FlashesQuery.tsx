@@ -102,7 +102,7 @@ export default class FlashesQuery extends ExtractooorQueryBase<
       {
         field: 'pool',
         headerName: 'Pool ID',
-        ...this.baseFields.address,
+        ...this.baseFields.pool,
       },
       {
         field: 'sender',

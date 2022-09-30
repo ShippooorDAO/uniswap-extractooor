@@ -112,6 +112,34 @@ export function AddressRenderCell(params: GridRenderCellParams<string>) {
   );
 }
 
+export function UniswapTokenRenderCell(params: GridRenderCellParams<string>) {
+  if (!params.value) {
+    return '';
+  }
+  return (
+    <a
+      href={`https://info.uniswap.org/#/tokens/${params.value}`}
+      target="_blank"
+    >
+      {getAccountShorthand(params.value)}
+    </a>
+  );
+}
+
+export function UniswapPoolRenderCell(params: GridRenderCellParams<string>) {
+  if (!params.value) {
+    return '';
+  }
+  return (
+    <a
+      href={`https://info.uniswap.org/#/pools/${params.value}`}
+      target="_blank"
+    >
+      {getAccountShorthand(params.value)}
+    </a>
+  );
+}
+
 export function AccountTagRenderCell(params: GridRenderCellParams<string>) {
   if (!params.value) {
     return '';

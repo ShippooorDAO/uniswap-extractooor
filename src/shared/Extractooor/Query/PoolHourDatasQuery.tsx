@@ -154,7 +154,7 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<
         headerName: 'Period Start Timestamp',
         ...this.baseFields.timestamp,
       },
-      { field: 'pool', headerName: 'Pool ID', ...this.baseFields.address },
+      { field: 'pool', headerName: 'Pool ID', ...this.baseFields.pool },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
