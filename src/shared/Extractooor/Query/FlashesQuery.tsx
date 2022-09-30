@@ -87,7 +87,7 @@ export default class FlashesQuery extends ExtractooorQueryBase<
       {
         field: 'id',
         headerName: 'ID',
-        ...this.baseFields.id,
+        ...this.baseFields.transactionId,
       },
       {
         field: 'transaction',

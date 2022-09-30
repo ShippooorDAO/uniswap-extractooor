@@ -88,7 +88,7 @@ export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
       {
         field: 'id',
         headerName: 'ID',
-        ...this.baseFields.id,
+        ...this.baseFields.transactionId,
       },
       {
         field: 'transaction',
