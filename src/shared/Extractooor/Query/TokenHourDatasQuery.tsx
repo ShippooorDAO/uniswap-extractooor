@@ -103,7 +103,7 @@ export default class TokenHourDatasQuery extends ExtractooorQueryBase<
       },
       {
         field: 'periodStartTimestamp',
-        headerName: 'Period Start Timestamp',
+        headerName: 'Period Start Date',
         ...this.baseFields.timestamp,
       },
       {
