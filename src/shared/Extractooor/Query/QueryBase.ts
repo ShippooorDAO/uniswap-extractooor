@@ -1,27 +1,51 @@
-import { WalletAddressRenderCell, AddressRenderCell, ExportAmountFormatter, AmountRenderCell, TransactionRenderCell, UniswapTokenRenderCell, UniswapPoolRenderCell } from "@/shared/Utils/DataGrid";
-import { Operator, QueryBuilder } from "@/shared/Utils/QueryBuilder";
-import { ApolloClient, DocumentNode, NormalizedCacheObject, OperationVariables, TypedDocumentNode } from "@apollo/client";
-import { getGridDateOperators, getGridNumericOperators, getGridSingleSelectOperators, getGridStringOperators, GridColDef, GridRowsProp } from "@mui/x-data-grid-pro";
-import { ExtractooorQuery } from "../Extractooor.type";
-import { BaseEntity, BatchQueryResponse } from "@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type";
-import { TokenService } from "@/shared/Currency/TokenService";
+import {
+  WalletAddressRenderCell,
+  AddressRenderCell,
+  ExportAmountFormatter,
+  AmountRenderCell,
+  TransactionRenderCell,
+  UniswapTokenRenderCell,
+  UniswapPoolRenderCell,
+} from '@/shared/Utils/DataGrid';
+import { Operator, QueryBuilder } from '@/shared/Utils/QueryBuilder';
+import {
+  ApolloClient,
+  DocumentNode,
+  NormalizedCacheObject,
+  OperationVariables,
+  TypedDocumentNode,
+} from '@apollo/client';
+import {
+  getGridDateOperators,
+  getGridNumericOperators,
+  getGridSingleSelectOperators,
+  getGridStringOperators,
+  GridColDef,
+  GridRowsProp,
+} from '@mui/x-data-grid-pro';
+import { ExtractooorQuery } from '../Extractooor.type';
+import {
+  BaseEntity,
+  BatchQueryResponse,
+} from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
+import { TokenService } from '@/shared/Currency/TokenService';
 
 type Column = GridColDef & {
-  filterParser?: (value: string|string[]) => string | number;
+  filterParser?: (value: string | string[]) => string | number;
 };
 
-function parseStringFilter(value: string|string[]) {
+function parseStringFilter(value: string | string[]) {
   if (typeof value === 'string') {
     return `"${value}"`;
   } else {
-    return `[${value.map((v) => `"${v}"`).join(",")}]`;
+    return `[${value.map((v) => `"${v}"`).join(',')}]`;
   }
 }
 function parseNumberFilter(value: string | string[]) {
   if (typeof value === 'string') {
     return Number(value);
   } else {
-    return `[${value.join(",")}]`;
+    return `[${value.join(',')}]`;
   }
 }
 
@@ -37,7 +61,9 @@ function parseTimestampFilter(value: string | string[]) {
   if (typeof value === 'string') {
     return Math.floor(new Date(value).getTime() / 1000);
   } else {
-    return `[${value.map((v) => Math.floor(new Date(v).getTime() / 1000)).join(',')}]`;
+    return `[${value
+      .map((v) => Math.floor(new Date(v).getTime() / 1000))
+      .join(',')}]`;
   }
 }
 
@@ -59,6 +85,9 @@ export abstract class ExtractooorQueryBase<
     rows: GridRowsProp;
     columns: GridColDef[];
   }>;
+  private batchCursor: string = '';
+  private reachedBatchEnd: boolean = false;
+  private orderBy: string = '';
 
   protected readonly idFilterOperators = getGridStringOperators().filter(
     (operator) => ['equals', 'isAnyOf'].includes(operator.value)
@@ -187,90 +216,98 @@ export abstract class ExtractooorQueryBase<
     this.reset();
   }
 
-  private async fetchInternal(): Promise<{
-    rows: GridRowsProp;
-    columns: GridColDef[];
-  }> {
-    const maxAttempts = 10;
-    const startCancelCount = Number(this.cancelCount);
+  async fetchNext(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
+    if (this.currentFetchPromise) {
+      await this.currentFetchPromise;
+    }
+    const query = this.queryBuilder.buildBatchQuery();
+    const promise = this.continueBatch<TResponseEntity>(
+      query,
+      this.apolloClient
+    ).then((data) => {
+      return { rows: this.getRows(data), columns: this.getColumns() };
+    });
+
+    this.currentFetchPromise = promise;
+    return promise;
+  }
+
+  private async continueBatch<
+    TData extends BaseEntity,
+    TVariables = OperationVariables
+  >(
+    query: DocumentNode | TypedDocumentNode<TData, TVariables>,
+    apolloClient: ApolloClient<NormalizedCacheObject>,
+    variables?: TVariables,
+    pageSize = 1000
+  ): Promise<TData[]> {
+    if (this.reachedBatchEnd) {
+      return [];
+    }
 
     let attempt = 0;
+    const maxAttempts = 10;
+    const startCancelCount = Number(this.cancelCount);
+    let retryDelayMs: number = 1000;
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
     while (attempt < maxAttempts && this.cancelCount === startCancelCount) {
       try {
-        const response = await this.apolloClient.query<TResponse>({
-          query: this.queryBuilder.build(),
+        if (attempt > 0) {
+          await sleep(retryDelayMs);
+        }
+        const results = await apolloClient.query<BatchQueryResponse<TData>>({
+          query,
+          variables: {
+            ...variables,
+            pageSize,
+            batchCursor: this.batchCursor,
+          },
         });
-        const rows = this.getRows(
-          (response.data as unknown as any)[this.getQueryEntityName()]
-        );
-        const columns = this.getColumns();
-        return { rows, columns };
+        this.queryBuilder.setFirstFetchDone(true);
+        const dataList: TData[] = results.data.batch ?? [];
+        if (dataList.length > 0) {
+          this.batchCursor =
+            (dataList as any[]).at(-1)[this.orderBy || 'id'] ?? '';
+        } else {
+          this.reachedBatchEnd = true;
+        }
+        return dataList;
       } catch (e: unknown) {
-        attempt += 1;
+        ++attempt;
         if (attempt === maxAttempts) {
           throw e;
         }
       }
     }
 
-    return { rows: [], columns: [] };
-  }
-
-  async fetch(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
-    if (this.currentFetchPromise) {
-      await this.currentFetchPromise;
-    }
-    const promise = this.fetchInternal();
-    this.currentFetchPromise = promise;
-    return promise;
-  }
-
-  async batchQuery<TData extends BaseEntity, TVariables = OperationVariables>(
-    query: DocumentNode | TypedDocumentNode<TData, TVariables>,
-    apolloClient: ApolloClient<NormalizedCacheObject>,
-    variables?: TVariables,
-    pageSize = 1000
-  ): Promise<TData[]> {
-    let hasMoreResults = false;
-    let lastID = '0';
-    const startCancelCount = Number(this.cancelCount);
-    const batchResult: TData[] = [];
-
-    do {
-      try {
-        const results = await apolloClient.query<BatchQueryResponse<TData>>({
-          query,
-          variables: {
-            ...variables,
-            pageSize,
-            lastID,
-          },
-        });
-        const dataList: TData[] = results.data.batch ?? [];
-        batchResult.push(...dataList);
-
-        hasMoreResults = dataList.length > 0;
-        if (hasMoreResults) {
-          lastID = dataList.at(-1)!.id;
-        }
-      } catch (e: unknown) {
-        continue;
-      }
-    } while (hasMoreResults && this.cancelCount === startCancelCount);
-
-    return batchResult;
+    return [];
   }
 
   private async fetchAllInternal(): Promise<{
     rows: GridRowsProp;
     columns: GridColDef[];
   }> {
+    this.resetBatch();
+
     const query = this.queryBuilder.buildBatchQuery();
-    const data = await this.batchQuery<TResponseEntity>(
-      query,
-      this.apolloClient
-    );
-    const rows = this.getRows(data);
+    const startCancelCount = Number(this.cancelCount);
+    const batchData: TResponseEntity[] = [];
+
+    do {
+      try {
+        const dataList: TResponseEntity[] = await this.continueBatch(
+          query,
+          this.apolloClient
+        );
+        batchData.push(...dataList);
+      } catch (e: unknown) {
+        continue;
+      }
+    } while (!this.reachedBatchEnd && this.cancelCount === startCancelCount);
+
+    const rows = this.getRows(batchData);
     const columns = this.getColumns();
     return { rows, columns };
   }
@@ -314,6 +351,7 @@ export abstract class ExtractooorQueryBase<
 
   setOrderBy(field: string) {
     this.queryBuilder.setOrderBy(field);
+    this.orderBy = field;
   }
 
   setOrderDirection(orderDirection: 'asc' | 'desc') {
@@ -324,12 +362,24 @@ export abstract class ExtractooorQueryBase<
     return this.queryBuilder.build();
   }
 
+  isAtBatchEnd() {
+    return this.reachedBatchEnd;
+  }
+
   reset() {
+    this.resetBatch();
+    this.orderBy = '';
     this.pageSize = MAX_QUERY_PAGE_SIZE;
     this.queryBuilder = new QueryBuilder()
       .setBody(this.getQueryBody())
       .setEntityName(this.getQueryEntityName())
       .setPageSize(this.pageSize);
+  }
+
+  resetBatch() {
+    this.batchCursor = '';
+    this.reachedBatchEnd = false;
+    this.queryBuilder.setFirstFetchDone(false);
   }
 
   async cancel() {
