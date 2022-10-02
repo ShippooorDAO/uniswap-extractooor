@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+import { DocumentNode } from 'graphql';
 import { gql } from '@apollo/client';
 
 export interface Filter {
@@ -29,6 +29,8 @@ export class QueryBuilder {
   private orderDirection?: string;
   private page: number = 0;
   private pageSize: number = 1000;
+  private batchCursorField: string = 'id';
+  private firstFetchDone: boolean = false;
 
   constructor() {}
 
@@ -42,11 +44,7 @@ export class QueryBuilder {
     return this;
   }
 
-  addFilter(
-    field: string,
-    operator: Operator,
-    value: string | number
-  ) {
+  addFilter(field: string, operator: Operator, value: string | number) {
     this.filters.set(field, { field, operator, value });
     return this;
   }
@@ -62,6 +60,7 @@ export class QueryBuilder {
 
   setOrderBy(orderBy: string) {
     this.orderBy = orderBy;
+    this.batchCursorField = orderBy;
     return this;
   }
 
@@ -107,6 +106,10 @@ export class QueryBuilder {
     `;
   }
 
+  setFirstFetchDone(done: boolean) {
+    this.firstFetchDone = done;
+  }
+
   buildBatchQuery(): DocumentNode {
     if (!this.body) {
       throw 'Query cannot be built. Body must be set using `setBody` method.';
@@ -116,19 +119,48 @@ export class QueryBuilder {
       throw 'Query cannot be built. Entity name must be set using `setEntityName` method.';
     }
 
+    const orderDirectionToCursorOperator: any = {
+      asc: Operator.GT,
+      desc: Operator.LT,
+    };
+
     const forcedFilters = new Map([
-      ['id', { field: 'id', operator: Operator.GT, value: '$lastID' }],
+      [
+        this.batchCursorField,
+        {
+          field: this.batchCursorField,
+          operator:
+            this.orderBy && this.orderDirection
+              ? orderDirectionToCursorOperator[this.orderDirection]
+              : Operator.GT,
+          value: '$batchCursor',
+        },
+      ],
     ]);
 
-    const where = this.buildWhereStatement(forcedFilters);
+    const where = this.firstFetchDone
+      ? this.buildWhereStatement(forcedFilters)
+      : this.buildWhereStatement();
+
+    const orderByStatement = this.orderBy
+      ? `orderBy: ${this.orderBy}`
+      : 'orderBy: id';
+
+    const orderDirection = this.orderDirection ?? 'asc';
+
+    const statements: string = [
+      'first: $pageSize',
+      `${orderByStatement}`,
+      `orderDirection: ${orderDirection}`,
+      where,
+    ]
+      .filter((value) => !!value)
+      .join(', ');
 
     return gql`
-      query batchQuery($pageSize: Int!, $lastID: String) {
+      query batchQuery($pageSize: Int!, $batchCursor: String) {
         batch: ${this.entityName}(
-          first: $pageSize,
-          orderBy: id,
-          orderDirection: asc,
-          ${where} 
+          ${statements}
         ) ${this.body}
       }
     `;

@@ -85,8 +85,9 @@ export abstract class ExtractooorQueryBase<
     rows: GridRowsProp;
     columns: GridColDef[];
   }>;
-  private lastID: string = '';
+  private batchCursor: string = '';
   private reachedBatchEnd: boolean = false;
+  private orderBy: string = '';
 
   protected readonly idFilterOperators = getGridStringOperators().filter(
     (operator) => ['equals', 'isAnyOf'].includes(operator.value)
@@ -261,12 +262,14 @@ export abstract class ExtractooorQueryBase<
           variables: {
             ...variables,
             pageSize,
-            lastID: this.lastID,
+            batchCursor: this.batchCursor,
           },
         });
+        this.queryBuilder.setFirstFetchDone(true);
         const dataList: TData[] = results.data.batch ?? [];
         if (dataList.length > 0) {
-          this.lastID = dataList.at(-1)!.id;
+          this.batchCursor =
+            (dataList as any[]).at(-1)[this.orderBy || 'id'] ?? '';
         } else {
           this.reachedBatchEnd = true;
         }
@@ -348,6 +351,7 @@ export abstract class ExtractooorQueryBase<
 
   setOrderBy(field: string) {
     this.queryBuilder.setOrderBy(field);
+    this.orderBy = field;
   }
 
   setOrderDirection(orderDirection: 'asc' | 'desc') {
@@ -364,6 +368,7 @@ export abstract class ExtractooorQueryBase<
 
   reset() {
     this.resetBatch();
+    this.orderBy = '';
     this.pageSize = MAX_QUERY_PAGE_SIZE;
     this.queryBuilder = new QueryBuilder()
       .setBody(this.getQueryBody())
@@ -372,8 +377,9 @@ export abstract class ExtractooorQueryBase<
   }
 
   resetBatch() {
-    this.lastID = '';
+    this.batchCursor = '';
     this.reachedBatchEnd = false;
+    this.queryBuilder.setFirstFetchDone(false);
   }
 
   async cancel() {

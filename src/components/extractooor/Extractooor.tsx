@@ -140,6 +140,7 @@ function Extractooor() {
     setLoading(true);
 
     query?.resetBatch();
+    setPage(0);
     const results = await query?.fetchNext();
     if (results) {
       setRows(results.rows);
