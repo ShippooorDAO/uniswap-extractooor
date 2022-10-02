@@ -4,6 +4,7 @@ import {
   GridColDef,
   GridValueFormatterParams,
   GridSortModel,
+  GridFeatureMode,
   GridFilterModel,
   GridLinkOperator,
   useGridApiContext,
@@ -117,6 +118,7 @@ function Extractooor() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [page, setPage] = useState<number>(0);
 
   const cancel = async () => {
     setCancelling(true);
@@ -132,15 +134,38 @@ function Extractooor() {
     setCancelling(false);
   };
 
-  const fetch = async () => {
+  const startNewBatch = async () => {
     await cancel();
     setLoadingAll(false);
     setLoading(true);
-    const results = await query?.fetch();
+
+    query?.resetBatch();
+    const results = await query?.fetchNext();
     if (results) {
       setRows(results.rows);
       setColumns(results.columns);
     }
+
+    setLoading(false);
+  };
+
+  const continueBatch = async () => {
+    if (query?.isAtBatchEnd()) {
+      // Don't continue the batch when the end is reached because the is no more
+      // data that can be fetched. We want to save network calls.
+      return;
+    }
+
+    await cancel();
+    setLoadingAll(false);
+    setLoading(true);
+
+    const results = await query?.fetchNext();
+    if (results) {
+      setRows(rows.concat(results.rows));
+      setColumns(results.columns);
+    }
+
     setLoading(false);
   };
 
@@ -180,7 +205,7 @@ function Extractooor() {
 
   useEffect(() => {
     if (query) {
-      fetch();
+      startNewBatch();
     } else {
       setLoading(true);
     }
@@ -356,6 +381,14 @@ function Extractooor() {
     );
   }
 
+  const handlePageChange = async (newPage: number) => {
+    setPage(newPage);
+    const endPage = Math.ceil(rows.length / tablePageSize - 1);
+    if (newPage === endPage && !query?.isAtBatchEnd()) {
+      await continueBatch();
+    }
+  };
+
   const handleFilterModelChange = async (model: GridFilterModel) => {
     query?.clearFilters();
     model.items.forEach((item) => {
@@ -371,7 +404,7 @@ function Extractooor() {
       query?.addFilter(field, operator, value);
     });
 
-    await fetch();
+    await startNewBatch();
   };
 
   const handleSortModelChange = async (model: GridSortModel) => {
@@ -393,7 +426,7 @@ function Extractooor() {
       query?.setOrderDirection(sort);
     }
 
-    await fetch();
+    await startNewBatch();
   };
 
   return (
@@ -461,6 +494,8 @@ function Extractooor() {
         rowCount={rows.length}
         getRowClassName={() => 'cursor-pointer'}
         pagination
+        onPageChange={handlePageChange}
+        page={page}
         filterMode="server"
         sortingMode="server"
         loading={loading}
