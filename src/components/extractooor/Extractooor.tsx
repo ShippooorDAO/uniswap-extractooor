@@ -6,10 +6,12 @@ import {
   GridSortModel,
   GridFeatureMode,
   GridFilterModel,
+  GridRowId,
   GridLinkOperator,
   useGridApiContext,
   GridCsvExportOptions,
   GridFilterPanel,
+  useGridApiRef,
 } from '@mui/x-data-grid-pro';
 import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -30,6 +32,7 @@ import {
   Modal,
   Typography,
   Tooltip,
+  ClickAwayListener,
 } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Alert from '@mui/material/Alert';
@@ -44,6 +47,7 @@ import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider'
 import { ExtractooorQuery } from '@/shared/Extractooor/Extractooor.type';
 import { Operator } from '@/shared/Utils/QueryBuilder';
 import { print } from 'graphql/language/printer';
+import { ApiTwoTone } from '@mui/icons-material';
 
 const ExportIcon = createSvgIcon(
   <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
@@ -107,6 +111,7 @@ function Extractooor() {
   const [currentQueryIndex, setCurrentQueryIndex] = useState<number>(0);
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const [rows, setRows] = useState<GridRowsProp>([]);
+  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
   const [tablePageSize, setTablePageSize] = useState<number>(25);
   const [loadingAll, setLoadingAll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -488,36 +493,42 @@ function Extractooor() {
           </Typography>
         </Box>
       </Modal>
-      <DataGridPro
-        rows={rows}
-        columns={columns}
-        rowsPerPageOptions={[tablePageSize]}
-        rowCount={rows.length}
-        getRowClassName={() => 'cursor-pointer'}
-        pagination
-        onPageChange={handlePageChange}
-        page={page}
-        filterMode="server"
-        sortingMode="server"
-        loading={loading}
-        pageSize={tablePageSize}
-        onPageSizeChange={setTablePageSize}
-        onFilterModelChange={handleFilterModelChange}
-        onSortModelChange={handleSortModelChange}
-        initialState={{
-          filter: {
-            filterModel: {
-              items: [],
-              quickFilterLogicOperator: GridLinkOperator.And,
+      <ClickAwayListener onClickAway={() => setSelectionModel([])}>
+        <DataGridPro
+          rows={rows}
+          columns={columns}
+          rowsPerPageOptions={[tablePageSize]}
+          rowCount={rows.length}
+          getRowClassName={() => 'cursor-pointer'}
+          pagination
+          onPageChange={handlePageChange}
+          page={page}
+          filterMode="server"
+          sortingMode="server"
+          loading={loading}
+          pageSize={tablePageSize}
+          onPageSizeChange={setTablePageSize}
+          onFilterModelChange={handleFilterModelChange}
+          onSortModelChange={handleSortModelChange}
+          onSelectionModelChange={(selectionModel) =>
+            setSelectionModel(selectionModel)
+          }
+          selectionModel={selectionModel}
+          initialState={{
+            filter: {
+              filterModel: {
+                items: [],
+                quickFilterLogicOperator: GridLinkOperator.And,
+              },
             },
-          },
-        }}
-        components={{
-          Toolbar: ExtractooorToolbar,
-          LoadingOverlay: LinearProgress,
-          FilterPanel: GridFilterPanel,
-        }}
-      />
+          }}
+          components={{
+            Toolbar: ExtractooorToolbar,
+            LoadingOverlay: LinearProgress,
+            FilterPanel: GridFilterPanel,
+          }}
+        />
+      </ClickAwayListener>
     </div>
   );
 }
