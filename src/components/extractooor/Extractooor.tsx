@@ -490,7 +490,15 @@ function Extractooor() {
           </Typography>
         </Box>
       </Modal>
-      <ClickAwayListener onClickAway={() => setSelectionModel([])}>
+      <ClickAwayListener
+        onClickAway={(event) => {
+          const target = event.target as unknown as any;
+          if (target && target.localName === 'body') {
+            return;
+          }
+          setSelectionModel([]);
+        }}
+      >
         <DataGridPro
           rows={rows}
           columns={columns}
@@ -511,10 +519,16 @@ function Extractooor() {
             setSelectionModel(selectionModel)
           }
           selectionModel={selectionModel}
+          componentsProps={{
+            filterPanel: {
+              linkOperators: [GridLinkOperator.And],
+            },
+          }}
           initialState={{
             filter: {
               filterModel: {
                 items: [],
+                linkOperator: GridLinkOperator.And,
                 quickFilterLogicOperator: GridLinkOperator.And,
               },
             },
