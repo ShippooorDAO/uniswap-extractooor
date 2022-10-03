@@ -74,7 +74,6 @@ const MAX_QUERY_PAGE_SIZE = 1000;
 const DEFAULT_FILTER_PARSER = parseStringFilter;
 
 export abstract class ExtractooorQueryBase<
-  TResponse,
   TResponseEntity extends { id: string }
 > implements ExtractooorQuery
 {

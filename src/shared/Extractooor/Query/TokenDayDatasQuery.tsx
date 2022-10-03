@@ -26,14 +26,8 @@ interface Entity {
   low: string; // BigDecimal!
   close: string; // BigDecimal!
 }
-interface Response {
-  tokenDayDatas: Entity[];
-}
 
-export default class TokenDayDatasQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class TokenDayDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

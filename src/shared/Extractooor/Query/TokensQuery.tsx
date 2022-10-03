@@ -31,14 +31,7 @@ interface Entity {
    */
 }
 
-interface Response {
-  tokens: Entity[];
-}
-
-export default class TokensQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class TokensQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

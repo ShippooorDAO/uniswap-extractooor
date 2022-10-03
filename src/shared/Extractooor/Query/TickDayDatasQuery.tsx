@@ -34,14 +34,7 @@ interface TickDayDataEntity {
   feeGrowthOutside1X128: string; // !BigInt;
 }
 
-interface Response {
-  tickDayDatas: TickDayDataEntity[];
-}
-
-export default class TickDayDatasQuery extends ExtractooorQueryBase<
-  Response,
-  TickDayDataEntity
-> {
+export default class TickDayDatasQuery extends ExtractooorQueryBase<TickDayDataEntity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

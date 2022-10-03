@@ -41,11 +41,7 @@ interface Entity {
   feeGrowthOutside1X128: string; // BigInt!
 }
 
-interface Response {
-  ticks: Entity[];
-}
-
-export default class TicksQuery extends ExtractooorQueryBase<Response, Entity> {
+export default class TicksQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

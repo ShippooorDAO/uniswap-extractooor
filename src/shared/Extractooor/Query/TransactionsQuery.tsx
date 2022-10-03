@@ -30,14 +30,7 @@ interface Entity {
   // }[];
 }
 
-interface Response {
-  transactions: Entity[];
-}
-
-export default class TransactionsQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class TransactionsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

@@ -35,11 +35,7 @@ interface Entity {
   logIndex: string; // BigInt
 }
 
-interface Response {
-  burns: Entity[];
-}
-
-export default class BurnsQuery extends ExtractooorQueryBase<Response, Entity> {
+export default class BurnsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

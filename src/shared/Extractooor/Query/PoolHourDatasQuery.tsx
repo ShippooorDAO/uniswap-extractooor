@@ -40,14 +40,7 @@ interface Entity {
   close: string; //  BigDecimal
 }
 
-interface Response {
-  poolHourDatas: Entity[];
-}
-
-export default class PoolHourDatasQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

@@ -18,14 +18,7 @@ interface Entity {
   tvlUSD: string; // BigDecimal!
 }
 
-interface Response {
-  uniswapDayDatas: Entity[];
-}
-
-export default class UniswapDayDatasQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class UniswapDayDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

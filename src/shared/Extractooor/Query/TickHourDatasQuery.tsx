@@ -32,14 +32,7 @@ interface Entity {
   feesUSD: string; // BigDecimal!
 }
 
-interface Response {
-  tickHourDatas: Entity[];
-}
-
-export default class TickHourDatasQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class TickHourDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

@@ -48,11 +48,7 @@ interface Entity {
   // ticks: string; //  [Tick!]!
 }
 
-interface Response {
-  pools: Entity[];
-}
-
-export default class PoolsQuery extends ExtractooorQueryBase<Response, Entity> {
+export default class PoolsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

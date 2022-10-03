@@ -36,11 +36,7 @@ interface Entity {
   logIndex: string; // BigInt
 }
 
-interface Response {
-  mints: Entity[];
-}
-
-export default class MintsQuery extends ExtractooorQueryBase<Response, Entity> {
+export default class MintsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

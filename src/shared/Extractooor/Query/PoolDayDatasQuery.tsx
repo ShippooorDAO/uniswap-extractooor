@@ -39,14 +39,7 @@ interface Entity {
   close: string; //  BigDecimal
 }
 
-interface Response {
-  poolDayDatas: Entity[];
-}
-
-export default class PoolDayDatasQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

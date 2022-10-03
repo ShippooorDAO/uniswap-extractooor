@@ -34,14 +34,7 @@ interface Entity {
   logIndex: string; // BigInt
 }
 
-interface Response {
-  flashes: Entity[];
-}
-
-export default class FlashesQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class FlashesQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

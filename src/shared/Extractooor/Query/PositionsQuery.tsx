@@ -40,14 +40,7 @@ interface Entity {
   feeGrowthInside1LastX128: string; // BigInt!
 }
 
-interface Response {
-  positions: Entity[];
-}
-
-export default class PositionsQuery extends ExtractooorQueryBase<
-  Response,
-  Entity
-> {
+export default class PositionsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService

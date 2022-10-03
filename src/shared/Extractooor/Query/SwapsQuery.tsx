@@ -34,14 +34,8 @@ interface SwapEntity {
   tick: string; // BigInt!
   logIndex: string; // BigInt!
 }
-interface Response {
-  swaps: SwapEntity[];
-}
 
-export default class SwapsQuery extends ExtractooorQueryBase<
-  Response,
-  SwapEntity
-> {
+export default class SwapsQuery extends ExtractooorQueryBase<SwapEntity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
     tokenService: TokenService
