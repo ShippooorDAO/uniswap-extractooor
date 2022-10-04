@@ -200,7 +200,7 @@ function Extractooor() {
     setQueryIsSlowTimeout(undefined);
 
     if (result) {
-      setRows(result.rows);
+      setRows(rows.concat(result.rows));
       setColumns(result.columns);
     }
     return result;
@@ -313,7 +313,7 @@ function Extractooor() {
               Displaying all results ({rows.length} rows).
             </Alert>
           )}
-          {rows.length > 1000 && !loadingAll && (
+          {query?.isAtBatchEnd() && !loadingAll && (
             <Alert
               severity="success"
               action={
@@ -325,10 +325,10 @@ function Extractooor() {
                 </Button>
               }
             >
-              Successfully loaded {rows.length} results.
+              Successfully loaded all {rows.length} results.
             </Alert>
           )}
-          {rows.length === 1000 && !loadingAll && (
+          {!query?.isAtBatchEnd() && !loadingAll && (
             <Alert
               severity="info"
               action={
@@ -343,8 +343,8 @@ function Extractooor() {
                 </LoadingButton>
               }
             >
-              Displaying first 1000 results. You can load all data. It may take
-              a few minutes to load over 100'000 rows.
+              Loaded {rows.length} results. You can load all data. It may take a
+              few minutes to load over 100'000 rows.
             </Alert>
           )}
           {queryIsSlow && (
