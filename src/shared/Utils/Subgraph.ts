@@ -104,7 +104,7 @@ export async function batchQuery<
     } else if (!intPart || intPart.length === 0 || intPart === '0') {
       str = `${decimalPart.slice(0, decimals).padEnd(decimals, '0')}`;
     } else {
-      str = `${intPart}${decimalPart}`.slice(0, 18);
+      str = `${intPart}${decimalPart.slice(0, decimals).padEnd(decimals, '0')}`;
     }
     if (str === "") {
       `wrong input: ${console.log(value)}`;

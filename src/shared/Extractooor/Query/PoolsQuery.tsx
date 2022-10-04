@@ -266,7 +266,7 @@ export default class PoolsQuery extends ExtractooorQueryBase<Entity> {
         token1: entry.token1.id,
         token0Symbol: entry.token0.symbol,
         token1Symbol: entry.token1.symbol,
-        feeTier: Number(entry.feeTier),
+        feeTier: Number(entry.feeTier) / 1000000,
         liquidity: Number(entry.liquidity),
         sqrtPrice: Number(entry.sqrtPrice),
         feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
