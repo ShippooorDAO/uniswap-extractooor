@@ -270,7 +270,9 @@ export abstract class ExtractooorQueryBase<
         if (dataList.length > 0) {
           this.batchCursor =
             (dataList as any[]).at(-1)[this.orderBy || 'id'] ?? '';
-        } else {
+        }
+
+        if (dataList.length < pageSize) {
           this.reachedBatchEnd = true;
         }
         return dataList;
@@ -289,8 +291,6 @@ export abstract class ExtractooorQueryBase<
     rows: GridRowsProp;
     columns: GridColDef[];
   }> {
-    this.resetBatch();
-
     const query = this.queryBuilder.buildBatchQuery();
     const startCancelCount = Number(this.cancelCount);
     const batchData: TResponseEntity[] = [];
