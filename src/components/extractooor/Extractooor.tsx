@@ -298,22 +298,12 @@ function Extractooor() {
           )}
         </IconButton>
         <Stack sx={{ width: '100%' }} spacing={2}>
-          {rows.length < 1000 && rows.length > 0 && (
-            <Alert
-              severity="success"
-              action={
-                <Button
-                  {...buttonBaseProps}
-                  onClick={() => handleExport({ delimiter: ';' })}
-                >
-                  Export to CSV
-                </Button>
-              }
-            >
-              Displaying all results ({rows.length} rows).
+          {query?.isAtBatchEnd() && rows.length === 0 && !loadingAll && (
+            <Alert severity="info">
+              Query done, but no results matching the query
             </Alert>
           )}
-          {query?.isAtBatchEnd() && !loadingAll && (
+          {query?.isAtBatchEnd() && rows.length > 0 && !loadingAll && (
             <Alert
               severity="success"
               action={
@@ -325,7 +315,7 @@ function Extractooor() {
                 </Button>
               }
             >
-              Successfully loaded all {rows.length} results.
+              Loaded all results ({rows.length} rows).
             </Alert>
           )}
           {!query?.isAtBatchEnd() && !loadingAll && (
