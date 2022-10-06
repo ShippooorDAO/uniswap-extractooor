@@ -261,6 +261,8 @@ export default class PoolsQuery extends ExtractooorQueryBase<Entity> {
 
   getRows(response: Entity[]): GridRowsProp {
     return response.map((entry) => {
+      const token0 = this.tokenService.getById(entry.token0.id)!;
+      const token1 = this.tokenService.getById(entry.token1.id)!;
       return {
         ...entry,
         createdAtTimestamp: new Date(Number(entry.createdAtTimestamp) * 1000),
@@ -273,38 +275,32 @@ export default class PoolsQuery extends ExtractooorQueryBase<Entity> {
         sqrtPrice: Number(entry.sqrtPrice),
         feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
         feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
-        token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
-        token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
+        token0Price: TokenAmount.fromBigDecimal(entry.token0Price, token0),
+        token1Price: TokenAmount.fromBigDecimal(entry.token1Price, token1),
         tick: Number(entry.tick),
         observationIndex: Number(entry.observationIndex),
-        volumeToken0: TokenAmount.fromBigDecimal(
-          entry.volumeToken0,
-          this.tokenService.getById(entry.token0.id)!
-        ),
-        volumeToken1: TokenAmount.fromBigDecimal(
-          entry.volumeToken1,
-          this.tokenService.getById(entry.token1.id)!
-        ),
+        volumeToken0: TokenAmount.fromBigDecimal(entry.volumeToken0, token0),
+        volumeToken1: TokenAmount.fromBigDecimal(entry.volumeToken1, token1),
         volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
         untrackedVolumeUSD: UsdAmount.fromBigDecimal(entry.untrackedVolumeUSD),
         feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
         txCount: Number(entry.txCount),
         collectedFeesToken0: TokenAmount.fromBigDecimal(
           entry.collectedFeesToken0,
-          this.tokenService.getById(entry.token0.id)!
+          token0
         ),
         collectedFeesToken1: TokenAmount.fromBigDecimal(
           entry.collectedFeesToken1,
-          this.tokenService.getById(entry.token1.id)!
+          token1
         ),
         collectedFeesUSD: UsdAmount.fromBigDecimal(entry.collectedFeesUSD),
         totalValueLockedToken0: TokenAmount.fromBigDecimal(
           entry.totalValueLockedToken0,
-          this.tokenService.getById(entry.token0.id)!
+          token0
         ),
         totalValueLockedToken1: TokenAmount.fromBigDecimal(
           entry.totalValueLockedToken1,
-          this.tokenService.getById(entry.token1.id)!
+          token1
         ),
         totalValueLockedETH: TokenAmount.fromBigDecimal(
           entry.totalValueLockedETH,

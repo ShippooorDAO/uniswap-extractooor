@@ -64,6 +64,7 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
     {
       id
       owner
+      timestamp
       pool {
         id
         token0 {
@@ -79,7 +80,6 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
         id
       }
       blockNumber
-      timestamp
       liquidity
       depositedToken0
       depositedToken1
@@ -106,6 +106,11 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
         field: 'owner',
         headerName: 'Owner',
         ...this.baseFields.walletAddress,
+      },
+      {
+        field: 'timestamp',
+        headerName: 'Timestamp',
+        ...this.baseFields.timestamp,
       },
       {
         field: 'pool',
@@ -147,11 +152,6 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
         field: 'blockNumber',
         headerName: 'Block Number',
         ...this.baseFields.integer,
-      },
-      {
-        field: 'timestamp',
-        headerName: 'Timestamp',
-        ...this.baseFields.timestamp,
       },
       {
         field: 'liquidity',
@@ -207,43 +207,47 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
   }
 
   getRows(response: Entity[]): GridRowsProp {
-    return response.map((entry) => ({
-      ...entry,
-      date: new Date(Number(entry.timestamp) * 1000),
-      pool: entry.pool.id,
-      token0: entry.pool.token0.id,
-      token0Symbol: entry.pool.token0.symbol,
-      token1: entry.pool.token1.id,
-      token1Symbol: entry.pool.token1.symbol,
-      position: entry.position.id,
-      liquidity: Number(entry.liquidity),
-      depositedToken0: TokenAmount.fromBigDecimal(
-        entry.depositedToken0,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
-      depositedToken1: TokenAmount.fromBigDecimal(
-        entry.depositedToken1,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      withdrawnToken0: TokenAmount.fromBigDecimal(
-        entry.withdrawnToken0,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
-      withdrawnToken1: TokenAmount.fromBigDecimal(
-        entry.withdrawnToken1,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      collectedFeesToken0: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken0,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
-      collectedFeesToken1: TokenAmount.fromBigDecimal(
-        entry.collectedFeesToken1,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      transaction: entry.transaction.id,
-      feeGrowthInside0LastX128: Number(entry.feeGrowthInside0LastX128),
-      feeGrowthInside1LastX128: Number(entry.feeGrowthInside1LastX128),
-    }));
+    return response.map((entry) => {
+      const token0 = this.tokenService.getById(entry.pool.token0.id)!;
+      const token1 = this.tokenService.getById(entry.pool.token1.id)!;
+      return {
+        ...entry,
+        timestamp: new Date(Number(entry.timestamp) * 1000),
+        pool: entry.pool.id,
+        token0: entry.pool.token0.id,
+        token0Symbol: entry.pool.token0.symbol,
+        token1: entry.pool.token1.id,
+        token1Symbol: entry.pool.token1.symbol,
+        position: entry.position.id,
+        liquidity: Number(entry.liquidity),
+        depositedToken0: TokenAmount.fromBigDecimal(
+          entry.depositedToken0,
+          token0
+        ),
+        depositedToken1: TokenAmount.fromBigDecimal(
+          entry.depositedToken1,
+          token1
+        ),
+        withdrawnToken0: TokenAmount.fromBigDecimal(
+          entry.withdrawnToken0,
+          token0
+        ),
+        withdrawnToken1: TokenAmount.fromBigDecimal(
+          entry.withdrawnToken1,
+          token1
+        ),
+        collectedFeesToken0: TokenAmount.fromBigDecimal(
+          entry.collectedFeesToken0,
+          token0
+        ),
+        collectedFeesToken1: TokenAmount.fromBigDecimal(
+          entry.collectedFeesToken1,
+          token1
+        ),
+        transaction: entry.transaction.id,
+        feeGrowthInside0LastX128: Number(entry.feeGrowthInside0LastX128),
+        feeGrowthInside1LastX128: Number(entry.feeGrowthInside1LastX128),
+      };
+    });
   }
 }

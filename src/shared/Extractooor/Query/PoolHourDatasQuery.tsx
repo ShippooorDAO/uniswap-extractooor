@@ -97,50 +97,36 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
   }
 
   getRows(response: Entity[]): GridRowsProp {
-    return response.map((entry) => ({
-      ...entry,
-      periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
-      token0: entry.pool.token0.id,
-      token0Symbol: entry.pool.token0.symbol,
-      token1: entry.pool.token1.id,
-      token1Symbol: entry.pool.token1.symbol,
-      pool: entry.pool.id,
-      liquidity: Number(entry.liquidity),
-      sqrtPrice: Number(entry.sqrtPrice),
-      token0Price: UsdAmount.fromBigDecimal(entry.token0Price),
-      token1Price: UsdAmount.fromBigDecimal(entry.token1Price),
-      tick: Number(entry.tick),
-      feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
-      feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
-      tvlUSD: UsdAmount.fromBigDecimal(entry.tvlUSD),
-      volumeToken0: TokenAmount.fromBigDecimal(
-        entry.volumeToken0,
-        this.tokenService.getById(entry.pool.token0.id)!
-      ),
-      volumeToken1: TokenAmount.fromBigDecimal(
-        entry.volumeToken1,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
-      feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
-      txCount: Number(entry.txCount),
-      open: TokenAmount.fromBigDecimal(
-        entry.open,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      high: TokenAmount.fromBigDecimal(
-        entry.high,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      low: TokenAmount.fromBigDecimal(
-        entry.low,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-      close: TokenAmount.fromBigDecimal(
-        entry.close,
-        this.tokenService.getById(entry.pool.token1.id)!
-      ),
-    }));
+    return response.map((entry) => {
+      const token0 = this.tokenService.getById(entry.pool.token0.id)!;
+      const token1 = this.tokenService.getById(entry.pool.token1.id)!;
+      return {
+        ...entry,
+        periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
+        token0: entry.pool.token0.id,
+        token0Symbol: entry.pool.token0.symbol,
+        token1: entry.pool.token1.id,
+        token1Symbol: entry.pool.token1.symbol,
+        pool: entry.pool.id,
+        liquidity: Number(entry.liquidity),
+        sqrtPrice: Number(entry.sqrtPrice),
+        token0Price: TokenAmount.fromBigDecimal(entry.token0Price, token0),
+        token1Price: TokenAmount.fromBigDecimal(entry.token1Price, token1),
+        tick: Number(entry.tick),
+        feeGrowthGlobal0X128: Number(entry.feeGrowthGlobal0X128),
+        feeGrowthGlobal1X128: Number(entry.feeGrowthGlobal1X128),
+        tvlUSD: UsdAmount.fromBigDecimal(entry.tvlUSD),
+        volumeToken0: TokenAmount.fromBigDecimal(entry.volumeToken0, token0),
+        volumeToken1: TokenAmount.fromBigDecimal(entry.volumeToken1, token1),
+        volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
+        feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),
+        txCount: Number(entry.txCount),
+        open: TokenAmount.fromBigDecimal(entry.open, token0),
+        high: TokenAmount.fromBigDecimal(entry.high, token0),
+        low: TokenAmount.fromBigDecimal(entry.low, token0),
+        close: TokenAmount.fromBigDecimal(entry.close, token0),
+      };
+    });
   }
 
   getColumns(): GridColDef[] {
