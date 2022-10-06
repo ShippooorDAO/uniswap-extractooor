@@ -132,7 +132,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     pool: {
       type: 'singleSelect',
       valueOptions: this.uniswapPoolService.getAll().map((pool) => ({
-        label: `${pool.token0.symbol}/${pool.token1.symbol} (${pool.feeTier}%) ${pool.id}`,
+        label: `${pool.token0.symbol}/${pool.token1.symbol} (${pool.feeTier * 100}%) ${pool.id}`,
         value: pool.id,
       })),
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
