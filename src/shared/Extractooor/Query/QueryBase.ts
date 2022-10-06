@@ -152,7 +152,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       ),
       filterField: 'pool',
       filterPriority: 2,
-      filterParser: (values: string | string[]) => {s
+      filterParser: (values: string | string[]) => {
         if (typeof values === 'string') {
           const token = this.tokenService.getById(values);
           if (token) {
