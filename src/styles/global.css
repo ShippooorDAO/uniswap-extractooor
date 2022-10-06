@@ -50,6 +50,19 @@ a:hover {
   @apply border-base-content !important;
 }
 
+.MuiInputBase-formControl .MuiNativeSelect-icon {
+  @apply text-base-content !important;
+}
+
+/**
+ * Material UI Chip
+ */
+.MuiChip-root {
+  .MuiChip-label, .MuiChip-deleteIcon {
+    @apply text-base-content !important;
+  }
+}
+
 /**
  * Material UI DataGrid
  */
