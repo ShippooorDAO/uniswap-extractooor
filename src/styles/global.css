@@ -54,6 +54,11 @@ a:hover {
   @apply text-base-content !important;
 }
 
+.MuiNativeSelect-select {
+  -webkit-text-fill-color: initial !important;;
+  @apply text-base-content !important;
+}
+
 /**
  * Material UI Chip
  */
