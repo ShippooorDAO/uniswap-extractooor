@@ -18,14 +18,11 @@ import {
   PoolResponse,
   UniswapV3SubgraphProviderState,
 } from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
-import {
-  POOLS_BATCH_QUERY_BY_TIMESTAMP,
-  POOLS_BATCH_QUERY_BY_ID,
-} from './UniswapV3SubgraphQueries';
+import { POOLS_BATCH_QUERY_BY_TIMESTAMP } from './UniswapV3SubgraphQueries';
 import { processPools } from './UniswapV3SubgraphProcess';
 import { TokenService } from '../Currency/TokenService';
 import { UniswapPoolService } from '../UniswapPool/UniswapPoolService';
-import { batchQuery } from '../Utils/Subgraph';
+import cachedPoolResponses from './cached_pools_response.json';
 
 export async function batchQueryPoolsByTimestamp(
   query:
@@ -97,34 +94,31 @@ export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
   >();
 
   useEffect(() => {
-    import('./cached_pools_response.json').then((jsonImport) => {
-      const cachedPoolResponses = jsonImport.default;
-      const latestTimestampInStorage =
-        cachedPoolResponses.length > 0
-          ? Math.max(
-              ...cachedPoolResponses.map((pool) =>
-                Number(pool.createdAtTimestamp)
-              )
+    const latestTimestampInStorage =
+      cachedPoolResponses.length > 0
+        ? Math.max(
+            ...cachedPoolResponses.map((pool) =>
+              Number(pool.createdAtTimestamp)
             )
-          : 0;
+          )
+        : 0;
 
-      batchQueryPoolsByTimestamp(
-        POOLS_BATCH_QUERY_BY_TIMESTAMP,
-        apolloClient,
-        latestTimestampInStorage
-      ).then((poolResponses) => {
-        const { tokens: storedTokens, pools: storedPools } =
-          processPools(cachedPoolResponses);
-        const { tokens: queriedTokens, pools: queriedPools } =
-          processPools(poolResponses);
+    batchQueryPoolsByTimestamp(
+      POOLS_BATCH_QUERY_BY_TIMESTAMP,
+      apolloClient,
+      latestTimestampInStorage
+    ).then((poolResponses) => {
+      const { tokens: storedTokens, pools: storedPools } =
+        processPools(cachedPoolResponses);
+      const { tokens: queriedTokens, pools: queriedPools } =
+        processPools(poolResponses);
 
-        const tokens = [...queriedTokens, ...storedTokens];
-        const pools = [...queriedPools, ...storedPools];
+      const tokens = [...queriedTokens, ...storedTokens];
+      const pools = [...queriedPools, ...storedPools];
 
-        const tokenService = new TokenService(tokens);
-        setTokenService(tokenService);
-        setUniswapPoolService(new UniswapPoolService(pools, tokenService));
-      });
+      const tokenService = new TokenService(tokens);
+      setTokenService(tokenService);
+      setUniswapPoolService(new UniswapPoolService(pools, tokenService));
     });
   }, []);
 
