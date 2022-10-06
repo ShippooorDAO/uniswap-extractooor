@@ -1,11 +1,13 @@
 import { Token } from "../Currency/Token";
 import { TokenService } from "../Currency/TokenService";
+import { UniswapPoolService } from "../UniswapPool/UniswapPoolService";
 
 export type GetTokenByIdFunc = (id: string) => Token;
 export type GetTokenBySymbolFunc = (symbol: string) => Token;
 
 export interface UniswapV3SubgraphProviderState {
   tokenService?: TokenService;
+  uniswapPoolService?: UniswapPoolService;
 }
 
 /**
@@ -22,25 +24,16 @@ export interface BatchQueryResponse<TData> {
 export interface TokenResponse {
   id: string; // ID!
   symbol: string; // String!
-  name: symbol; // String!
+  name: string; // String!
   decimals: string; // BigInt!
-  totalSupply: string; // BigInt!
-  volume: string; // BigDecimal!
-  volumeUSD: string; // BigDecimal!
-  untrackedVolumeUSD: string; // BigDecimal!
-  feesUSD: string; // BigDecimal!
-  txCount: string; // BigInt!
-  poolCount: string; // BigInt!
-  totalValueLocked: string; // BigDecimal!
-  totalValueLockedUSD: string; // BigDecimal!
-  totalValueLockedUSDUntracked: string; // BigDecimal!
-  derivedETH: string; // BigDecimal!
+}
 
-  /**
-   * Ignored fields
-   * whitelistPools: [Pool!]!
-   * tokenDayData: [TokenDayData!]!
-   */
+export interface PoolResponse {
+  id: string;
+  token0: TokenResponse;
+  token1: TokenResponse;
+  feeTier: string;
+  createdAtTimestamp: string;
 }
 
 export type TokensQueryResponse = BatchQueryResponse<TokenResponse>;

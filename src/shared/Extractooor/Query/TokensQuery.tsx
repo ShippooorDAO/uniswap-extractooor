@@ -6,6 +6,7 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface Entity {
   id: string; // ID!
@@ -34,9 +35,10 @@ interface Entity {
 export default class TokensQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('Tokens', 'Tokens', apolloClient, tokenService);
+    super('Tokens', 'Tokens', apolloClient, tokenService, uniswapPoolService);
   }
 
   getColumns(): GridColDef[] {

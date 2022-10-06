@@ -6,6 +6,7 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface Entity {
   id: string; // ID!
@@ -34,9 +35,16 @@ interface Entity {
 export default class SwapsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('Collects', 'Collects', apolloClient, tokenService);
+    super(
+      'Collects',
+      'Collects',
+      apolloClient,
+      tokenService,
+      uniswapPoolService
+    );
   }
 
   getQueryEntityName() {

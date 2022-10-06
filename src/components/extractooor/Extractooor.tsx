@@ -1,13 +1,12 @@
 import {
   DataGridPro,
   GridRowsProp,
-  GridColDef,
   GridValueFormatterParams,
   GridSortModel,
   GridFilterModel,
   GridRowId,
   GridLinkOperator,
-  useGridApiContext,
+  useGridApiRef,
   GridCsvExportOptions,
   GridFilterPanel,
 } from '@mui/x-data-grid-pro';
@@ -42,8 +41,11 @@ import {
 } from '@mui/x-data-grid-pro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider';
-import { ExtractooorQuery } from '@/shared/Extractooor/Extractooor.type';
-import { Operator } from '@/shared/Utils/QueryBuilder';
+import {
+  Column,
+  ExtractooorQuery,
+} from '@/shared/Extractooor/Extractooor.type';
+import { Operator, QuerySizeError } from '@/shared/Utils/QueryBuilder';
 import { print } from 'graphql/language/printer';
 
 const ExportIcon = createSvgIcon(
@@ -103,10 +105,12 @@ const CopyToClipboardButton = ({ content }: { content: string }) => {
 };
 
 function Extractooor() {
+  const apiRef = useGridApiRef();
+
   const { queries, fullscreen, setFullscreen } = useExtractooorContext();
   const [query, setQuery] = useState<ExtractooorQuery | undefined>();
   const [currentQueryIndex, setCurrentQueryIndex] = useState<number>(0);
-  const [columns, setColumns] = useState<GridColDef[]>([]);
+  const [columns, setColumns] = useState<Column[]>([]);
   const [rows, setRows] = useState<GridRowsProp>([]);
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
   const [tablePageSize, setTablePageSize] = useState<number>(25);
@@ -223,8 +227,6 @@ function Extractooor() {
   }, [queries]);
 
   function ExtractooorToolbar() {
-    const apiRef = useGridApiContext();
-
     const handleExport = async (options: GridCsvExportOptions) => {
       apiRef.current.exportDataAsCsv(options);
     };
@@ -394,6 +396,41 @@ function Extractooor() {
 
   const handleFilterModelChange = async (model: GridFilterModel) => {
     query?.clearFilters();
+    for (let i = 0; i < model.items.length; ++i) {
+      for (let j = i + 1; j < model.items.length; ++j) {
+        const [itemA, itemB] = [model.items[i], model.items[j]];
+
+        if (!itemA || !itemB) {
+          continue;
+        }
+        const columnA = columns.find(
+          (column) => column.filterField ?? column.field === itemA?.columnField
+        );
+        const columnB = columns.find(
+          (column) => column.filterField ?? column.field === itemB?.columnField
+        );
+
+        if (!columnA || !columnB) {
+          continue;
+        }
+
+        const filterFieldA = columnA.filterField ?? columnA.field;
+        const filterFieldB = columnB.filterField ?? columnB.field;
+
+        if (filterFieldA !== filterFieldB) {
+          continue;
+        }
+
+        if ((columnA.filterPriority ?? 0) > (columnB.filterPriority ?? 0)) {
+          apiRef.current.deleteFilterItem(itemB);
+          return;
+        } else {
+          apiRef.current.deleteFilterItem(itemA);
+          return;
+        }
+      }
+    }
+
     model.items.forEach((item) => {
       const value = item.value;
       const field = item.columnField;
@@ -404,7 +441,17 @@ function Extractooor() {
       const operator =
         dataGridOperatorsMapping[item.operatorValue || ''] || Operator.EQ;
 
-      query?.addFilter(field, operator, value);
+      try {
+        query?.addFilter(field, operator, value);
+      } catch (e) {
+        if (e instanceof QuerySizeError) {
+          alert(
+            'Compiled query size exceeds subgraph limit. Please try different filters.'
+          );
+          // rollback current change
+          apiRef.current.deleteFilterItem(item);
+        }
+      }
     });
 
     await startNewBatch();
@@ -500,6 +547,7 @@ function Extractooor() {
         }}
       >
         <DataGridPro
+          apiRef={apiRef}
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[tablePageSize]}

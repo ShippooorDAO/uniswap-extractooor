@@ -7,6 +7,13 @@ export interface Filter {
   value: string | number;
 }
 
+export class QuerySizeError extends Error {
+  constructor() {
+    super("Query body length is more than subgraph request limit of 100'000 characters.");
+    this.name = 'QuerySizeError';
+  }
+}
+
 export enum Operator {
   EQ = '',
   LT = '_lt',
@@ -24,7 +31,7 @@ export enum Operator {
 export class QueryBuilder {
   private body?: string;
   private entityName?: string;
-  private filters: Map<string, Filter> = new Map();
+  private filters = new Map<string, Filter>();
   private orderBy?: string;
   private orderDirection?: string;
   private page: number = 0;
@@ -45,7 +52,15 @@ export class QueryBuilder {
   }
 
   addFilter(field: string, operator: Operator, value: string | number) {
+    const previousFilters: Map<string, Filter> = new Map([...Array.from(this.filters.entries())]);
     this.filters.set(field, { field, operator, value });
+
+    if (!this.checkQuerySize()) {
+      // rollback changes
+      this.filters = previousFilters;
+      throw new QuerySizeError();
+    }
+
     return this;
   }
 
@@ -59,8 +74,18 @@ export class QueryBuilder {
   }
 
   setOrderBy(orderBy: string) {
+    const previousOrderBy = this.orderBy;
+    const batchCursorField = this.batchCursorField; 
+
     this.orderBy = orderBy;
     this.batchCursorField = orderBy;
+
+    if (this.checkQuerySize()) {
+      this.orderBy = previousOrderBy;
+      this.batchCursorField = batchCursorField;
+      throw new QuerySizeError();
+    }
+  
     return this;
   }
 
@@ -166,6 +191,11 @@ export class QueryBuilder {
     `;
   }
 
+  getRequestSize() {
+    const batchQuery = this.buildBatchQuery();
+    return batchQuery.loc?.source.body.length || 0;
+  }
+
   private buildFilter(filter: Filter) {
     return `${filter.field}${filter.operator}: ${filter.value}`;
   }
@@ -210,5 +240,10 @@ export class QueryBuilder {
       return null;
     }
     return `orderDirection: ${this.orderDirection}`;
+  }
+
+  private checkQuerySize() {
+    const querySize = this.getRequestSize();
+    return querySize < 100000;
   }
 }

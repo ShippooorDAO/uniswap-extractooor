@@ -56,34 +56,42 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
   children,
   apolloClient,
 }: ExtractooorProviderProps) => {
-  const { tokenService } = useUniswapV3SubgraphContext();
+  const { tokenService, uniswapPoolService } = useUniswapV3SubgraphContext();
   const [queries, setQueries] = useState<ExtractooorQuery[] | undefined>();
   const [fullscreen, setFullscreen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (tokenService) {
+    if (tokenService && uniswapPoolService) {
       setQueries([
         /**
          * Initialize all queries here!
          */
-        new TokensQuery(apolloClient, tokenService),
-        new PoolsQuery(apolloClient, tokenService),
-        new TicksQuery(apolloClient, tokenService),
-        new PositionsQuery(apolloClient, tokenService),
-        new PositionSnapshotsQuery(apolloClient, tokenService),
-        new TransactionsQuery(apolloClient, tokenService),
-        new MintsQuery(apolloClient, tokenService),
-        new BurnsQuery(apolloClient, tokenService),
-        new SwapsQuery(apolloClient, tokenService),
-        new CollectsQuery(apolloClient, tokenService),
-        new FlashesQuery(apolloClient, tokenService),
-        new UniswapDayDatasQuery(apolloClient, tokenService),
-        new PoolDayDatasQuery(apolloClient, tokenService),
-        new PoolHourDatasQuery(apolloClient, tokenService),
-        new TickHourDatasQuery(apolloClient, tokenService),
-        new TickDayDatasQuery(apolloClient, tokenService),
-        new TokenDayDatasQuery(apolloClient, tokenService),
-        new TokenHourDatasQuery(apolloClient, tokenService),
+        new TokensQuery(apolloClient, tokenService, uniswapPoolService),
+        new PoolsQuery(apolloClient, tokenService, uniswapPoolService),
+        new TicksQuery(apolloClient, tokenService, uniswapPoolService),
+        new PositionsQuery(apolloClient, tokenService, uniswapPoolService),
+        new PositionSnapshotsQuery(
+          apolloClient,
+          tokenService,
+          uniswapPoolService
+        ),
+        new TransactionsQuery(apolloClient, tokenService, uniswapPoolService),
+        new MintsQuery(apolloClient, tokenService, uniswapPoolService),
+        new BurnsQuery(apolloClient, tokenService, uniswapPoolService),
+        new SwapsQuery(apolloClient, tokenService, uniswapPoolService),
+        new CollectsQuery(apolloClient, tokenService, uniswapPoolService),
+        new FlashesQuery(apolloClient, tokenService, uniswapPoolService),
+        new UniswapDayDatasQuery(
+          apolloClient,
+          tokenService,
+          uniswapPoolService
+        ),
+        new PoolDayDatasQuery(apolloClient, tokenService, uniswapPoolService),
+        new PoolHourDatasQuery(apolloClient, tokenService, uniswapPoolService),
+        new TickHourDatasQuery(apolloClient, tokenService, uniswapPoolService),
+        new TickDayDatasQuery(apolloClient, tokenService, uniswapPoolService),
+        new TokenDayDatasQuery(apolloClient, tokenService, uniswapPoolService),
+        new TokenHourDatasQuery(apolloClient, tokenService, uniswapPoolService),
       ]);
     }
   }, [tokenService]);

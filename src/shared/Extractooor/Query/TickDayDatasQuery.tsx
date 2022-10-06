@@ -6,6 +6,7 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface TickDayDataEntity {
   id: string; // !ID
@@ -37,9 +38,16 @@ interface TickDayDataEntity {
 export default class TickDayDatasQuery extends ExtractooorQueryBase<TickDayDataEntity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('TickDayData', 'TickDayData', apolloClient, tokenService);
+    super(
+      'TickDayData',
+      'TickDayData',
+      apolloClient,
+      tokenService,
+      uniswapPoolService
+    );
   }
 
   getColumns() {

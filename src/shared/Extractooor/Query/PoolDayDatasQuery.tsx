@@ -6,9 +6,11 @@ import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface Entity {
   id: string; // ID!
+  date: number; // Int!
   pool: {
     id: string; // ID!
     token0: {
@@ -42,9 +44,16 @@ interface Entity {
 export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('PoolDayDatas', 'PoolDayDatas', apolloClient, tokenService);
+    super(
+      'PoolDayDatas',
+      'PoolDayDatas',
+      apolloClient,
+      tokenService,
+      uniswapPoolService
+    );
   }
 
   getQueryEntityName() {
@@ -55,6 +64,7 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
     return `
     {
       id
+      date
       pool {
         id
         token0 {
@@ -88,16 +98,24 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
 
   getColumns(): GridColDef[] {
     return [
-      { field: 'id', headerName: 'Pool ID', ...this.baseFields.addressId },
+      { field: 'id', headerName: 'ID', ...this.baseFields.id },
+      { field: 'date', headerName: 'Timestamp', ...this.baseFields.timestamp },
+      {
+        field: 'pool',
+        headerName: 'Pool',
+        ...this.baseFields.pool,
+      },
       {
         field: 'token0',
         headerName: 'Token 0',
-        ...this.baseFields.token,
+        ...this.baseFields.poolToken,
+        sortable: false,
       },
       {
         field: 'token1',
         headerName: 'Token 1',
-        ...this.baseFields.token,
+        ...this.baseFields.poolToken,
+        sortable: false,
       },
       {
         field: 'token0Symbol',

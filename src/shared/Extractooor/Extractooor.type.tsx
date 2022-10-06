@@ -2,11 +2,17 @@ import { GridColDef, GridRowsProp } from '@mui/x-data-grid-pro';
 import { DocumentNode } from 'graphql';
 import { Operator } from '../Utils/QueryBuilder';
 
+export type Column = GridColDef & {
+  filterPriority?: number;
+  filterField?: string;
+  filterParser?: (value: string | string[]) => string | number;
+};
+
 export interface ExtractooorQuery {
   readonly title: string;
   readonly description: string;
-  fetchNext(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }>;
-  fetchAll(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }>;
+  fetchNext(): Promise<{ rows: GridRowsProp; columns: Column[] }>;
+  fetchAll(): Promise<{ rows: GridRowsProp; columns: Column[] }>;
   addFilter(field: string, operator: Operator, value: string | string[]): void;
   removeFilter(field: string): void;
   clearFilters(): void;

@@ -23,16 +23,13 @@ import {
   GridColDef,
   GridRowsProp,
 } from '@mui/x-data-grid-pro';
-import { ExtractooorQuery } from '../Extractooor.type';
+import { Column, ExtractooorQuery } from '../Extractooor.type';
 import {
   BaseEntity,
   BatchQueryResponse,
 } from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
 import { TokenService } from '@/shared/Currency/TokenService';
-
-type Column = GridColDef & {
-  filterParser?: (value: string | string[]) => string | number;
-};
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 function parseStringFilter(value: string | string[]) {
   if (typeof value === 'string') {
@@ -73,9 +70,8 @@ function parseTimestampFilter(value: string | string[]) {
 const MAX_QUERY_PAGE_SIZE = 1000;
 const DEFAULT_FILTER_PARSER = parseStringFilter;
 
-export abstract class ExtractooorQueryBase<
-  TResponseEntity extends { id: string }
-> implements ExtractooorQuery
+export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string }>
+  implements ExtractooorQuery
 {
   private queryBuilder = new QueryBuilder();
   private pageSize: number = MAX_QUERY_PAGE_SIZE;
@@ -134,12 +130,50 @@ export abstract class ExtractooorQueryBase<
       width: 150,
     },
     pool: {
-      filterOperators: getGridStringOperators().filter((operator) =>
-        ['equals', 'startsWith', 'endsWith', 'contains', 'isAnyOf'].includes(
-          operator.value
-        )
+      type: 'singleSelect',
+      valueOptions: this.uniswapPoolService.getAll().map((pool) => ({
+        label: `${pool.token0.symbol}/${pool.token1.symbol} (${pool.feeTier}%) ${pool.id}`,
+        value: pool.id,
+      })),
+      filterOperators: getGridSingleSelectOperators().filter((operator) =>
+        ['isAnyOf'].includes(operator.value)
       ),
       renderCell: UniswapPoolRenderCell,
+      width: 150,
+    },
+    poolToken: {
+      type: 'singleSelect',
+      valueOptions: this.tokenService.getAll().map((token) => ({
+        label: `${token.symbol} (${token.id})`,
+        value: token.id,
+      })),
+      filterOperators: getGridSingleSelectOperators().filter((operator) =>
+        ['isAnyOf'].includes(operator.value)
+      ),
+      filterField: 'pool',
+      filterPriority: 2,
+      filterParser: (values: string | string[]) => {
+        if (typeof values === 'string') {
+          const token = this.tokenService.getById(values);
+          if (token) {
+            return this.uniswapPoolService.getPoolsForToken(token);
+          }
+          return '';
+        }
+
+        const poolIds = values.reduce((aggregate, tokenId) => {
+          const token = this.tokenService.getById(tokenId);
+          if (token) {
+            const pools = this.uniswapPoolService.getPoolsForToken(token);
+            if (pools) {
+              aggregate.push(...pools.map((pool) => pool.id));
+            }
+          }
+          return aggregate;
+        }, new Array<string>());
+        return parseStringFilter(poolIds);
+      },
+      renderCell: UniswapTokenRenderCell,
       width: 150,
     },
     amount: {
@@ -210,12 +244,13 @@ export abstract class ExtractooorQueryBase<
     readonly title: string,
     readonly description: string,
     readonly apolloClient: ApolloClient<NormalizedCacheObject>,
-    readonly tokenService: TokenService
+    readonly tokenService: TokenService,
+    readonly uniswapPoolService: UniswapPoolService
   ) {
     this.reset();
   }
 
-  async fetchNext(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
+  async fetchNext(): Promise<{ rows: GridRowsProp; columns: Column[] }> {
     if (this.currentFetchPromise) {
       await this.currentFetchPromise;
     }
@@ -288,7 +323,7 @@ export abstract class ExtractooorQueryBase<
 
   private async fetchAllInternal(): Promise<{
     rows: GridRowsProp;
-    columns: GridColDef[];
+    columns: Column[];
   }> {
     const query = this.queryBuilder.buildBatchQuery();
     const startCancelCount = Number(this.cancelCount);
@@ -321,11 +356,13 @@ export abstract class ExtractooorQueryBase<
   }
 
   addFilter(field: string, operator: Operator, value: string | string[]) {
-    const filterParser =
-      this.getColumns().find((column) => column.field === field)
-        ?.filterParser || DEFAULT_FILTER_PARSER;
+    const columnDef = this.getColumns().find(
+      (column) => column.field === field
+    );
+    const filterParser = columnDef?.filterParser ?? DEFAULT_FILTER_PARSER;
+    const filterField = columnDef?.filterField ?? field;
 
-    this.queryBuilder.addFilter(field, operator, filterParser(value));
+    this.queryBuilder.addFilter(filterField, operator, filterParser(value));
   }
 
   removeFilter(field: string) {

@@ -4,6 +4,7 @@ import { GridRowsProp } from '@mui/x-data-grid-pro';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface Entity {
   id: string; // ID!
@@ -33,9 +34,16 @@ interface Entity {
 export default class TransactionsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('Transactions', 'Transactions', apolloClient, tokenService);
+    super(
+      'Transactions',
+      'Transactions',
+      apolloClient,
+      tokenService,
+      uniswapPoolService
+    );
   }
 
   getQueryEntityName() {

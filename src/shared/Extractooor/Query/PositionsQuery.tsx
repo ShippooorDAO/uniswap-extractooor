@@ -5,6 +5,7 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { ExtractooorQueryBase } from './QueryBase';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { TokenAmount } from '@/shared/Currency/TokenAmount';
+import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
 
 interface Entity {
   id: string; // ID!
@@ -43,9 +44,16 @@ interface Entity {
 export default class PositionsQuery extends ExtractooorQueryBase<Entity> {
   constructor(
     apolloClient: ApolloClient<NormalizedCacheObject>,
-    tokenService: TokenService
+    tokenService: TokenService,
+    uniswapPoolService: UniswapPoolService
   ) {
-    super('Positions', 'Positions', apolloClient, tokenService);
+    super(
+      'Positions',
+      'Positions',
+      apolloClient,
+      tokenService,
+      uniswapPoolService
+    );
   }
 
   getQueryEntityName() {
