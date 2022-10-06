@@ -97,61 +97,24 @@ export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
   >();
 
   useEffect(() => {
-    const storageKey = 'uniswap-extractooor:pools';
-    const storedPoolsJson = window.localStorage.getItem(storageKey);
-    const storedPoolsResponses: PoolResponse[] = storedPoolsJson
-      ? JSON.parse(storedPoolsJson)
-      : [];
-
-    if (storedPoolsResponses.length === 0) {
-      /**
-       * Querying pools for the first time.
-       *
-       * All results will be stored on browser's local storage to be reused in following sessions
-       * to make initial page load faster in the future.
-       *
-       * Batch query is indexed by ID to make the subgraph query as fast as possible server-side.
-       */
-      batchQuery<PoolResponse>(POOLS_BATCH_QUERY_BY_ID, apolloClient).then(
-        (poolResponses) => {
-          const { tokens, pools } = processPools(poolResponses);
-
-          const tokenService = new TokenService(tokens);
-          setTokenService(tokenService);
-          setUniswapPoolService(new UniswapPoolService(pools, tokenService));
-
-          window.localStorage.setItem(
-            storageKey,
-            JSON.stringify([...poolResponses, ...storedPoolsResponses])
-          );
-        }
-      );
-    } else {
-      /**
-       * Pools have already been queried in the past.
-       *
-       * We only need to load pools that have been created since last session.
-       * Then, we store these new pools in browser's local storage along with those that were already stored
-       * so that initial page loading time is faster in the future.
-       *
-       * Batch query is indexed by timestamp to ensure we can query only what is necessary.
-       * Subgraph performance is not very good when indexing by timestamp, but this will surely make less network calls than loading everything like above batch query.
-       */
+    import('./cached_pools_response.json').then((jsonImport) => {
+      const cachedPoolResponses = jsonImport.default;
       const latestTimestampInStorage =
-        storedPoolsResponses.length > 0
+        cachedPoolResponses.length > 0
           ? Math.max(
-              ...storedPoolsResponses.map((pool) =>
+              ...cachedPoolResponses.map((pool) =>
                 Number(pool.createdAtTimestamp)
               )
             )
           : 0;
+
       batchQueryPoolsByTimestamp(
         POOLS_BATCH_QUERY_BY_TIMESTAMP,
         apolloClient,
         latestTimestampInStorage
       ).then((poolResponses) => {
         const { tokens: storedTokens, pools: storedPools } =
-          processPools(storedPoolsResponses);
+          processPools(cachedPoolResponses);
         const { tokens: queriedTokens, pools: queriedPools } =
           processPools(poolResponses);
 
@@ -161,13 +124,8 @@ export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
         const tokenService = new TokenService(tokens);
         setTokenService(tokenService);
         setUniswapPoolService(new UniswapPoolService(pools, tokenService));
-
-        window.localStorage.setItem(
-          storageKey,
-          JSON.stringify([...poolResponses, ...storedPoolsResponses])
-        );
       });
-    }
+    });
   }, []);
 
   return (
