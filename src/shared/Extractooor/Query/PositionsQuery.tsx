@@ -154,7 +154,7 @@ export default class PositionsQuery extends ExtractooorQueryBase<Entity> {
       },
       {
         field: 'pool',
-        headerName: 'Pool ID',
+        headerName: 'Pool',
         ...this.baseFields.pool,
       },
       {

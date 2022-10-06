@@ -152,11 +152,11 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       ),
       filterField: 'pool',
       filterPriority: 2,
-      filterParser: (values: string | string[]) => {
+      filterParser: (values: string | string[]) => {s
         if (typeof values === 'string') {
           const token = this.tokenService.getById(values);
           if (token) {
-            return this.uniswapPoolService.getPoolsForToken(token);
+            return parseStringFilter(this.uniswapPoolService.getPoolsForToken(token)?.map(pool => pool.id) ?? []);
           }
           return '';
         }

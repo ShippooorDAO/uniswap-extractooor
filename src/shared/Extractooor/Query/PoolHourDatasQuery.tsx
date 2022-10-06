@@ -173,12 +173,14 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
       {
         field: 'token0',
         headerName: 'Token 0',
-        ...this.baseFields.token,
+        ...this.baseFields.poolToken,
+        sortable: false,
       },
       {
         field: 'token1',
         headerName: 'Token 1',
-        ...this.baseFields.token,
+        ...this.baseFields.poolToken,
+        sortable: false,
       },
       {
         field: 'liquidity',

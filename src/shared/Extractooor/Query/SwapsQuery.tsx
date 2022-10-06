@@ -64,7 +64,7 @@ export default class SwapsQuery extends ExtractooorQueryBase<SwapEntity> {
       },
       {
         field: 'pool',
-        headerName: 'Pool ID',
+        headerName: 'Pool',
         ...this.baseFields.pool,
       },
       {

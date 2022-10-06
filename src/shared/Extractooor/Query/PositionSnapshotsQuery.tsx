@@ -105,8 +105,34 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
       },
       {
         field: 'pool',
-        headerName: 'Pool ID',
+        headerName: 'Pool',
         ...this.baseFields.pool,
+      },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...this.baseFields.poolToken,
+        sortable: false,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1',
+        ...this.baseFields.poolToken,
+        sortable: false,
+      },
+      {
+        field: 'token0Symbol',
+        headerName: 'Token 0 Symbol',
+        ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
+      },
+      {
+        field: 'token1Symbol',
+        headerName: 'Token 1 Symbol',
+        ...this.baseFields.string,
+        filterable: false,
+        sortable: false,
       },
       {
         field: 'position',
