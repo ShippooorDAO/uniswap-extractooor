@@ -80,7 +80,7 @@ export class QueryBuilder {
     this.orderBy = orderBy;
     this.batchCursorField = orderBy;
 
-    if (this.checkQuerySize()) {
+    if (!this.checkQuerySize()) {
       this.orderBy = previousOrderBy;
       this.batchCursorField = batchCursorField;
       throw new QuerySizeError();
