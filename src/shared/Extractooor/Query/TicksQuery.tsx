@@ -232,7 +232,11 @@ export default class TicksQuery extends ExtractooorQueryBase<Entity> {
       ...entry,
       // poolAddress: string,
       // tickIdx: entry.tickIdx,
-      pool: entry.pool.token0.symbol.concat(' / ', entry.pool.token1.symbol),
+      pool: entry.pool.id,
+      token0: entry.pool.token0.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1: entry.pool.token1.id,
+      token1Symbol: entry.pool.token1.symbol,
       liquidityGross: Number(entry.liquidityGross),
       liquidityNet: Number(entry.liquidityNet),
       price0: TokenAmount.fromBigDecimal(

@@ -15,11 +15,11 @@ interface Entity {
     id: string; // ID!
     token0: {
       id: string; // ID!
-      name: string; // String!
+      symbol: string; // String!
     };
     token1: {
       id: string; // ID!
-      name: string; // String!
+      symbol: string; // String!
     };
   }; // Pool!
   tick: {
@@ -56,8 +56,20 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<Entity> {
     return `{
       id
       periodStartUnix
-      pool
-      tick
+      pool {
+        id
+        token0 {
+          id
+          symbol
+        }
+        token1 {
+          id
+          symbol
+        }
+      }
+      tick {
+        id
+      }
       liquidityGross
       liquidityNet
       volumeToken0
@@ -72,7 +84,10 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<Entity> {
       ...entry,
       periodStartUnix: new Date(Number(entry.periodStartUnix) * 1000),
       pool: entry.pool.id,
-      poolName: entry.pool.token0.name.concat(' / ', entry.pool.token1.name),
+      token0: entry.pool.token0.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1: entry.pool.token1.id,
+      token1Symbol: entry.pool.token1.symbol,
       tick: entry.tick.id,
       liquidityGross: Number(entry.liquidityGross),
       liquidityNet: Number(entry.liquidityNet),

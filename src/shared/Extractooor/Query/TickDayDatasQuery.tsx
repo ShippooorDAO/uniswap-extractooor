@@ -180,10 +180,10 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<TickDayDataE
       ...entry,
       date: new Date(Number(entry.date) * 1000),
       pool: entry.pool.id,
-      poolName: entry.pool.token0.symbol.concat(
-        ' / ',
-        entry.pool.token1.symbol
-      ),
+      token0: entry.pool.token0.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1: entry.pool.token1.id,
+      token1Symbol: entry.pool.token1.symbol,
       tick: entry.tick.id,
       liquidityGross: Number(entry.liquidityGross),
       liquidityNet: Number(entry.liquidityNet),

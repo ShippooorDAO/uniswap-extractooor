@@ -14,9 +14,11 @@ interface Entity {
     id: string; // ID!
     token0: {
       id: string; // ID!
+      symbol: string; // String!
     };
     token1: {
       id: string; // ID!
+      symbol: string; // String!
     };
   }; //  Pool!
   position: {
@@ -66,9 +68,11 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
         id
         token0 {
           id
+          symbol
         }
         token1 {
           id
+          symbol
         }
       }
       position {
@@ -207,6 +211,10 @@ export default class PositionSnapshotsQuery extends ExtractooorQueryBase<Entity>
       ...entry,
       date: new Date(Number(entry.timestamp) * 1000),
       pool: entry.pool.id,
+      token0: entry.pool.token0.id,
+      token0Symbol: entry.pool.token0.symbol,
+      token1: entry.pool.token1.id,
+      token1Symbol: entry.pool.token1.symbol,
       position: entry.position.id,
       liquidity: Number(entry.liquidity),
       depositedToken0: TokenAmount.fromBigDecimal(
