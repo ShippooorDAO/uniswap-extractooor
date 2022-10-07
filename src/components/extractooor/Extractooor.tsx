@@ -531,6 +531,7 @@ function Extractooor() {
           apiRef={apiRef}
           rows={rows}
           columns={columns}
+          disableRowGrouping
           rowsPerPageOptions={[tablePageSize]}
           rowCount={rows.length}
           getRowClassName={() => 'cursor-pointer'}
