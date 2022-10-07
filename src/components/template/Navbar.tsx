@@ -20,7 +20,7 @@ const Navbar = ({ children }: { children: ReactNode }) => {
           </div>
           <div className="flex-1 px-2 mx-2">
             <Link href="/">
-              <div className="cursor-pointer">
+              <div className="cursor-pointer flex">
                 <img
                   className="inline h-6 pr-3"
                   src="/assets/images/uniswap-logo.png"
