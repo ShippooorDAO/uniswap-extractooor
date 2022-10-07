@@ -193,6 +193,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       renderCell: AmountRenderCell,
       filterParser: parseNumberFilter,
       toExcel: (value?: CurrencyAmount) => value?.toNumber(),
+      groupable: false,
       width: 250,
     },
     integer: {
@@ -244,6 +245,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
           operator.value
         )
       ),
+      groupable: false,
       filterParser: parseTimestampFilter,
       width: 200,
     },
