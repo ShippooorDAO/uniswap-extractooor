@@ -10,6 +10,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { ExtractoooorProvider } from '@/shared/Extractooor/ExtractooorProvider';
 import { LicenseInfo } from '@mui/x-license-pro';
+import Script from 'next/script';
 
 const apolloClient = new ApolloClient({
   uri: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
@@ -38,6 +39,19 @@ const MasterProvider = providers.master();
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <MasterProvider>
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-VSMQE8FD4Z"
+      strategy="afterInteractive"
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VSMQE8FD4Z');
+      `}
+    </Script>
     <Component {...pageProps} />
   </MasterProvider>
 );
