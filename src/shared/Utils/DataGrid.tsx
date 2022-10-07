@@ -2,7 +2,7 @@ import { Token } from '@/shared/Currency/Token';
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
-} from '@mui/x-data-grid-pro';
+} from '@mui/x-data-grid-premium';
 import { Badge } from 'react-daisyui';
 import Blockies from 'react-blockies';
 import { getAccountShorthand } from '@/shared/Utils/Format';

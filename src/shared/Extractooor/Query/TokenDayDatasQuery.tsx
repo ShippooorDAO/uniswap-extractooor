@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { GridRowsProp, GridColDef } from '@mui/x-data-grid-pro';
+import { GridRowsProp, GridColDef } from '@mui/x-data-grid-premium';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { ExtractooorQueryBase } from './QueryBase';
 import { UsdAmount } from '@/shared/Currency/UsdAmount';

@@ -1,5 +1,5 @@
 import {
-  DataGridPro,
+  DataGridPremium,
   GridRowsProp,
   GridValueFormatterParams,
   GridSortModel,
@@ -7,18 +7,22 @@ import {
   GridRowId,
   GridLinkOperator,
   useGridApiRef,
-  GridCsvExportOptions,
   GridFilterPanel,
-} from '@mui/x-data-grid-pro';
+  GridCsvExportMenuItem,
+  GridExcelExportMenuItem,
+  GridToolbarExportContainer,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarFilterButton,
+} from '@mui/x-data-grid-premium';
 import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import CodeIcon from '@mui/icons-material/Code';
+import DataObjectIcon from '@mui/icons-material/DataObject';
 import {
   Button,
   ButtonProps,
-  createSvgIcon,
   Select,
   FormControl,
   MenuItem,
@@ -34,11 +38,6 @@ import {
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import {
-  GridToolbarColumnsButton,
-  GridToolbarContainer,
-  GridToolbarFilterButton,
-} from '@mui/x-data-grid-pro';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider';
 import {
@@ -47,11 +46,6 @@ import {
 } from '@/shared/Extractooor/Extractooor.type';
 import { Operator, QuerySizeError } from '@/shared/Utils/QueryBuilder';
 import { print } from 'graphql/language/printer';
-
-const ExportIcon = createSvgIcon(
-  <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
-  'SaveAlt'
-);
 
 const dataGridOperatorsMapping: { [key: string]: Operator } = {
   // number and string
@@ -227,10 +221,6 @@ function Extractooor() {
   }, [queries]);
 
   function ExtractooorToolbar() {
-    const handleExport = async (options: GridCsvExportOptions) => {
-      apiRef.current.exportDataAsCsv(options);
-    };
-
     const buttonBaseProps: ButtonProps = {
       color: 'primary',
       size: 'small',
@@ -265,25 +255,23 @@ function Extractooor() {
         <LoadingButton
           {...buttonBaseProps}
           variant="outlined"
-          startIcon={<ExportIcon />}
+          startIcon={<ViewListIcon />}
           loading={loadingAll}
           loadingPosition="start"
           onClick={() => fetchAll()}
         >
           {loadingAll ? 'Loading all...' : 'Load all'}
         </LoadingButton>
+        <GridToolbarExportContainer variant="outlined" {...buttonBaseProps}>
+          <GridCsvExportMenuItem options={{ delimiter: ';' }} />
+          <GridExcelExportMenuItem
+            options={{ fields: query?.getExcelFields(columns) }}
+          />
+        </GridToolbarExportContainer>
         <Button
           {...buttonBaseProps}
           variant="outlined"
-          startIcon={<ViewListIcon />}
-          onClick={() => handleExport({ delimiter: ';' })}
-        >
-          Export to CSV
-        </Button>
-        <Button
-          {...buttonBaseProps}
-          variant="outlined"
-          startIcon={<CodeIcon />}
+          startIcon={<DataObjectIcon />}
           onClick={handleOpen}
         >
           View GraphQL Query
@@ -309,12 +297,12 @@ function Extractooor() {
             <Alert
               severity="success"
               action={
-                <Button
-                  {...buttonBaseProps}
-                  onClick={() => handleExport({ delimiter: ';' })}
-                >
-                  Export to CSV
-                </Button>
+                <GridToolbarExportContainer {...buttonBaseProps}>
+                  <GridCsvExportMenuItem options={{ delimiter: ';' }} />
+                  <GridExcelExportMenuItem
+                    options={{ fields: query?.getExcelFields(columns) }}
+                  />
+                </GridToolbarExportContainer>
               }
             >
               Loaded all results ({rows.length} rows).
@@ -536,7 +524,7 @@ function Extractooor() {
           setSelectionModel([]);
         }}
       >
-        <DataGridPro
+        <DataGridPremium
           apiRef={apiRef}
           rows={rows}
           columns={columns}

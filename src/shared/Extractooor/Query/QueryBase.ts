@@ -22,7 +22,8 @@ import {
   getGridStringOperators,
   GridColDef,
   GridRowsProp,
-} from '@mui/x-data-grid-pro';
+  GridValueGetterParams,
+} from '@mui/x-data-grid-premium';
 import { Column, ExtractooorQuery } from '../Extractooor.type';
 import {
   BaseEntity,
@@ -30,6 +31,7 @@ import {
 } from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
 import { TokenService } from '@/shared/Currency/TokenService';
 import { UniswapPoolService } from '@/shared/UniswapPool/UniswapPoolService';
+import { CurrencyAmount } from '@/shared/Currency/CurrencyAmount';
 
 function parseStringFilter(value: string | string[]) {
   if (typeof value === 'string') {
@@ -132,7 +134,9 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     pool: {
       type: 'singleSelect',
       valueOptions: this.uniswapPoolService.getAll().map((pool) => ({
-        label: `${pool.token0.symbol}/${pool.token1.symbol} (${pool.feeTier * 100}%) ${pool.id}`,
+        label: `${pool.token0.symbol}/${pool.token1.symbol} (${
+          pool.feeTier * 100
+        }%) ${pool.id}`,
         value: pool.id,
       })),
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
@@ -155,7 +159,11 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
         if (typeof values === 'string') {
           const token = this.tokenService.getById(values);
           if (token) {
-            return parseStringFilter(this.uniswapPoolService.getPoolsForToken(token)?.map(pool => pool.id) ?? []);
+            return parseStringFilter(
+              this.uniswapPoolService
+                .getPoolsForToken(token)
+                ?.map((pool) => pool.id) ?? []
+            );
           }
           return '';
         }
@@ -183,6 +191,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       valueFormatter: ExportAmountFormatter,
       renderCell: AmountRenderCell,
       filterParser: parseNumberFilter,
+      toExcel: (params: CurrencyAmount) => params.toNumber(),
       width: 250,
     },
     integer: {
@@ -258,7 +267,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       query,
       this.apolloClient
     ).then((data) => {
-      return { rows: this.getRows(data), columns: this.getColumns() };
+      return { rows: this.getRows(data), columns: this.getColumnsInternal() };
     });
 
     this.currentFetchPromise = promise;
@@ -341,8 +350,40 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     } while (!this.reachedBatchEnd && this.cancelCount === startCancelCount);
 
     const rows = this.getRows(batchData);
-    const columns = this.getColumns();
+    const columns = this.getColumnsInternal();
+
     return { rows, columns };
+  }
+
+  private getExcelColumnField(column: Column) {
+    return column.field + '-excel';
+  }
+
+  private getExcelColumns(columns: Column[]) {
+    const baseExcelField = {
+      hidden: true,
+      filterable: false,
+      sortable: false,
+    };
+
+    return columns
+      .filter((column) => !!column.toExcel)
+      .map((column) => {
+        return {
+          ...baseExcelField,
+          headerName: column.headerName,
+          type: column.type,
+          field: this.getExcelColumnField(column),
+          valueGetter: (params: GridValueGetterParams) =>
+            column.toExcel!(params.row[column.field]),
+        };
+      });
+  }
+
+  getExcelFields(columns: Column[]): string[] {
+    return columns
+      .filter((column) => !column.toExcel)
+      .map((column) => column.field);
   }
 
   async fetchAll(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
@@ -355,7 +396,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
   }
 
   addFilter(field: string, operator: Operator, value: string | string[]) {
-    const columnDef = this.getColumns().find(
+    const columnDef = this.getColumnsInternal().find(
       (column) => column.field === field
     );
     const filterParser = columnDef?.filterParser ?? DEFAULT_FILTER_PARSER;
@@ -422,6 +463,12 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       this.cancelCount += 1;
       await this.currentFetchPromise;
     }
+  }
+
+  private getColumnsInternal(): Column[] {
+    const baseColumns = this.getColumns();
+    const excelColumns = this.getExcelColumns(baseColumns);
+    return [...baseColumns, ...excelColumns];
   }
 
   protected abstract getQueryBody(): string;

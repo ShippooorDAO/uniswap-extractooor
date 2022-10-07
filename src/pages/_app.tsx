@@ -16,8 +16,10 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-if (process.env.NEXT_PUBLIC_MUI_DATA_GRID_PRO_LICENSE_KEY) {
-  LicenseInfo.setLicenseKey(process.env.NEXT_PUBLIC_MUI_DATA_GRID_PRO_LICENSE_KEY);
+if (process.env.NEXT_PUBLIC_MUI_DATA_GRID_PREMIUM_LICENSE_KEY) {
+  LicenseInfo.setLicenseKey(
+    process.env.NEXT_PUBLIC_MUI_DATA_GRID_PREMIUM_LICENSE_KEY
+  );
 }
 
 const providers = combineProviders();

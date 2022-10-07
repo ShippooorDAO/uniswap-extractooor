@@ -1,4 +1,4 @@
-import { GridColDef, GridRowsProp } from '@mui/x-data-grid-pro';
+import { GridColDef, GridRowsProp } from '@mui/x-data-grid-premium';
 import { DocumentNode } from 'graphql';
 import { Operator } from '../Utils/QueryBuilder';
 
@@ -6,6 +6,7 @@ export type Column = GridColDef & {
   filterPriority?: number;
   filterField?: string;
   filterParser?: (value: string | string[]) => string | number;
+  toExcel?: (value: any) => any;
 };
 
 export interface ExtractooorQuery {
@@ -23,6 +24,7 @@ export interface ExtractooorQuery {
   setOrderDirection(orderDirection: 'asc' | 'desc'): void;
   getSubgraphQuery(): DocumentNode;
   isAtBatchEnd(): boolean;
+  getExcelFields(columns: Column[]): string[];
   reset(): void;
   resetBatch(): void;
   cancel(): void;
