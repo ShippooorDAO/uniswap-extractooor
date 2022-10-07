@@ -425,7 +425,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
   getColumnVisibilityModel() {
     const model: { [key: string]: boolean } = {};
     for (const column of this.getColumnsInternal()) {
-      model[column.field] = column.hidden === true;
+      model[column.field] = column.hidden === false;
     }
     return model;
   }
@@ -456,7 +456,9 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
   private addExcelColumns(columns: Column[]) {
     const baseExcelField = {
       hidden: true,
+      hideable: false,
       filterable: false,
+      hide: true,
       sortable: false,
     };
 
@@ -467,7 +469,6 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
           ...baseExcelField,
           headerName: `${column.headerName} (Excel)`,
           type: column.type,
-          hide: true,
           field: this.getExcelColumnField(column),
           valueGetter: (params: GridValueGetterParams) =>
             column.toExcel!(params.row[column.field]),
@@ -504,11 +505,10 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
   }
 
   private getColumnsInternal(): Column[] {
-    const baseColumns = this.getColumns();
-    const columnsWithExcel = this.addExcelColumns(baseColumns);
-    const columnsWithExcelAndWithUnixTimestamps =
-      this.addUnixTimestampColumns(columnsWithExcel);
-    return columnsWithExcelAndWithUnixTimestamps;
+    let columns = this.getColumns();
+    columns = this.addExcelColumns(columns);
+    columns = this.addUnixTimestampColumns(columns);
+    return columns;
   }
 
   protected abstract getQueryBody(): string;

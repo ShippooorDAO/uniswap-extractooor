@@ -206,7 +206,9 @@ function Extractooor() {
 
   useEffect(() => {
     if (query) {
-      // setColumnVisibilityModel(query?.getColumnVisibilityModel() ?? {});
+      apiRef.current.setColumnVisibilityModel(
+        query?.getColumnVisibilityModel() ?? {}
+      );
       startNewBatch();
     } else {
       setLoading(true);
@@ -559,10 +561,6 @@ function Extractooor() {
                 quickFilterLogicOperator: GridLinkOperator.And,
               },
             },
-            // TODO: ADD THIS
-            // columns: {
-            //   columnVisibilityModel: query?.getColumnVisibilityModel(),
-            // },
           }}
           components={{
             Toolbar: ExtractooorToolbar,
