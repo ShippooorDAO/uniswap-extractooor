@@ -23,7 +23,10 @@ if (process.env.NEXT_PUBLIC_MUI_DATA_GRID_PREMIUM_LICENSE_KEY) {
 }
 
 const providers = combineProviders();
-providers.push(ThemeProvider, { attribute: 'data-theme' });
+providers.push(ThemeProvider, {
+  attribute: 'data-theme',
+  defaultTheme: 'dark',
+});
 providers.push(ApolloProvider, {
   client: apolloClient,
 } as ApolloProviderProps<any>);
