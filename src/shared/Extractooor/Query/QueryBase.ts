@@ -129,6 +129,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
+      sortable: false,
       renderCell: UniswapTokenRenderCell,
       width: 150,
     },
@@ -143,6 +144,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
+      sortable: false,
       renderCell: UniswapPoolRenderCell,
       width: 150,
     },
@@ -181,6 +183,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
         }, new Array<string>());
         return parseStringFilter(poolIds);
       },
+      sortable: false,
       renderCell: UniswapTokenRenderCell,
       width: 150,
     },
@@ -406,7 +409,12 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
   }
 
   setOrderBy(field: string) {
-    this.queryBuilder.setOrderBy(field);
+    const columnDef = this.getColumnsInternal().find(
+      (column) => column.field === field
+    );
+    const sortField = columnDef?.filterField ?? field;
+
+    this.queryBuilder.setOrderBy(sortField);
     this.orderBy = field;
   }
 
@@ -480,7 +488,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
 
   private addUnixTimestampColumns(columns: Column[]) {
     const baseUnixTimestampField = {
-      type: 'number',
+      ...this.baseFields.integer,
       width: 150,
       valueFormatter: (params: GridValueFormatterParams<number>) =>
         params.value?.toString(),
