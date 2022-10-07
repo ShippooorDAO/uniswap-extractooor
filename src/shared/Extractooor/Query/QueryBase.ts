@@ -23,6 +23,7 @@ import {
   GridColDef,
   GridRowsProp,
   GridValueGetterParams,
+  GridValueFormatterParams,
 } from '@mui/x-data-grid-premium';
 import { Column, ExtractooorQuery } from '../Extractooor.type';
 import {
@@ -191,7 +192,7 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       valueFormatter: ExportAmountFormatter,
       renderCell: AmountRenderCell,
       filterParser: parseNumberFilter,
-      toExcel: (params: CurrencyAmount) => params.toNumber(),
+      toExcel: (value?: CurrencyAmount) => value?.toNumber(),
       width: 250,
     },
     integer: {
@@ -359,27 +360,6 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     return column.field + '-excel';
   }
 
-  private getExcelColumns(columns: Column[]) {
-    const baseExcelField = {
-      hidden: true,
-      filterable: false,
-      sortable: false,
-    };
-
-    return columns
-      .filter((column) => !!column.toExcel)
-      .map((column) => {
-        return {
-          ...baseExcelField,
-          headerName: column.headerName,
-          type: column.type,
-          field: this.getExcelColumnField(column),
-          valueGetter: (params: GridValueGetterParams) =>
-            column.toExcel!(params.row[column.field]),
-        };
-      });
-  }
-
   getExcelFields(columns: Column[]): string[] {
     return columns
       .filter((column) => !column.toExcel)
@@ -442,6 +422,14 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     return this.reachedBatchEnd;
   }
 
+  getColumnVisibilityModel() {
+    const model: { [key: string]: boolean } = {};
+    for (const column of this.getColumnsInternal()) {
+      model[column.field] = column.hidden === true;
+    }
+    return model;
+  }
+
   reset() {
     this.resetBatch();
     this.orderBy = '';
@@ -465,10 +453,62 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
     }
   }
 
+  private addExcelColumns(columns: Column[]) {
+    const baseExcelField = {
+      hidden: true,
+      filterable: false,
+      sortable: false,
+    };
+
+    const excelColumns = columns
+      .filter((column) => !!column.toExcel)
+      .map((column) => {
+        return {
+          ...baseExcelField,
+          headerName: `${column.headerName} (Excel)`,
+          type: column.type,
+          hide: true,
+          field: this.getExcelColumnField(column),
+          valueGetter: (params: GridValueGetterParams) =>
+            column.toExcel!(params.row[column.field]),
+        };
+      });
+
+    return [...columns, ...excelColumns];
+  }
+
+  private addUnixTimestampColumns(columns: Column[]) {
+    const baseUnixTimestampField = {
+      type: 'number',
+      width: 150,
+      valueFormatter: (params: GridValueFormatterParams<number>) =>
+        params.value?.toString(),
+    };
+
+    return columns.reduce((aggregate, column) => {
+      aggregate.push(column);
+      if (column.type === 'dateTime') {
+        aggregate.push({
+          ...baseUnixTimestampField,
+          field: `${column.headerName}-unix`,
+          filterField: column.field,
+          headerName: `${column.headerName} (Unix)`,
+          valueGetter: (params: GridValueGetterParams) =>
+            params.row[column.field]
+              ? Math.floor(params.row[column.field].getTime() / 1000)
+              : undefined,
+        });
+      }
+      return aggregate;
+    }, new Array<Column>());
+  }
+
   private getColumnsInternal(): Column[] {
     const baseColumns = this.getColumns();
-    const excelColumns = this.getExcelColumns(baseColumns);
-    return [...baseColumns, ...excelColumns];
+    const columnsWithExcel = this.addExcelColumns(baseColumns);
+    const columnsWithExcelAndWithUnixTimestamps =
+      this.addUnixTimestampColumns(columnsWithExcel);
+    return columnsWithExcelAndWithUnixTimestamps;
   }
 
   protected abstract getQueryBody(): string;

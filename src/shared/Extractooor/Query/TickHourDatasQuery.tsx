@@ -112,8 +112,8 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<Entity> {
         ...this.baseFields.id,
       },
       {
-        field: 'periodStartTimestamp',
-        headerName: 'Period Start Timestamp',
+        field: 'periodStartUnix',
+        headerName: 'Period Start',
         ...this.baseFields.timestamp,
       },
       {

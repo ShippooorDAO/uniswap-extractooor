@@ -178,7 +178,7 @@ export default class BurnsQuery extends ExtractooorQueryBase<Entity> {
   getRows(response: Entity[]): GridRowsProp {
     return response.map((entry) => ({
       ...entry,
-      date: new Date(Number(entry.timestamp) * 1000),
+      timestamp: new Date(Number(entry.timestamp) * 1000),
       transaction: entry.transaction.id,
       pool: entry.pool.id,
       token0: entry.token0.id,

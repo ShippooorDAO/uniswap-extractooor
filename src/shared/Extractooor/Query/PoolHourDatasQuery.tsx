@@ -102,7 +102,7 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
       const token1 = this.tokenService.getById(entry.pool.token1.id)!;
       return {
         ...entry,
-        periodStartDate: new Date(Number(entry.periodStartUnix) * 1000),
+        periodStartUnix: new Date(Number(entry.periodStartUnix) * 1000),
         token0: entry.pool.token0.id,
         token0Symbol: entry.pool.token0.symbol,
         token1: entry.pool.token1.id,
@@ -138,10 +138,22 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
       },
       {
         field: 'periodStartUnix',
-        headerName: 'Period Start Timestamp',
+        headerName: 'Period Start',
         ...this.baseFields.timestamp,
       },
-      { field: 'pool', headerName: 'Pool ID', ...this.baseFields.pool },
+      { field: 'pool', headerName: 'Pool', ...this.baseFields.pool },
+      {
+        field: 'token0',
+        headerName: 'Token 0',
+        ...this.baseFields.poolToken,
+        sortable: false,
+      },
+      {
+        field: 'token1',
+        headerName: 'Token 1',
+        ...this.baseFields.poolToken,
+        sortable: false,
+      },
       {
         field: 'token0Symbol',
         headerName: 'Token 0 Symbol',
@@ -154,18 +166,6 @@ export default class PoolHourDatasQuery extends ExtractooorQueryBase<Entity> {
         headerName: 'Token 1 Symbol',
         ...this.baseFields.string,
         filterable: false,
-        sortable: false,
-      },
-      {
-        field: 'token0',
-        headerName: 'Token 0',
-        ...this.baseFields.poolToken,
-        sortable: false,
-      },
-      {
-        field: 'token1',
-        headerName: 'Token 1',
-        ...this.baseFields.poolToken,
         sortable: false,
       },
       {

@@ -3,6 +3,7 @@ import { DocumentNode } from 'graphql';
 import { Operator } from '../Utils/QueryBuilder';
 
 export type Column = GridColDef & {
+  hidden?: boolean;
   filterPriority?: number;
   filterField?: string;
   filterParser?: (value: string | string[]) => string | number;
@@ -25,6 +26,7 @@ export interface ExtractooorQuery {
   getSubgraphQuery(): DocumentNode;
   isAtBatchEnd(): boolean;
   getExcelFields(columns: Column[]): string[];
+  getColumnVisibilityModel(): { [key: string]: boolean } | undefined;
   reset(): void;
   resetBatch(): void;
   cancel(): void;

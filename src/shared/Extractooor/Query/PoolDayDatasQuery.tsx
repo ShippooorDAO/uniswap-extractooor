@@ -99,7 +99,7 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
   getColumns(): GridColDef[] {
     return [
       { field: 'id', headerName: 'ID', ...this.baseFields.id },
-      { field: 'date', headerName: 'Timestamp', ...this.baseFields.timestamp },
+      { field: 'date', headerName: 'Date', ...this.baseFields.timestamp },
       {
         field: 'pool',
         headerName: 'Pool',
@@ -226,6 +226,7 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
       return {
         ...entry,
         pool: entry.pool.id,
+        date: new Date(entry.date * 1000),
         token0: entry.pool.token0.id,
         token1: entry.pool.token1.id,
         token0Symbol: entry.pool.token0.symbol,
