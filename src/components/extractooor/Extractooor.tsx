@@ -14,6 +14,7 @@ import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarFilterButton,
+  GridFeatureMode,
 } from '@mui/x-data-grid-premium';
 import { useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -43,6 +44,7 @@ import { useExtractooorContext } from '@/shared/Extractooor/ExtractooorProvider'
 import {
   Column,
   ExtractooorQuery,
+  QueryProgressStatus,
 } from '@/shared/Extractooor/Extractooor.type';
 import { Operator, QuerySizeError } from '@/shared/Utils/QueryBuilder';
 import { print } from 'graphql/language/printer';
@@ -98,6 +100,24 @@ const CopyToClipboardButton = ({ content }: { content: string }) => {
   );
 };
 
+interface FilterProps {
+  filterMode?: GridFeatureMode;
+  filterModel?: GridFilterModel;
+}
+
+interface SortProps {
+  sortingMode?: GridFeatureMode;
+  sortModel?: GridSortModel;
+}
+
+interface InfoBannerProps {
+  loading: boolean;
+  atBatchEnd: boolean;
+  rowsCount: number;
+  sorted: boolean;
+  maxRowsPerFetch: number;
+}
+
 function Extractooor() {
   const apiRef = useGridApiRef();
 
@@ -119,10 +139,14 @@ function Extractooor() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [page, setPage] = useState<number>(0);
+  const [filterProps, setFilterProps] = useState<FilterProps>();
+  const [sortProps, setSortProps] = useState<SortProps>();
 
   const cancel = async () => {
     setCancelling(true);
-    clearTimeout(queryIsSlowTimeout);
+    if (queryIsSlowTimeout) {
+      clearTimeout(queryIsSlowTimeout!);
+    }
     setQueryIsSlowTimeout(undefined);
     if (query) {
       await query?.cancel();
@@ -138,6 +162,13 @@ function Extractooor() {
     await cancel();
     setLoadingAll(false);
     setLoading(true);
+
+    setSortProps({
+      sortingMode: 'server',
+    });
+    setFilterProps({
+      filterMode: 'server',
+    });
 
     query?.resetBatch();
     setPage(0);
@@ -181,6 +212,11 @@ function Extractooor() {
   };
 
   const fetchAll = async () => {
+    if (query?.isAtBatchEnd()) {
+      // No need to fetch all if the batch is already completed.
+      return;
+    }
+
     await cancel();
     setLoading(true);
     setLoadingAll(true);
@@ -200,8 +236,13 @@ function Extractooor() {
     if (result) {
       setRows(rows.concat(result.rows));
       setColumns(result.columns);
+      setSortProps({
+        sortingMode: 'client',
+      });
+      setFilterProps({
+        filterMode: 'client',
+      });
     }
-    return result;
   };
 
   useEffect(() => {
@@ -223,12 +264,63 @@ function Extractooor() {
     }
   }, [queries]);
 
-  function ExtractooorToolbar() {
-    const buttonBaseProps: ButtonProps = {
-      color: 'primary',
-      size: 'small',
-    };
+  const isLoading = () => {
+    return loadingAll || loading;
+  };
 
+  const buttonBaseProps: ButtonProps = {
+    color: 'primary',
+    size: 'small',
+  };
+
+  function InfoBanner(props: InfoBannerProps) {
+    if (props.loading) {
+      return null;
+    }
+
+    if (props.atBatchEnd) {
+      if (props.rowsCount === 0) {
+        return (
+          <Alert severity="info">
+            Query done, but no results matching the query
+          </Alert>
+        );
+      } else if (props.sorted && props.rowsCount >= props.maxRowsPerFetch) {
+        return (
+          <Alert severity="info">
+            Loaded the first {rows.length} results. You can't load more data
+            from the server when using sort. Use a filter to refine the results
+            or unsort, load all data then sort the data again.
+          </Alert>
+        );
+      } else {
+        return (
+          <Alert
+            severity="success"
+            action={
+              <GridToolbarExportContainer {...buttonBaseProps}>
+                <GridCsvExportMenuItem options={{ delimiter: ';' }} />
+                <GridExcelExportMenuItem
+                  options={{ fields: query?.getExcelFields(columns) }}
+                />
+              </GridToolbarExportContainer>
+            }
+          >
+            Loaded all results ({rows.length} rows).
+          </Alert>
+        );
+      }
+    } else {
+      return (
+        <Alert severity="info">
+          Loaded {rows.length} results. You can load all data. It may take a few
+          minutes to load over 100'000 rows.
+        </Alert>
+      );
+    }
+  }
+
+  function ExtractooorToolbar() {
     return (
       <GridToolbarContainer className="flex gap-2">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
@@ -255,16 +347,18 @@ function Extractooor() {
           componentsProps={{ button: { variant: 'outlined' } }}
         />
 
-        <LoadingButton
-          {...buttonBaseProps}
-          variant="outlined"
-          startIcon={<ViewListIcon />}
-          loading={loadingAll}
-          loadingPosition="start"
-          onClick={() => fetchAll()}
-        >
-          {loadingAll ? 'Loading all...' : 'Load all'}
-        </LoadingButton>
+        {!query?.isAtBatchEnd() && (
+          <LoadingButton
+            {...buttonBaseProps}
+            variant="outlined"
+            startIcon={<ViewListIcon />}
+            loading={loadingAll}
+            loadingPosition="start"
+            onClick={() => fetchAll()}
+          >
+            {loadingAll ? 'Loading all...' : 'Load all'}
+          </LoadingButton>
+        )}
         <GridToolbarExportContainer variant="outlined" {...buttonBaseProps}>
           <GridCsvExportMenuItem options={{ delimiter: ';' }} />
           <GridExcelExportMenuItem
@@ -291,44 +385,14 @@ function Extractooor() {
           )}
         </IconButton>
         <Stack sx={{ width: '100%' }} spacing={2}>
-          {query?.isAtBatchEnd() && rows.length === 0 && !loadingAll && (
-            <Alert severity="info">
-              Query done, but no results matching the query
-            </Alert>
-          )}
-          {query?.isAtBatchEnd() && rows.length > 0 && !loadingAll && (
-            <Alert
-              severity="success"
-              action={
-                <GridToolbarExportContainer {...buttonBaseProps}>
-                  <GridCsvExportMenuItem options={{ delimiter: ';' }} />
-                  <GridExcelExportMenuItem
-                    options={{ fields: query?.getExcelFields(columns) }}
-                  />
-                </GridToolbarExportContainer>
-              }
-            >
-              Loaded all results ({rows.length} rows).
-            </Alert>
-          )}
-          {!query?.isAtBatchEnd() && !loadingAll && (
-            <Alert
-              severity="info"
-              action={
-                <LoadingButton
-                  color="inherit"
-                  onClick={() => fetchAll()}
-                  loading={loadingAll}
-                  size="small"
-                  loadingPosition="start"
-                >
-                  {loadingAll ? 'Loading all...' : 'Load all'}
-                </LoadingButton>
-              }
-            >
-              Loaded {rows.length} results. You can load all data. It may take a
-              few minutes to load over 100'000 rows.
-            </Alert>
+          {query && (
+            <InfoBanner
+              loading={isLoading()}
+              atBatchEnd={query!.isAtBatchEnd()}
+              rowsCount={rows.length}
+              sorted={query!.getQueryStatusInfo().isSorted}
+              maxRowsPerFetch={query!.getPageSize()}
+            ></InfoBanner>
           )}
           {queryIsSlow && (
             <Alert
@@ -370,13 +434,26 @@ function Extractooor() {
   const handlePageChange = async (newPage: number) => {
     setPage(newPage);
     const endPage = Math.ceil(rows.length / tablePageSize - 1);
-    if (newPage === endPage && !query?.isAtBatchEnd()) {
-      await continueBatch();
+    if (newPage === endPage && query) {
+      if (query?.isAtBatchEnd()) {
+        // Use client filtering when all the possible rows are loaded.
+        setSortProps({
+          ...sortProps,
+          sortingMode: 'client',
+        });
+        setFilterProps({
+          ...filterProps,
+          filterMode: 'client',
+        });
+      } else {
+        await continueBatch();
+      }
     }
   };
 
   const handleFilterModelChange = async (model: GridFilterModel) => {
     query?.clearFilters();
+
     for (let i = 0; i < model.items.length; ++i) {
       for (let j = i + 1; j < model.items.length; ++j) {
         const [itemA, itemB] = [model.items[i], model.items[j]];
@@ -412,6 +489,17 @@ function Extractooor() {
       }
     }
 
+    if (
+      query?.isAtBatchEnd() &&
+      query?.getQueryStatusInfo().progressStatus ===
+        QueryProgressStatus.COMPLETED_WITH_ALL_DATA
+    ) {
+      setFilterProps({
+        filterModel: model,
+      });
+      return;
+    }
+
     model.items.forEach((item) => {
       const value = item.value;
       const field = item.columnField;
@@ -439,8 +527,25 @@ function Extractooor() {
   };
 
   const handleSortModelChange = async (model: GridSortModel) => {
+    if (
+      query?.isAtBatchEnd() &&
+      query?.getQueryStatusInfo().progressStatus ===
+        QueryProgressStatus.COMPLETED_WITH_ALL_DATA
+    ) {
+      // Use client sorting when all rows are loaded.
+      setSortProps({
+        sortingMode: 'client',
+        sortModel: model,
+      });
+      return;
+    }
+
     if (model.length === 0) {
-      query?.reset();
+      query?.resetBatch();
+      query?.setOrderBy('');
+      // Start a new batch when the model is removed to get a valid cursor
+      // to do a batch query with unsorted data.
+      await startNewBatch();
       return;
     }
 
@@ -448,7 +553,11 @@ function Extractooor() {
     // We can just pick the first one.
     const { field, sort } = model[0]!;
     if (!field) {
-      query?.reset();
+      query?.resetBatch();
+      query?.setOrderBy('');
+      // Start a new batch when the model is invalidated to get a valid cursor
+      // for the batch query with unsorted data.
+      await startNewBatch();
       return;
     }
 
@@ -533,13 +642,12 @@ function Extractooor() {
           columns={columns}
           disableRowGrouping
           rowsPerPageOptions={[tablePageSize]}
-          rowCount={rows.length}
           getRowClassName={() => 'cursor-pointer'}
           pagination
           onPageChange={handlePageChange}
           page={page}
-          filterMode="server"
-          sortingMode="server"
+          {...filterProps}
+          {...sortProps}
           loading={loading}
           pageSize={tablePageSize}
           onPageSizeChange={setTablePageSize}
