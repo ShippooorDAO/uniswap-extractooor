@@ -149,6 +149,8 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       width: 150,
     },
     poolToken: {
+      headerName: 'Pool Token',
+      filterField: 'pool',
       type: 'singleSelect',
       valueOptions: this.tokenService.getAll().map((token) => ({
         label: `${token.symbol} (${token.id})`,
@@ -157,7 +159,6 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
-      filterField: 'pool',
       filterParser: (values: string | string[]) => {
         if (typeof values === 'string') {
           const token = this.tokenService.getById(values);

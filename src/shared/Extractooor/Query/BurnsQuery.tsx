@@ -97,16 +97,8 @@ export default class BurnsQuery extends ExtractooorQueryBase<Entity> {
         ...this.baseFields.pool,
       },
       {
-        field: 'token0',
-        headerName: 'Token 0',
+        field: 'poolToken',
         ...this.baseFields.poolToken,
-        sortable: false,
-      },
-      {
-        field: 'token1',
-        headerName: 'Token 1',
-        ...this.baseFields.poolToken,
-        sortable: false,
       },
       {
         field: 'token0Symbol',
