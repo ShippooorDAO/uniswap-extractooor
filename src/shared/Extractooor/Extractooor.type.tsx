@@ -2,18 +2,6 @@ import { GridColDef, GridRowsProp } from '@mui/x-data-grid-premium';
 import { DocumentNode } from 'graphql';
 import { Operator } from '../Utils/QueryBuilder';
 
-export enum QueryProgressStatus {
-  NOT_STARTED,
-  ONGOING,
-  COMPLETED_WITH_FILTER,
-  COMPLETED_WITH_ALL_DATA,
-}
-
-export interface QueryStatusInfo {
-  progressStatus: QueryProgressStatus;
-  isSorted: boolean;
-}
-
 export type Column = GridColDef & {
   hidden?: boolean;
   filterPriority?: number;
@@ -42,7 +30,6 @@ export interface ExtractooorQuery {
   reset(): void;
   resetBatch(): void;
   cancel(): void;
-  getQueryStatusInfo(): QueryStatusInfo;
 }
 
 export interface ExtractooorProviderState {

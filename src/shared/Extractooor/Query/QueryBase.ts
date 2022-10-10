@@ -7,11 +7,7 @@ import {
   UniswapTokenRenderCell,
   UniswapPoolRenderCell,
 } from '@/shared/Utils/DataGrid';
-import {
-  Operator,
-  QueryBuilder,
-  QueryBuilderStatusInfo,
-} from '@/shared/Utils/QueryBuilder';
+import { Operator, QueryBuilder } from '@/shared/Utils/QueryBuilder';
 import {
   ApolloClient,
   DocumentNode,
@@ -28,14 +24,8 @@ import {
   GridRowsProp,
   GridValueGetterParams,
   GridValueFormatterParams,
-  GridComparatorFn,
 } from '@mui/x-data-grid-premium';
-import {
-  Column,
-  ExtractooorQuery,
-  QueryStatusInfo,
-  QueryProgressStatus,
-} from '../Extractooor.type';
+import { Column, ExtractooorQuery } from '../Extractooor.type';
 import {
   BaseEntity,
   BatchQueryResponse,
@@ -83,12 +73,8 @@ function parseTimestampFilter(value: string | string[]) {
 const MAX_QUERY_PAGE_SIZE = 1000;
 const DEFAULT_FILTER_PARSER = parseStringFilter;
 
-const tokenAmountComparator: GridComparatorFn<CurrencyAmount> = (v1, v2) =>
-  v1.toNumber() - v2.toNumber();
-
-export abstract class ExtractooorQueryBase<
-  TResponseEntity extends { id: string }
-> implements ExtractooorQuery
+export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string }>
+  implements ExtractooorQuery
 {
   private queryBuilder = new QueryBuilder();
   private pageSize: number = MAX_QUERY_PAGE_SIZE;
@@ -100,7 +86,6 @@ export abstract class ExtractooorQueryBase<
   private batchCursor: string = '';
   private reachedBatchEnd: boolean = false;
   private orderBy: string = '';
-  private progressStatus: QueryProgressStatus = QueryProgressStatus.NOT_STARTED;
 
   protected readonly idFilterOperators = getGridStringOperators().filter(
     (operator) => ['equals', 'isAnyOf'].includes(operator.value)
@@ -211,7 +196,6 @@ export abstract class ExtractooorQueryBase<
       renderCell: AmountRenderCell,
       filterParser: parseNumberFilter,
       toExcel: (value?: CurrencyAmount) => value?.toNumber(),
-      sortComparator: tokenAmountComparator,
       width: 250,
     },
     integer: {
@@ -294,18 +278,6 @@ export abstract class ExtractooorQueryBase<
     return promise;
   }
 
-  private updateStatus() {
-    const queryBuilderStatusInfo: QueryBuilderStatusInfo =
-      this.queryBuilder.getStatusInfo();
-    if (this.reachedBatchEnd && queryBuilderStatusInfo.filters.size > 0) {
-      this.progressStatus = QueryProgressStatus.COMPLETED_WITH_FILTER;
-    } else if (this.reachedBatchEnd) {
-      this.progressStatus = QueryProgressStatus.COMPLETED_WITH_ALL_DATA;
-    } else {
-      this.progressStatus = QueryProgressStatus.ONGOING;
-    }
-  }
-
   private async continueBatch<
     TData extends BaseEntity,
     TVariables = OperationVariables
@@ -318,8 +290,6 @@ export abstract class ExtractooorQueryBase<
     if (this.reachedBatchEnd) {
       return [];
     }
-
-    this.updateStatus();
 
     let attempt = 0;
     const maxAttempts = 10;
@@ -342,14 +312,6 @@ export abstract class ExtractooorQueryBase<
           },
         });
         this.queryBuilder.setFirstFetchDone(true);
-
-        const queryStatusInfo = this.queryBuilder.getStatusInfo();
-        if (queryStatusInfo.orderBy) {
-          // Do not allow continuing the batch if it is a sorted query because
-          // it isn't possible to batch sorted queries at the moment.
-          this.reachedBatchEnd = true;
-        }
-
         const dataList: TData[] = results.data.batch ?? [];
         if (dataList.length > 0) {
           this.batchCursor =
@@ -358,7 +320,6 @@ export abstract class ExtractooorQueryBase<
 
         if (dataList.length < pageSize) {
           this.reachedBatchEnd = true;
-          this.updateStatus();
         }
         return dataList;
       } catch (e: unknown) {
@@ -556,13 +517,6 @@ export abstract class ExtractooorQueryBase<
     columns = this.addExcelColumns(columns);
     columns = this.addUnixTimestampColumns(columns);
     return columns;
-  }
-
-  getQueryStatusInfo(): QueryStatusInfo {
-    return {
-      progressStatus: this.progressStatus,
-      isSorted: !!this.queryBuilder.getStatusInfo().orderBy,
-    };
   }
 
   protected abstract getQueryBody(): string;

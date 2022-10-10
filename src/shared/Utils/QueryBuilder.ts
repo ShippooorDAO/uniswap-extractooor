@@ -9,9 +9,7 @@ export interface Filter {
 
 export class QuerySizeError extends Error {
   constructor() {
-    super(
-      "Query body length is more than subgraph request limit of 100'000 characters."
-    );
+    super("Query body length is more than subgraph request limit of 100'000 characters.");
     this.name = 'QuerySizeError';
   }
 }
@@ -28,18 +26,6 @@ export enum Operator {
   CONTAINS = '_contains',
 
   IN = '_in',
-}
-
-export interface QueryBuilderStatusInfo {
-  body?: string;
-  entityName?: string;
-  filters: Map<string, Filter>;
-  orderBy?: string;
-  orderDirection?: string;
-  page: number;
-  pageSize: number;
-  batchCursorField: string;
-  firstFetchDone: boolean;
 }
 
 export class QueryBuilder {
@@ -66,9 +52,7 @@ export class QueryBuilder {
   }
 
   addFilter(field: string, operator: Operator, value: string | number) {
-    const previousFilters: Map<string, Filter> = new Map([
-      ...Array.from(this.filters.entries()),
-    ]);
+    const previousFilters: Map<string, Filter> = new Map([...Array.from(this.filters.entries())]);
     this.filters.set(field, { field, operator, value });
 
     if (!this.checkQuerySize()) {
@@ -91,16 +75,17 @@ export class QueryBuilder {
 
   setOrderBy(orderBy: string) {
     const previousOrderBy = this.orderBy;
-    const batchCursorField = this.batchCursorField;
+    const batchCursorField = this.batchCursorField; 
 
     this.orderBy = orderBy;
+    this.batchCursorField = orderBy;
 
     if (!this.checkQuerySize()) {
       this.orderBy = previousOrderBy;
       this.batchCursorField = batchCursorField;
       throw new QuerySizeError();
     }
-
+  
     return this;
   }
 
@@ -159,12 +144,20 @@ export class QueryBuilder {
       throw 'Query cannot be built. Entity name must be set using `setEntityName` method.';
     }
 
+    const orderDirectionToCursorOperator: any = {
+      asc: Operator.GT,
+      desc: Operator.LT,
+    };
+
     const forcedFilters = new Map([
       [
         this.batchCursorField,
         {
           field: this.batchCursorField,
-          operator: Operator.GT,
+          operator:
+            this.orderBy && this.orderDirection
+              ? orderDirectionToCursorOperator[this.orderDirection]
+              : Operator.GT,
           value: '$batchCursor',
         },
       ],
@@ -196,20 +189,6 @@ export class QueryBuilder {
         ) ${this.body}
       }
     `;
-  }
-
-  getStatusInfo(): QueryBuilderStatusInfo {
-    return {
-      body: this.body,
-      entityName: this.entityName,
-      filters: this.filters,
-      orderBy: this.orderBy,
-      orderDirection: this.orderDirection,
-      page: this.page,
-      pageSize: this.pageSize,
-      batchCursorField: this.batchCursorField,
-      firstFetchDone: this.firstFetchDone,
-    };
   }
 
   getRequestSize() {
