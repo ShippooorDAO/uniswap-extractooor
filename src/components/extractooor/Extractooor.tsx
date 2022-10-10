@@ -553,6 +553,11 @@ function Extractooor() {
             filterPanel: {
               linkOperators: [GridLinkOperator.And],
             },
+            loadingOverlay: {
+              style: {
+                zIndex: 1,
+              },
+            },
           }}
           initialState={{
             filter: {
