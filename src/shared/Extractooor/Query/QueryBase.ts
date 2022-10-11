@@ -148,8 +148,8 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
       renderCell: UniswapPoolRenderCell,
       width: 150,
     },
-    poolToken: {
-      headerName: 'Pool Token',
+    poolTokens: {
+      headerName: 'Pool Tokens',
       filterField: 'pool',
       type: 'singleSelect',
       valueOptions: this.tokenService.getAll().map((token) => ({
@@ -184,8 +184,15 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
         }, new Array<string>());
         return parseStringFilter(poolIds);
       },
+      valueGetter: (params: GridValueGetterParams) => {
+        const poolId = params.row.pool;
+        const pool = this.uniswapPoolService.getPoolById(poolId);
+        if (!pool) {
+          return null;
+        }
+        return `${pool.token0.symbol} / ${pool.token1.symbol}`;
+      },
       sortable: false,
-      renderCell: UniswapTokenRenderCell,
       width: 150,
     },
     amount: {

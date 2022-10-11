@@ -376,7 +376,6 @@ function Extractooor() {
   };
 
   const handleFilterModelChange = async (model: GridFilterModel) => {
-    query?.clearFilters();
     for (let i = 0; i < model.items.length; ++i) {
       for (let j = i + 1; j < model.items.length; ++j) {
         const [itemA, itemB] = [model.items[i], model.items[j]];
@@ -385,10 +384,12 @@ function Extractooor() {
           continue;
         }
         const columnA = columns.find(
-          (column) => column.filterField ?? column.field === itemA?.columnField
+          (column) =>
+            (column.filterField ?? column.field) === itemA?.columnField
         );
         const columnB = columns.find(
-          (column) => column.filterField ?? column.field === itemB?.columnField
+          (column) =>
+            (column.filterField ?? column.field) === itemB?.columnField
         );
 
         if (!columnA || !columnB) {
@@ -402,16 +403,12 @@ function Extractooor() {
           continue;
         }
 
-        if ((columnA.filterPriority ?? 0) > (columnB.filterPriority ?? 0)) {
-          apiRef.current.deleteFilterItem(itemB);
-          return;
-        } else {
-          apiRef.current.deleteFilterItem(itemA);
-          return;
-        }
+        apiRef.current.deleteFilterItem(itemA);
+        return;
       }
     }
 
+    query?.clearFilters();
     model.items.forEach((item) => {
       const value = item.value;
       const field = item.columnField;

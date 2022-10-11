@@ -100,8 +100,8 @@ export default class FlashesQuery extends ExtractooorQueryBase<Entity> {
         ...this.baseFields.pool,
       },
       {
-        field: 'poolToken',
-        ...this.baseFields.poolToken,
+        field: 'poolTokens',
+        ...this.baseFields.poolTokens,
       },
       {
         field: 'token0Symbol',

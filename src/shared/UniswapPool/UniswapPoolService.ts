@@ -55,4 +55,8 @@ export class UniswapPoolService {
     const tokenPairHash = this.getTokenPairHash(token0, token1);
     return this.mapByTokenPair.get(tokenPairHash);
   }
+
+  getPoolById(id: string) {
+    return this.mapById.get(id);
+  }
 }

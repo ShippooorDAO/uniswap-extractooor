@@ -68,22 +68,8 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<TickDayDataE
         ...this.baseFields.pool,
       },
       {
-        field: 'poolToken',
-        ...this.baseFields.poolToken,
-      },
-      {
-        field: 'token0Symbol',
-        headerName: 'Token 0 Symbol',
-        ...this.baseFields.string,
-        filterable: false,
-        sortable: false,
-      },
-      {
-        field: 'token1Symbol',
-        headerName: 'Token 1 Symbol',
-        ...this.baseFields.string,
-        filterable: false,
-        sortable: false,
+        field: 'poolTokens',
+        ...this.baseFields.poolTokens,
       },
       {
         field: 'tick',

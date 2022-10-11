@@ -106,22 +106,8 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
         ...this.baseFields.pool,
       },
       {
-        field: 'poolToken',
-        ...this.baseFields.poolToken,
-      },
-      {
-        field: 'token0Symbol',
-        headerName: 'Token 0 Symbol',
-        ...this.baseFields.string,
-        filterable: false,
-        sortable: false,
-      },
-      {
-        field: 'token1Symbol',
-        headerName: 'Token 1 Symbol',
-        ...this.baseFields.string,
-        filterable: false,
-        sortable: false,
+        field: 'poolTokens',
+        ...this.baseFields.poolTokens,
       },
       {
         field: 'liquidity',
@@ -219,8 +205,6 @@ export default class PoolDayDatasQuery extends ExtractooorQueryBase<Entity> {
         ...entry,
         pool: entry.pool.id,
         date: new Date(entry.date * 1000),
-        token0: entry.pool.token0.id,
-        token1: entry.pool.token1.id,
         token0Symbol: entry.pool.token0.symbol,
         token1Symbol: entry.pool.token1.symbol,
         liquidity: Number(entry.liquidity),

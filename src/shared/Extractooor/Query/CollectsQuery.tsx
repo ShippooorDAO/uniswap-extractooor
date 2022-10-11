@@ -105,8 +105,8 @@ export default class SwapsQuery extends ExtractooorQueryBase<Entity> {
         ...this.baseFields.walletAddress,
       },
       {
-        field: 'poolToken',
-        ...this.baseFields.poolToken,
+        field: 'poolTokens',
+        ...this.baseFields.poolTokens,
       },
       {
         field: 'token0Symbol',
