@@ -20,11 +20,13 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import DescriptionIcon from '@mui/icons-material/Description';
 import {
   Button,
   ButtonProps,
   Select,
   FormControl,
+  Menu,
   MenuItem,
   LinearProgress,
   InputLabel,
@@ -72,6 +74,59 @@ const dataGridOperatorsMapping: { [key: string]: Operator } = {
   // multi-select
   isAnyOf: Operator.IN,
 };
+
+function DocumentationButton(props: ButtonProps) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const gotoGraphQLSchema = () => {
+    window.open(
+      'https://github.com/Uniswap/v3-subgraph/blob/main/schema.graphql'
+    );
+    handleClose();
+  };
+
+  const gotoOfficialSubgraphDoc = () => {
+    window.open('https://docs.uniswap.org/sdk/subgraph/subgraph-data');
+    handleClose();
+  };
+
+  return (
+    <div>
+      <Button
+        {...props}
+        startIcon={<DescriptionIcon />}
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        Documentation
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={gotoOfficialSubgraphDoc}>
+          Official Subgraph Doc
+        </MenuItem>
+        <MenuItem onClick={gotoGraphQLSchema}>GraphQL Schema</MenuItem>
+      </Menu>
+    </div>
+  );
+}
 
 export const ExtractorDecimals = (params: GridValueFormatterParams<number>) =>
   params.value ? Number(params.value) : '';
@@ -230,6 +285,7 @@ function Extractooor() {
     const buttonBaseProps: ButtonProps = {
       color: 'primary',
       size: 'small',
+      variant: 'outlined',
     };
 
     return (
@@ -251,7 +307,7 @@ function Extractooor() {
             ))}
           </Select>
         </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 175 }}>
           <InputLabel id="dataset-select-label">Dataset</InputLabel>
           <Select
             size="small"
@@ -275,7 +331,6 @@ function Extractooor() {
 
         <LoadingButton
           {...buttonBaseProps}
-          variant="outlined"
           startIcon={<ViewListIcon />}
           loading={loadingAll}
           loadingPosition="start"
@@ -291,12 +346,12 @@ function Extractooor() {
         </GridToolbarExportContainer>
         <Button
           {...buttonBaseProps}
-          variant="outlined"
           startIcon={<DataObjectIcon />}
           onClick={handleOpen}
         >
-          View GraphQL Query
+          GraphQL Query
         </Button>
+        <DocumentationButton {...buttonBaseProps} />
         <IconButton
           size="large"
           className="hidden xl:inline-flex ml-auto mr-2"
