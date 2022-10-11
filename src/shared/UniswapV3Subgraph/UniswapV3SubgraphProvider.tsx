@@ -1,6 +1,7 @@
 import {
   ApolloClient,
   DocumentNode,
+  InMemoryCache,
   NormalizedCacheObject,
   TypedDocumentNode,
 } from '@apollo/client';
@@ -17,12 +18,16 @@ import {
   BatchQueryResponse,
   PoolResponse,
   UniswapV3SubgraphProviderState,
+  Chain,
 } from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
 import { POOLS_BATCH_QUERY_BY_TIMESTAMP } from './UniswapV3SubgraphQueries';
-import { processPools } from './UniswapV3SubgraphProcess';
+import {
+  getCache,
+  getSubgraphUrl,
+  processPools,
+} from './UniswapV3SubgraphProcess';
 import { TokenService } from '../Currency/TokenService';
 import { UniswapPoolService } from '../UniswapPool/UniswapPoolService';
-import cachedPoolResponses from './cached_pools_response.json';
 
 export async function batchQueryPoolsByTimestamp(
   query:
@@ -64,6 +69,15 @@ export async function batchQueryPoolsByTimestamp(
   return batchResult;
 }
 
+function createApolloClient(
+  chain = Chain.ETHEREUM
+): ApolloClient<NormalizedCacheObject> {
+  return new ApolloClient({
+    uri: getSubgraphUrl(chain),
+    cache: new InMemoryCache(),
+  });
+}
+
 const missingProviderError =
   'You forgot to wrap your code in a provider <UniswapV3SubgraphProvider>';
 
@@ -72,6 +86,15 @@ const UniswapV3SubgraphContext = createContext<UniswapV3SubgraphProviderState>({
     throw new Error(missingProviderError);
   },
   get uniswapPoolService(): never {
+    throw new Error(missingProviderError);
+  },
+  get chain(): never {
+    throw new Error(missingProviderError);
+  },
+  get setChain(): never {
+    throw new Error(missingProviderError);
+  },
+  get apolloClient(): never {
     throw new Error(missingProviderError);
   },
 });
@@ -86,14 +109,18 @@ export const useUniswapV3SubgraphContext = () =>
 
 export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
   children,
-  apolloClient,
 }: UniswapV3SubgraphProviderProps) => {
   const [tokenService, setTokenService] = useState<TokenService | undefined>();
   const [uniswapPoolService, setUniswapPoolService] = useState<
     UniswapPoolService | undefined
   >();
+  const [chain, setChain] = useState<Chain>(Chain.ETHEREUM);
+  const [apolloClient, setApolloClient] = useState<
+    ApolloClient<NormalizedCacheObject>
+  >(createApolloClient());
 
   useEffect(() => {
+    const cachedPoolResponses = getCache(chain);
     const latestTimestampInStorage =
       cachedPoolResponses.length > 0
         ? Math.max(
@@ -120,13 +147,25 @@ export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
       setTokenService(tokenService);
       setUniswapPoolService(new UniswapPoolService(pools, tokenService));
     });
-  }, []);
+  }, [apolloClient]);
+
+  useEffect(() => {
+    setApolloClient(
+      new ApolloClient({
+        uri: getSubgraphUrl(chain),
+        cache: new InMemoryCache(),
+      })
+    );
+  }, [chain]);
 
   return (
     <UniswapV3SubgraphContext.Provider
       value={{
         tokenService,
         uniswapPoolService,
+        chain,
+        setChain,
+        apolloClient,
       }}
     >
       {children}

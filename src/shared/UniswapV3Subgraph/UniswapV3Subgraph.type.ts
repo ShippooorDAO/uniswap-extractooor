@@ -1,3 +1,4 @@
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { Token } from "../Currency/Token";
 import { TokenService } from "../Currency/TokenService";
 import { UniswapPoolService } from "../UniswapPool/UniswapPoolService";
@@ -8,6 +9,17 @@ export type GetTokenBySymbolFunc = (symbol: string) => Token;
 export interface UniswapV3SubgraphProviderState {
   tokenService?: TokenService;
   uniswapPoolService?: UniswapPoolService;
+  chain: Chain;
+  setChain: (chain: Chain) => void;
+  apolloClient: ApolloClient<NormalizedCacheObject>;
+}
+
+export enum Chain {
+  ETHEREUM = 'Ethereum',
+  POLYGON = 'Polygon',
+  ARBITRUM = 'Arbitrum',
+  OPTIMISM = 'Optimism',
+  CELO = 'Celo',
 }
 
 /**

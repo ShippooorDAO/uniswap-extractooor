@@ -1,4 +1,3 @@
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import {
   createContext,
   FC,
@@ -45,7 +44,6 @@ const ExtractooorContext = createContext<ExtractooorProviderState>({
 });
 
 interface ExtractooorProviderProps {
-  apolloClient: ApolloClient<NormalizedCacheObject>;
   children?: ReactNode;
 }
 
@@ -54,9 +52,9 @@ export const useExtractooorContext = () =>
 
 export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
   children,
-  apolloClient,
 }: ExtractooorProviderProps) => {
-  const { tokenService, uniswapPoolService } = useUniswapV3SubgraphContext();
+  const { tokenService, uniswapPoolService, apolloClient } =
+    useUniswapV3SubgraphContext();
   const [queries, setQueries] = useState<ExtractooorQuery[] | undefined>();
   const [fullscreen, setFullscreen] = useState<boolean>(false);
 
@@ -66,6 +64,11 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         /**
          * Initialize all queries here!
          */
+        new UniswapDayDatasQuery(
+          apolloClient,
+          tokenService,
+          uniswapPoolService
+        ),
         new SwapsQuery(apolloClient, tokenService, uniswapPoolService),
         new TokensQuery(apolloClient, tokenService, uniswapPoolService),
         new PoolsQuery(apolloClient, tokenService, uniswapPoolService),
@@ -81,11 +84,6 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         new BurnsQuery(apolloClient, tokenService, uniswapPoolService),
         new CollectsQuery(apolloClient, tokenService, uniswapPoolService),
         new FlashesQuery(apolloClient, tokenService, uniswapPoolService),
-        new UniswapDayDatasQuery(
-          apolloClient,
-          tokenService,
-          uniswapPoolService
-        ),
         new PoolDayDatasQuery(apolloClient, tokenService, uniswapPoolService),
         new PoolHourDatasQuery(apolloClient, tokenService, uniswapPoolService),
         new TickHourDatasQuery(apolloClient, tokenService, uniswapPoolService),

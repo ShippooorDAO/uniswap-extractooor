@@ -97,13 +97,11 @@ export default class UniswapDayDatasQuery extends ExtractooorQueryBase<Entity> {
   }
 
   getRows(response: Entity[]): GridRowsProp {
+    const ethToken = this.tokenService.getBySymbol('ETH')!;
     return response.map((entry) => ({
       ...entry,
       date: new Date(Number(entry.date) * 1000),
-      volumeETH: TokenAmount.fromBigDecimal(
-        entry.volumeETH,
-        this.tokenService.getBySymbol('ETH')!
-      ),
+      volumeETH: TokenAmount.fromBigDecimal(entry.volumeETH, ethToken),
       volumeUSD: UsdAmount.fromBigDecimal(entry.volumeUSD),
       volumeUSDUntracked: UsdAmount.fromBigDecimal(entry.volumeUSDUntracked),
       feesUSD: UsdAmount.fromBigDecimal(entry.feesUSD),

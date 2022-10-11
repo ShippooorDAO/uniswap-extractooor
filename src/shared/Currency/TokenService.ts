@@ -9,6 +9,14 @@ export class TokenService {
       this.mapById.set(token.id, token);
       this.mapBySymbol.set(token.symbol, token);
     }
+
+    // Add special token for ETH. This is mainly for display purpose.
+    const wethToken = this.mapBySymbol.get("WETH")!
+    const ethToken = {...wethToken};
+    ethToken.symbol = 'ETH';
+    ethToken.id = 'ETH';
+    this.mapById.set(ethToken.id, ethToken);
+    this.mapBySymbol.set(ethToken.symbol, ethToken);
   }
 
   getAll() {

@@ -46,6 +46,8 @@ import {
 } from '@/shared/Extractooor/Extractooor.type';
 import { Operator, QuerySizeError } from '@/shared/Utils/QueryBuilder';
 import { print } from 'graphql/language/printer';
+import { Chain } from '@/shared/UniswapV3Subgraph/UniswapV3Subgraph.type';
+import { useUniswapV3SubgraphContext } from '@/shared/UniswapV3Subgraph/UniswapV3SubgraphProvider';
 
 const dataGridOperatorsMapping: { [key: string]: Operator } = {
   // number and string
@@ -101,6 +103,7 @@ const CopyToClipboardButton = ({ content }: { content: string }) => {
 function Extractooor() {
   const apiRef = useGridApiRef();
 
+  const { chain, setChain } = useUniswapV3SubgraphContext();
   const { queries, fullscreen, setFullscreen } = useExtractooorContext();
   const [query, setQuery] = useState<ExtractooorQuery | undefined>();
   const [currentQueryIndex, setCurrentQueryIndex] = useState<number>(0);
@@ -231,14 +234,29 @@ function Extractooor() {
 
     return (
       <GridToolbarContainer className="flex gap-2">
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-          <InputLabel id="demo-simple-select-standard-label">
-            Dataset
-          </InputLabel>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
+          <InputLabel id="chain-select-label">Chain</InputLabel>
           <Select
             size="small"
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
+            labelId="chain-select-label"
+            id="chain-select"
+            value={chain}
+            onChange={(event) => setChain(event.target.value as Chain)}
+            label="Chain"
+          >
+            {Object.entries(Chain).map(([key, value]) => (
+              <MenuItem key={key} value={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+          <InputLabel id="dataset-select-label">Dataset</InputLabel>
+          <Select
+            size="small"
+            labelId="dataset-select-label"
+            id="dataset-select"
             value={currentQueryIndex}
             onChange={(event) => maybeResetDataGrid(Number(event.target.value))}
             label="Dataset"
