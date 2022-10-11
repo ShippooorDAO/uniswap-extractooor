@@ -35,8 +35,8 @@ export default class TokenHourDatasQuery extends ExtractooorQueryBase<Entity> {
     uniswapPoolService: UniswapPoolService
   ) {
     super(
-      'TokenHourData',
-      'TokenHourData',
+      'Token Hour Data',
+      'Token Hour Data',
       apolloClient,
       tokenService,
       uniswapPoolService

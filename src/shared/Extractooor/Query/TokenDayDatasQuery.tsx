@@ -35,8 +35,8 @@ export default class TokenDayDatasQuery extends ExtractooorQueryBase<Entity> {
     uniswapPoolService: UniswapPoolService
   ) {
     super(
-      'TokenDayData',
-      'TokenDayData',
+      'Token Day Data',
+      'Token Day Data',
       apolloClient,
       tokenService,
       uniswapPoolService

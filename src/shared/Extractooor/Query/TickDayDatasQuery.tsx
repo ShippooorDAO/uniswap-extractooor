@@ -42,8 +42,8 @@ export default class TickDayDatasQuery extends ExtractooorQueryBase<TickDayDataE
     uniswapPoolService: UniswapPoolService
   ) {
     super(
-      'TickDayData',
-      'TickDayData',
+      'Tick Day Data',
+      'Tick Day Data',
       apolloClient,
       tokenService,
       uniswapPoolService

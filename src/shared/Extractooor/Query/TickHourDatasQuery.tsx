@@ -40,8 +40,8 @@ export default class TickHourDatasQuery extends ExtractooorQueryBase<Entity> {
     uniswapPoolService: UniswapPoolService
   ) {
     super(
-      'TickHourData',
-      'TickHourData',
+      'Tick Hour Data',
+      'Tick Hour Data',
       apolloClient,
       tokenService,
       uniswapPoolService

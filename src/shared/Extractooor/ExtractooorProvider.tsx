@@ -66,6 +66,7 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         /**
          * Initialize all queries here!
          */
+        new SwapsQuery(apolloClient, tokenService, uniswapPoolService),
         new TokensQuery(apolloClient, tokenService, uniswapPoolService),
         new PoolsQuery(apolloClient, tokenService, uniswapPoolService),
         new TicksQuery(apolloClient, tokenService, uniswapPoolService),
@@ -78,7 +79,6 @@ export const ExtractoooorProvider: FC<ExtractooorProviderProps> = ({
         new TransactionsQuery(apolloClient, tokenService, uniswapPoolService),
         new MintsQuery(apolloClient, tokenService, uniswapPoolService),
         new BurnsQuery(apolloClient, tokenService, uniswapPoolService),
-        new SwapsQuery(apolloClient, tokenService, uniswapPoolService),
         new CollectsQuery(apolloClient, tokenService, uniswapPoolService),
         new FlashesQuery(apolloClient, tokenService, uniswapPoolService),
         new UniswapDayDatasQuery(
