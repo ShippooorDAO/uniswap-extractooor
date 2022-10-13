@@ -7,7 +7,11 @@ import {
   UniswapTokenRenderCell,
   UniswapPoolRenderCell,
 } from '@/shared/Utils/DataGrid';
-import { Operator, QueryBuilder } from '@/shared/Utils/QueryBuilder';
+import {
+  Operator,
+  QueryBuilder,
+  QueryBuilderStatusInfo,
+} from '@/shared/Utils/QueryBuilder';
 import {
   ApolloClient,
   DocumentNode,
@@ -73,8 +77,9 @@ function parseTimestampFilter(value: string | string[]) {
 const MAX_QUERY_PAGE_SIZE = 1000;
 const DEFAULT_FILTER_PARSER = parseStringFilter;
 
-export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string }>
-  implements ExtractooorQuery
+export abstract class ExtractooorQueryBase<
+  TResponseEntity extends { id: string }
+> implements ExtractooorQuery
 {
   private queryBuilder = new QueryBuilder();
   private pageSize: number = MAX_QUERY_PAGE_SIZE;
@@ -320,6 +325,14 @@ export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string 
           },
         });
         this.queryBuilder.setFirstFetchDone(true);
+        const queryBuilderStatusInfo: QueryBuilderStatusInfo =
+          this.queryBuilder.getStatusInfo();
+        if (queryBuilderStatusInfo.orderBy) {
+          // Do not allow continuing the batch if it is a sorted query because
+          // it isn't possible to batch sorted queries at the moment.
+          this.reachedBatchEnd = true;
+        }
+
         const dataList: TData[] = results.data.batch ?? [];
         if (dataList.length > 0) {
           this.batchCursor =
