@@ -325,9 +325,7 @@ export abstract class ExtractooorQueryBase<
           },
         });
         this.queryBuilder.setFirstFetchDone(true);
-        const queryBuilderStatusInfo: QueryBuilderStatusInfo =
-          this.queryBuilder.getStatusInfo();
-        if (queryBuilderStatusInfo.orderBy) {
+        if (this.queryBuilder.getOrderBy()) {
           // Do not allow continuing the batch if it is a sorted query because
           // it isn't possible to batch sorted queries at the moment.
           this.reachedBatchEnd = true;

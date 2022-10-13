@@ -30,18 +30,6 @@ export enum Operator {
   IN = '_in',
 }
 
-export interface QueryBuilderStatusInfo {
-  body?: string;
-  entityName?: string;
-  filters: Map<string, Filter>;
-  orderBy?: string;
-  orderDirection?: string;
-  page: number;
-  pageSize: number;
-  batchCursorField: string;
-  firstFetchDone: boolean;
-}
-
 export class QueryBuilder {
   private body?: string;
   private entityName?: string;
@@ -204,18 +192,8 @@ export class QueryBuilder {
     return batchQuery.loc?.source.body.length || 0;
   }
 
-  getStatusInfo(): QueryBuilderStatusInfo {
-    return {
-      body: this.body,
-      entityName: this.entityName,
-      filters: this.filters,
-      orderBy: this.orderBy,
-      orderDirection: this.orderDirection,
-      page: this.page,
-      pageSize: this.pageSize,
-      batchCursorField: this.batchCursorField,
-      firstFetchDone: this.firstFetchDone,
-    };
+  getOrderBy(): string {
+    return this.orderBy ?? '';
   }
 
   private buildFilter(filter: Filter) {
