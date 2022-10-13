@@ -9,7 +9,9 @@ export interface Filter {
 
 export class QuerySizeError extends Error {
   constructor() {
-    super("Query body length is more than subgraph request limit of 100'000 characters.");
+    super(
+      "Query body length is more than subgraph request limit of 100'000 characters."
+    );
     this.name = 'QuerySizeError';
   }
 }
@@ -52,11 +54,13 @@ export class QueryBuilder {
   }
 
   addFilter(field: string, operator: Operator, value: string | number) {
-    const previousFilters: Map<string, Filter> = new Map([...Array.from(this.filters.entries())]);
+    const previousFilters: Map<string, Filter> = new Map([
+      ...Array.from(this.filters.entries()),
+    ]);
     this.filters.set(field, { field, operator, value });
 
     if (!this.checkQuerySize()) {
-      // rollback changes
+      // rollback changes if the query is too big and exceeds the limit.
       this.filters = previousFilters;
       throw new QuerySizeError();
     }
@@ -75,7 +79,7 @@ export class QueryBuilder {
 
   setOrderBy(orderBy: string) {
     const previousOrderBy = this.orderBy;
-    const batchCursorField = this.batchCursorField; 
+    const batchCursorField = this.batchCursorField;
 
     this.orderBy = orderBy;
     this.batchCursorField = orderBy;
@@ -85,7 +89,7 @@ export class QueryBuilder {
       this.batchCursorField = batchCursorField;
       throw new QuerySizeError();
     }
-  
+
     return this;
   }
 
@@ -144,20 +148,12 @@ export class QueryBuilder {
       throw 'Query cannot be built. Entity name must be set using `setEntityName` method.';
     }
 
-    const orderDirectionToCursorOperator: any = {
-      asc: Operator.GT,
-      desc: Operator.LT,
-    };
-
     const forcedFilters = new Map([
       [
         this.batchCursorField,
         {
           field: this.batchCursorField,
-          operator:
-            this.orderBy && this.orderDirection
-              ? orderDirectionToCursorOperator[this.orderDirection]
-              : Operator.GT,
+          operator: Operator.GT,
           value: '$batchCursor',
         },
       ],
@@ -196,6 +192,10 @@ export class QueryBuilder {
     return batchQuery.loc?.source.body.length || 0;
   }
 
+  getOrderBy(): string {
+    return this.orderBy ?? '';
+  }
+
   private buildFilter(filter: Filter) {
     return `${filter.field}${filter.operator}: ${filter.value}`;
   }
@@ -212,9 +212,13 @@ export class QueryBuilder {
       return null;
     }
 
-    const serializedFilters = Array.from(mergedFilters.values()).map(
-      (filter: Filter) => this.buildFilter(filter)
-    );
+    const serializedFilters = Array.from(mergedFilters.values())
+      .filter((filter) => !!filter.field && !!filter.operator && !!filter.value)
+      .map((filter: Filter) => this.buildFilter(filter));
+
+    if (serializedFilters.length === 0) {
+      return null;
+    }
 
     return `where: {${serializedFilters.join(', ')}}`;
   }

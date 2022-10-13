@@ -177,6 +177,7 @@ function Extractooor() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [page, setPage] = useState<number>(0);
+  const [sortModel, setSortModel] = useState<GridSortModel>();
 
   const cancel = async () => {
     setCancelling(true);
@@ -369,22 +370,26 @@ function Extractooor() {
               Query done, but no results matching the query
             </Alert>
           )}
-          {query?.isAtBatchEnd() && rows.length > 0 && !loadingAll && (
-            <Alert
-              severity="success"
-              action={
-                <GridToolbarExportContainer {...buttonBaseProps}>
-                  <GridCsvExportMenuItem options={{ delimiter: ';' }} />
-                  <GridExcelExportMenuItem
-                    options={{ fields: query?.getExcelFields(columns) }}
-                  />
-                </GridToolbarExportContainer>
-              }
-            >
-              Loaded all results ({rows.length} rows).
-            </Alert>
-          )}
-          {!query?.isAtBatchEnd() && !loadingAll && (
+          {query?.isAtBatchEnd() &&
+            rows.length > 0 &&
+            !loadingAll &&
+            !loading &&
+            (!sortModel || rows.length < query!.getPageSize()) && (
+              <Alert
+                severity="success"
+                action={
+                  <GridToolbarExportContainer {...buttonBaseProps}>
+                    <GridCsvExportMenuItem options={{ delimiter: ';' }} />
+                    <GridExcelExportMenuItem
+                      options={{ fields: query?.getExcelFields(columns) }}
+                    />
+                  </GridToolbarExportContainer>
+                }
+              >
+                Loaded all results ({rows.length} rows).
+              </Alert>
+            )}
+          {!query?.isAtBatchEnd() && !loadingAll && !loading && !sortModel && (
             <Alert
               severity="info"
               action={
@@ -403,6 +408,17 @@ function Extractooor() {
               few minutes to load over 100'000 rows.
             </Alert>
           )}
+          {query &&
+            rows.length >= query!.getPageSize() &&
+            !loadingAll &&
+            !loading &&
+            sortModel && (
+              <Alert severity="info">
+                Loaded the first {rows.length} results. You can't load more data
+                from the server when using sort. Use a filter to refine the
+                results.
+              </Alert>
+            )}
           {queryIsSlow && (
             <Alert
               severity="warning"
@@ -488,6 +504,9 @@ function Extractooor() {
       if (!value || value === '') {
         return;
       }
+      if (!field) {
+        return;
+      }
 
       const operator =
         dataGridOperatorsMapping[item.operatorValue || ''] || Operator.EQ;
@@ -510,7 +529,12 @@ function Extractooor() {
 
   const handleSortModelChange = async (model: GridSortModel) => {
     if (model.length === 0) {
-      query?.reset();
+      setSortModel(undefined);
+      // Reset batch, remove the orderBy field and refetch the data when the
+      // model is deleted.
+      query?.resetBatch();
+      query?.setOrderBy('');
+      await startNewBatch();
       return;
     }
 
@@ -518,9 +542,16 @@ function Extractooor() {
     // We can just pick the first one.
     const { field, sort } = model[0]!;
     if (!field) {
-      query?.reset();
+      setSortModel(undefined);
+      // Reset batch, remove the orderBy field and refetch the data when the
+      // model is invalid.
+      query?.resetBatch();
+      query?.setOrderBy('');
+      await startNewBatch();
       return;
     }
+
+    setSortModel(model);
 
     query?.setOrderBy(field);
     if (sort === 'asc' || sort === 'desc') {
