@@ -33,7 +33,7 @@ export interface ExtractooorQuery {
 }
 
 export interface ExtractooorProviderState {
-  queries?: ExtractooorQuery[];
+  queries?: (() => ExtractooorQuery)[];
   fullscreen: boolean;
   setFullscreen: (value: boolean) => void;
 }

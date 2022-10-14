@@ -235,7 +235,7 @@ function Extractooor() {
       setColumns([]);
       setRows([]);
       setCurrentQueryIndex(queryIndex);
-      setQuery(queries[queryIndex]);
+      setQuery(queries[queryIndex] ? queries[queryIndex]!() : undefined);
     }
   };
 
@@ -276,7 +276,7 @@ function Extractooor() {
 
   useEffect(() => {
     if (queries && queries.length > 0) {
-      setQuery(queries[0]);
+      setQuery(queries[0] ? queries[0]!() : undefined);
     } else {
       setLoading(true);
     }
@@ -320,7 +320,7 @@ function Extractooor() {
           >
             {(queries || []).map((q, i) => (
               <MenuItem key={i} value={i}>
-                {q.title}
+                {q().title}
               </MenuItem>
             ))}
           </Select>
