@@ -201,7 +201,7 @@ function Extractooor() {
     query?.resetBatch();
     setPage(0);
     const results = await query?.fetchNext();
-    if (results) {
+    if (results && results.valid) {
       setRows(results.rows);
       setColumns(results.columns);
     }
@@ -221,7 +221,7 @@ function Extractooor() {
     setLoading(true);
 
     const results = await query?.fetchNext();
-    if (results) {
+    if (results && results.valid) {
       setRows(rows.concat(results.rows));
       setColumns(results.columns);
     }
@@ -229,11 +229,16 @@ function Extractooor() {
     setLoading(false);
   };
 
-  const maybeResetDataGrid = (queryIndex: number) => {
+  const maybeResetDataGrid = async (queryIndex: number) => {
     if (queries && queries[queryIndex] !== query) {
       setLoading(true);
       setColumns([]);
       setRows([]);
+
+      // Cancel the fetches that are ongoing for the current query
+      // before switching to the new table/query.
+      await query?.cancel();
+
       setCurrentQueryIndex(queryIndex);
       setQuery(queries[queryIndex] ? queries[queryIndex]!() : undefined);
     }
@@ -459,6 +464,13 @@ function Extractooor() {
   const handlePageChange = async (newPage: number) => {
     setPage(newPage);
     const endPage = Math.ceil(rows.length / tablePageSize - 1);
+    // TODO: Only allow triggering this once per batch of pages.
+    // It is currently possible to trigger this multiple times if
+    // the user switches back-and-forth between the last page and
+    // the second to last page before the new page state is updated,
+    // which isn't really problematic because all the ongoing queries
+    // are cancelled and invalidated on new request, but this can
+    // waste network requests.
     if (newPage === endPage && !query?.isAtBatchEnd()) {
       await continueBatch();
     }
@@ -524,7 +536,7 @@ function Extractooor() {
       }
     });
 
-    await startNewBatch();
+    startNewBatch();
   };
 
   const handleSortModelChange = async (model: GridSortModel) => {
@@ -534,7 +546,7 @@ function Extractooor() {
       // model is deleted.
       query?.resetBatch();
       query?.setOrderBy('');
-      await startNewBatch();
+      startNewBatch();
       return;
     }
 
@@ -547,7 +559,7 @@ function Extractooor() {
       // model is invalid.
       query?.resetBatch();
       query?.setOrderBy('');
-      await startNewBatch();
+      startNewBatch();
       return;
     }
 
@@ -558,7 +570,7 @@ function Extractooor() {
       query?.setOrderDirection(sort);
     }
 
-    await startNewBatch();
+    startNewBatch();
   };
 
   return (

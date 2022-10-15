@@ -7,11 +7,7 @@ import {
   UniswapTokenRenderCell,
   UniswapPoolRenderCell,
 } from '@/shared/Utils/DataGrid';
-import {
-  Operator,
-  QueryBuilder,
-  QueryBuilderStatusInfo,
-} from '@/shared/Utils/QueryBuilder';
+import { Operator, QueryBuilder } from '@/shared/Utils/QueryBuilder';
 import {
   ApolloClient,
   DocumentNode,
@@ -29,7 +25,11 @@ import {
   GridValueGetterParams,
   GridValueFormatterParams,
 } from '@mui/x-data-grid-premium';
-import { Column, ExtractooorQuery } from '../Extractooor.type';
+import {
+  Column,
+  ExtractooorQuery,
+  ExtractooorFetchResult,
+} from '../Extractooor.type';
 import {
   BaseEntity,
   BatchQueryResponse,
@@ -84,10 +84,7 @@ export abstract class ExtractooorQueryBase<
   private queryBuilder = new QueryBuilder();
   private pageSize: number = MAX_QUERY_PAGE_SIZE;
   private cancelCount = 0;
-  private currentFetchPromise?: Promise<{
-    rows: GridRowsProp;
-    columns: GridColDef[];
-  }>;
+  private currentFetchPromise?: Promise<ExtractooorFetchResult>;
   private batchCursor: string = '';
   private reachedBatchEnd: boolean = false;
   private orderBy: string = '';
@@ -275,7 +272,10 @@ export abstract class ExtractooorQueryBase<
     this.reset();
   }
 
-  async fetchNext(): Promise<{ rows: GridRowsProp; columns: Column[] }> {
+  async fetchNext(): Promise<ExtractooorFetchResult> {
+    // TODO: Consider making this a while loop to wait until all
+    // the queued fetchNext messages are consumed before queueing
+    // a new fetch.
     if (this.currentFetchPromise) {
       await this.currentFetchPromise;
     }
@@ -283,8 +283,12 @@ export abstract class ExtractooorQueryBase<
     const promise = this.continueBatch<TResponseEntity>(
       query,
       this.apolloClient
-    ).then((data) => {
-      return { rows: this.getRows(data), columns: this.getColumnsInternal() };
+    ).then(({ rows, valid }) => {
+      return {
+        rows: this.getRows(rows),
+        columns: this.getColumnsInternal(),
+        valid,
+      };
     });
 
     this.currentFetchPromise = promise;
@@ -299,9 +303,9 @@ export abstract class ExtractooorQueryBase<
     apolloClient: ApolloClient<NormalizedCacheObject>,
     variables?: TVariables,
     pageSize = 1000
-  ): Promise<TData[]> {
+  ): Promise<{ rows: TData[]; valid: boolean }> {
     if (this.reachedBatchEnd) {
-      return [];
+      return { rows: [], valid: false };
     }
 
     let attempt = 0;
@@ -312,11 +316,12 @@ export abstract class ExtractooorQueryBase<
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
     while (attempt < maxAttempts && this.cancelCount === startCancelCount) {
+      let results;
       try {
         if (attempt > 0) {
           await sleep(retryDelayMs);
         }
-        const results = await apolloClient.query<BatchQueryResponse<TData>>({
+        results = await apolloClient.query<BatchQueryResponse<TData>>({
           query,
           variables: {
             ...variables,
@@ -324,49 +329,53 @@ export abstract class ExtractooorQueryBase<
             batchCursor: this.batchCursor,
           },
         });
-        this.queryBuilder.setFirstFetchDone(true);
-        if (this.queryBuilder.getOrderBy()) {
-          // Do not allow continuing the batch if it is a sorted query because
-          // it isn't possible to batch sorted queries at the moment.
-          this.reachedBatchEnd = true;
-        }
-
-        const dataList: TData[] = results.data.batch ?? [];
-        if (dataList.length > 0) {
-          this.batchCursor =
-            (dataList as any[]).at(-1)[this.orderBy || 'id'] ?? '';
-        }
-
-        if (dataList.length < pageSize) {
-          this.reachedBatchEnd = true;
-        }
-        return dataList;
       } catch (e: unknown) {
         ++attempt;
         if (attempt === maxAttempts) {
           throw e;
         }
       }
+
+      if (startCancelCount !== this.cancelCount) {
+        // Drop the results if the query was cancelled while the subgraph query was ongoing.
+        return { rows: [], valid: false };
+      }
+
+      this.queryBuilder.setFirstFetchDone(true);
+      if (this.queryBuilder.getOrderBy()) {
+        // Do not allow continuing the batch if it is a sorted query because
+        // it isn't possible to batch sorted queries at the moment.
+        this.reachedBatchEnd = true;
+      }
+
+      const dataList: TData[] = results?.data.batch ?? [];
+      if (dataList.length > 0) {
+        // Set the cursor for the next fetch as the last row of the current batch.
+        this.batchCursor =
+          (dataList as any[]).at(-1)[this.orderBy || 'id'] ?? '';
+      }
+
+      if (dataList.length < pageSize) {
+        this.reachedBatchEnd = true;
+      }
+      return { rows: dataList, valid: true };
     }
 
-    return [];
+    return { rows: [], valid: false };
   }
 
-  private async fetchAllInternal(): Promise<{
-    rows: GridRowsProp;
-    columns: Column[];
-  }> {
+  private async fetchAllInternal(): Promise<ExtractooorFetchResult> {
     const query = this.queryBuilder.buildBatchQuery();
     const startCancelCount = Number(this.cancelCount);
     const batchData: TResponseEntity[] = [];
 
     do {
       try {
-        const dataList: TResponseEntity[] = await this.continueBatch(
+        const { rows } = await this.continueBatch<TResponseEntity>(
           query,
           this.apolloClient
         );
-        batchData.push(...dataList);
+        batchData.push(...rows);
       } catch (e: unknown) {
         continue;
       }
@@ -375,7 +384,7 @@ export abstract class ExtractooorQueryBase<
     const rows = this.getRows(batchData);
     const columns = this.getColumnsInternal();
 
-    return { rows, columns };
+    return { rows, columns, valid: this.cancelCount === startCancelCount };
   }
 
   private getExcelColumnField(column: Column) {
@@ -388,7 +397,7 @@ export abstract class ExtractooorQueryBase<
       .map((column) => column.field);
   }
 
-  async fetchAll(): Promise<{ rows: GridRowsProp; columns: GridColDef[] }> {
+  async fetchAll(): Promise<ExtractooorFetchResult> {
     if (this.currentFetchPromise) {
       await this.currentFetchPromise;
     }

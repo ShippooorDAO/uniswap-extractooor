@@ -10,11 +10,17 @@ export type Column = GridColDef & {
   toExcel?: (value: any) => any;
 };
 
+export interface ExtractooorFetchResult {
+  rows: GridRowsProp;
+  columns: Column[];
+  valid: boolean;
+}
+
 export interface ExtractooorQuery {
   readonly title: string;
   readonly description: string;
-  fetchNext(): Promise<{ rows: GridRowsProp; columns: Column[] }>;
-  fetchAll(): Promise<{ rows: GridRowsProp; columns: Column[] }>;
+  fetchNext(): Promise<ExtractooorFetchResult>;
+  fetchAll(): Promise<ExtractooorFetchResult>;
   addFilter(field: string, operator: Operator, value: string | string[]): void;
   removeFilter(field: string): void;
   clearFilters(): void;
@@ -29,7 +35,7 @@ export interface ExtractooorQuery {
   getColumnVisibilityModel(): { [key: string]: boolean } | undefined;
   reset(): void;
   resetBatch(): void;
-  cancel(): void;
+  cancel(): Promise<void>;
 }
 
 export interface ExtractooorProviderState {
