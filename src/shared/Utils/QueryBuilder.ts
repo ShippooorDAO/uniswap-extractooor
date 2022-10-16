@@ -213,7 +213,7 @@ export class QueryBuilder {
     }
 
     const serializedFilters = Array.from(mergedFilters.values())
-      .filter((filter) => !!filter.field && !!filter.operator && !!filter.value)
+      .filter((filter) => !!filter.field && !!filter.value)
       .map((filter: Filter) => this.buildFilter(filter));
 
     if (serializedFilters.length === 0) {
