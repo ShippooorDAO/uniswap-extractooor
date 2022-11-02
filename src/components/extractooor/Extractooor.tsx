@@ -63,8 +63,8 @@ const dataGridOperatorsMapping: { [key: string]: Operator } = {
   is: Operator.EQ,
   after: Operator.GT,
   onOrAfter: Operator.GTE,
-  before: Operator.GT,
-  onOrBefore: Operator.GTE,
+  before: Operator.LT,
+  onOrBefore: Operator.LTE,
 
   // string
   startsWith: Operator.STARTS_WITH,
