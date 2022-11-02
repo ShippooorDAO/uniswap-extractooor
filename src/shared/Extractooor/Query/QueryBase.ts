@@ -77,9 +77,8 @@ function parseTimestampFilter(value: string | string[]) {
 const MAX_QUERY_PAGE_SIZE = 1000;
 const DEFAULT_FILTER_PARSER = parseStringFilter;
 
-export abstract class ExtractooorQueryBase<
-  TResponseEntity extends { id: string }
-> implements ExtractooorQuery
+export abstract class ExtractooorQueryBase<TResponseEntity extends { id: string }>
+  implements ExtractooorQuery
 {
   private queryBuilder = new QueryBuilder();
   private pageSize: number = MAX_QUERY_PAGE_SIZE;
@@ -99,28 +98,33 @@ export abstract class ExtractooorQueryBase<
   protected readonly baseFields = {
     id: {
       filterOperators: this.idFilterOperators,
+      uniqueFilter: true,
       filterParser: parseStringFilter,
     },
     addressId: {
       filterOperators: this.idFilterOperators,
+      uniqueFilter: true,
       filterParser: parseStringFilter,
       renderCell: AddressRenderCell,
       width: 150,
     },
     transactionId: {
       filterOperators: this.idFilterOperators,
+      uniqueFilter: true,
       filterParser: parseStringFilter,
       renderCell: TransactionRenderCell,
       width: 150,
     },
     poolId: {
       filterOperators: this.idFilterOperators,
+      uniqueFilter: true,
       filterParser: parseStringFilter,
       renderCell: UniswapPoolRenderCell,
       width: 150,
     },
     tokenId: {
       filterOperators: this.idFilterOperators,
+      uniqueFilter: true,
       filterParser: parseStringFilter,
       renderCell: UniswapTokenRenderCell,
       width: 150,
@@ -134,6 +138,7 @@ export abstract class ExtractooorQueryBase<
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
+      uniqueFilter: true,
       sortable: false,
       renderCell: UniswapTokenRenderCell,
       width: 150,
@@ -149,6 +154,7 @@ export abstract class ExtractooorQueryBase<
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
+      uniqueFilter: true,
       sortable: false,
       renderCell: UniswapPoolRenderCell,
       width: 150,
@@ -164,6 +170,7 @@ export abstract class ExtractooorQueryBase<
       filterOperators: getGridSingleSelectOperators().filter((operator) =>
         ['isAnyOf'].includes(operator.value)
       ),
+      uniqueFilter: true,
       filterParser: (values: string | string[]) => {
         if (typeof values === 'string') {
           const token = this.tokenService.getById(values);
@@ -224,6 +231,7 @@ export abstract class ExtractooorQueryBase<
           operator.value
         )
       ),
+      uniqueFilter: true,
       filterParser: parseStringFilter,
     },
     walletAddress: {
@@ -232,6 +240,7 @@ export abstract class ExtractooorQueryBase<
           operator.value
         )
       ),
+      uniqueFilter: true,
       renderCell: WalletAddressRenderCell,
       width: 200,
     },
@@ -241,6 +250,7 @@ export abstract class ExtractooorQueryBase<
           operator.value
         )
       ),
+      uniqueFilter: true,
       renderCell: AddressRenderCell,
       width: 150,
     },
@@ -250,6 +260,7 @@ export abstract class ExtractooorQueryBase<
           operator.value
         )
       ),
+      uniqueFilter: true,
       renderCell: TransactionRenderCell,
       width: 150,
     },

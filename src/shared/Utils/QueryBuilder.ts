@@ -33,7 +33,7 @@ export enum Operator {
 export class QueryBuilder {
   private body?: string;
   private entityName?: string;
-  private filters = new Map<string, Filter>();
+  private filters = new Map<string, Filter[]>();
   private orderBy?: string;
   private orderDirection?: string;
   private page: number = 0;
@@ -54,11 +54,15 @@ export class QueryBuilder {
   }
 
   addFilter(field: string, operator: Operator, value: string | number) {
-    const previousFilters: Map<string, Filter> = new Map([
-      ...Array.from(this.filters.entries()),
-    ]);
-    this.filters.set(field, { field, operator, value });
-
+    const previousFilters: Map<string, Filter[]> = new Map(
+      Array.from(this.filters.entries()).map(([key, filters]) => {
+        return [key, [...filters]];
+      }),
+    );
+    const filterList = this.filters.get(field) ?? [];
+    filterList?.push({ field, operator, value });
+    this.filters.set(field, filterList);
+    console.log(this.filters);
     if (!this.checkQuerySize()) {
       // rollback changes if the query is too big and exceeds the limit.
       this.filters = previousFilters;
@@ -151,11 +155,11 @@ export class QueryBuilder {
     const forcedFilters = new Map([
       [
         this.batchCursorField,
-        {
+        [{
           field: this.batchCursorField,
           operator: Operator.GT,
           value: '$batchCursor',
-        },
+        }],
       ],
     ]);
 
@@ -201,7 +205,7 @@ export class QueryBuilder {
   }
 
   private buildWhereStatement(
-    forcedFilters: Map<string, Filter> = new Map()
+    forcedFilters: Map<string, Filter[]> = new Map()
   ): string | null {
     const mergedFilters = new Map([
       ...Array.from(this.filters.entries()),
@@ -212,7 +216,7 @@ export class QueryBuilder {
       return null;
     }
 
-    const serializedFilters = Array.from(mergedFilters.values())
+    const serializedFilters = Array.from(mergedFilters.values()).flat()
       .filter((filter) => !!filter.field && !!filter.value)
       .map((filter: Filter) => this.buildFilter(filter));
 

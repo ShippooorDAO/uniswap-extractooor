@@ -492,8 +492,10 @@ function Extractooor() {
           continue;
         }
 
-        apiRef.current.deleteFilterItem(itemA);
-        return;
+        if (!!columnA.uniqueFilter) {
+          apiRef.current.deleteFilterItem(itemA);
+          return;
+        }
       }
     }
 

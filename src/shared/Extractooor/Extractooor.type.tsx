@@ -4,6 +4,7 @@ import { Operator } from '../Utils/QueryBuilder';
 
 export type Column = GridColDef & {
   hidden?: boolean;
+  uniqueFilter?: boolean;
   filterPriority?: number;
   filterField?: string;
   filterParser?: (value: string | string[]) => string | number;
