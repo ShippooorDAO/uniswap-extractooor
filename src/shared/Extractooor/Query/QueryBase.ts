@@ -10,7 +10,6 @@ import {
 import {
   Operator,
   QueryBuilder,
-  QueryBuilderStatusInfo,
 } from '@/shared/Utils/QueryBuilder';
 import {
   ApolloClient,
