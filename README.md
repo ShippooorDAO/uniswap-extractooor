@@ -81,16 +81,20 @@ docs:
 chore:
 ```
 
-## VSCode information (optional)
+## Regenerating cache files
 
-If you are VSCode users, you can have a better integration with VSCode by installing the suggested extension in `.vscode/extension.json`. The starter code comes up with Settings for a seamless integration with VSCode. The Debug configuration is also provided for frontend and backend debugging experience.
+For optimal page load speed performance, the following cache files can be regenerated periodically.
 
-With the plugins installed on your VSCode, ESLint and Prettier can automatically fix the code and show you the errors. Same goes for testing, you can install VSCode Jest extension to automatically run your tests and it also show the code coverage in context.
+- [src/shared/UniswapV3Subgraph/Cache/arbitrum.json](src/shared/UniswapV3Subgraph/Cache/arbitrum.json)
+- [src/shared/UniswapV3Subgraph/Cache/celo.json](src/shared/UniswapV3Subgraph/Cache/celo.json)
+- [src/shared/UniswapV3Subgraph/Cache/ethereum.json](src/shared/UniswapV3Subgraph/Cache/ethereum.json)
+- [src/shared/UniswapV3Subgraph/Cache/optimism.json](src/shared/UniswapV3Subgraph/Cache/optimism.json)
+- [src/shared/UniswapV3Subgraph/Cache/polygon.json](src/shared/UniswapV3Subgraph/Cache/polygon.json)
 
-Pro tips: if you need a project wide type checking with TypeScript, you can run a build with <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on Mac.
+To regenerate cache files, open your browser's development console, look for those console log statements:
 
-## License
+```
+Arbitrum pools cache successfully generated. Copy and paste the following object in src/shared/UniswapV3Subgraph/Cache/arbitrum.json to update the cache. (1461) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, …]
+```
 
-Licensed under the MIT License, Copyright © 2022
-
-See [LICENSE](LICENSE) for more information.
+These console logs will show up every time when changing the "Chain" option.

@@ -1,1882 +1,3334 @@
 [
   {
     "__typename": "Pool",
-    "id": "0x05efb437e4e97efea6450321eca8d7585a731369",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657200481",
+    "id": "0xbd4fcb27677ff027f956216e7b121bb4e07ea5c9",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1665616487,
     "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x978799f1845c00c9a4d9fd2629b9ce18df66e488",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657218231",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xe6ccbd0d02988d6bf3db43b15d7853c111a308a8",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657218316",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x079e7a44f42e9cd2442c3b9536244be634e8f888",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657313501",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x112466c8b6e5abe42c78c47eb1b9d40baa3f943c",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657567355",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x32a9fe697a32135bfd313a6ac28792dae4d9979d",
-      "symbol": "cMCO2",
-      "name": "cMCO2",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x9b42940e8184d866aac6595a91f8d8952a59d3b9",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657569140",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x74c0c58b99b68cf16a717279ac2d056a34ba2bfe",
-      "symbol": "SOURCE",
-      "name": "Source",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x37622453c614f625d288151101ffe48fd222ced1",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657570430",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x46c9757c5497c5b1f2eb73ae79b6b67d119b0b58",
-      "symbol": "PACT",
-      "name": "impactMarket",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd88d5f9e6c10e6febc9296a454f6c2589b1e8fae",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657585516",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x1c8dafd358d308b880f71edb5170b010b106ca60",
-    "feeTier": "100",
-    "createdAtTimestamp": "1657587026",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xcd9a3ee56ec43a2daee9f20fce62b44b8d49f60b",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657589921",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x26a1baff7516deac409740a357c594a7709de6b9",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657590426",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xea3fb6e3313a2a90757e4ca3d6749efd0107b0b6",
-    "feeTier": "100",
-    "createdAtTimestamp": "1657591626",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x72dd8fe09b5b493012e5816068dfc6fb26a2a9e6",
-    "feeTier": "100",
-    "createdAtTimestamp": "1657592386",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x97105eb9041a73cba3d81c3fd6c5d4589d33c253",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657641546",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x122013fd7df1c6f636a5bb8f03108e876548b455",
-      "symbol": "WETH",
-      "name": "Wrapped Ether",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xbd0f6f34baa3c1329448a69bab90111a20756f01",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657665983",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
-      "symbol": "KNOX",
-      "name": "KnoxDAO Reserve",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x8e4078a16b30985f0b07361c8fc8c21b0645ce86",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657666228",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
-      "symbol": "kUSD",
-      "name": "kUSD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
-      "symbol": "KNOX",
-      "name": "KnoxDAO Reserve",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xca0aa06385a42242fe9523cd7015f6d01cd8f6b2",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657666368",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
-      "symbol": "kUSD",
-      "name": "kUSD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xda2123291ef077e10d08916e5482dedcf5d96846",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657667073",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x193ddece1bec565226e9fda1b34ce1bbeaa2d49f",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657667288",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xa81d9a2d29373777e4082d588958678a6df5645c",
-      "symbol": "KNX",
-      "name": "KNX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x476fa77349bf6bdf70e2221f09e7a4cf88a1a804",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657668158",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd629eb00deced2a080b7ec630ef6ac117e614f1b",
-      "symbol": "BTC",
-      "name": "Wrapped Bitcoin",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x58de1aac0ba96ea685d9136c2dfd4c8dd8b440f3",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657724969",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xc402a7a7a802407e76df4d64077d4a6a6091b879",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657731184",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x1f18cd7d1c7ba0dbe3d9abe0d3ec84ce1ad10066",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657732659",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x723292eea7e1576ae482a5c317934054c0199e24",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657733429",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x57a68f391855f8cde418132b4280f54e3a4f4a57",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657733874",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x34c11a932853ae24e845ad4b633e3cef91afe583",
-      "symbol": "cRECY",
-      "name": "cRECY",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x93ba85033b1d7463a5732297fcf16ed4fd227e01",
-    "feeTier": "100",
-    "createdAtTimestamp": "1657734359",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xb4aa2986622249b1f45eb93f28cfca2b2606d809",
-      "symbol": "pUSD",
-      "name": "Poof USD",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xf3550c8fad039fb17d91372d68e26ea6957cc123",
-    "feeTier": "100",
-    "createdAtTimestamp": "1657736244",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xb4aa2986622249b1f45eb93f28cfca2b2606d809",
-      "symbol": "pUSD",
-      "name": "Poof USD",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x75aefbf98d557e90a16a74f2e1b261b6558583c8",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657738694",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
-      "symbol": "stabilUSD",
-      "name": "Stabilite USD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xf4de51e44679415088fd903e2e4a52b109ebdfd3",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657748976",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x00be915b9dcf56a3cbe739d9b9c202ca692409ec",
-      "symbol": "UBE",
-      "name": "Ubeswap",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x72c483865f5ed0795d068ed9a947aa3e3e8d966e",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657751106",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
       "__typename": "Token",
       "id": "0x7d00cd74ff385c955ea3d79e47bf06bd7386387d",
       "symbol": "mCELO",
       "name": "Moola interest bearing CELO",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x9db18957b73a1ddee52f357bed30828dcd057c8f",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657843864",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
-      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x3376b1425b4bc80e4b8e9b8d257ec98faf4bec3b",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657849099",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x122013fd7df1c6f636a5bb8f03108e876548b455",
-      "symbol": "WETH",
-      "name": "Wrapped Ether",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x7db5c8d3f32777685e376021c3a1c8f88f259f7f",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657856948",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x3eb9e9ed293a1ab13f2a882c1cc30db62ad4e4fc",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657857153",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd3f257e410dc437db809e38e9b0f1d899aa01a69",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657872041",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x173234922eb27d5138c5e481be9df5261faed450",
-      "symbol": "SOL",
-      "name": "SOL",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x9b92b38dd81ab7ac26479fe74c468ff1e8fd54cb",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657894011",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
-      "symbol": "kUSD",
-      "name": "kUSD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xaf39c163918fc4de91959332b4b0ad9c9d4cd63e",
-    "feeTier": "500",
-    "createdAtTimestamp": "1657935790",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
-      "symbol": "AVAX",
-      "name": "AVAX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x5fe85b455b32e5babf61e91f29fbaceb5dd167c6",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657987255",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x32a9fe697a32135bfd313a6ac28792dae4d9979d",
-      "symbol": "cMCO2",
-      "name": "cMCO2",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x9995cc8f20db5896943afc8ee0ba463259c931ed",
-      "symbol": "ETHIX",
-      "name": "Ethix (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x636f003a14beb16c1ccd0a477cda9d8136dd40e3",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1657993410",
+    "id": "0x432a11c73c97e90e3c131c5e52575f4df836894f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1665616837,
     "token0": {
       "__typename": "Token",
       "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
       "symbol": "mCUSD",
       "name": "Moola interest bearing CUSD",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe273ad7ee11dcfaa87383ad5977ee1504ac07568",
+      "symbol": "mCEUR",
+      "name": "Moola interest bearing CEUR",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd09d62b6dd872f53d72153d95e8b47d003f47836",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1665616957,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x9802d866fde4563d088a6619f7cef82c0b991a55",
+      "symbol": "mCREAL",
+      "name": "Moola interest bearing CREAL",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x151f440e9dac205a816ee8f8af8d0486f895f741",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1665617137,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x3a5024e3aab31a1d3184127b52b0e4b4e9adcc34",
+      "symbol": "mMOO",
+      "name": "Moola interest bearing MOO",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x43e07e46ae21a8a3bee8f8d86feaceb81803ff6e",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1665899518,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x965f84d915a9efa2dd81b653e3ae736555d945f4",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x17e88cf38c849aa8c8bf9c731ac7c468eb4e0c90",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1666645906,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x10d5f1df67917de8f9e49d70da90ef153f4352d9",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1667003266,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x07e48dadd2914ba021ab0b302848fc9e4d86a646",
+      "symbol": "TOM",
+      "name": "Token of Manifest",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xeedef878e49015e81c50424023668232bf0ef331",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1667580809,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x16545efe8f7c82b13c06339dbf7d6981d655d8ca",
+      "symbol": "SRN",
+      "name": "Silmarillion",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xb1e10a3303beeb1a168fbf3e41df93f1e667c0e0",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1667581619,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x16545efe8f7c82b13c06339dbf7d6981d655d8ca",
+      "symbol": "SRN",
+      "name": "Silmarillion",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xac8cdfdc58d50a43153ed57ce48bd864074255a5",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1667772009,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xe685d21b7b0fc7a248a6a8e03b8db22d013aa2ee",
       "symbol": "IMMO",
       "name": "Immortal",
-      "decimals": "9"
+      "decimals": 9,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x3b9aca00"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0xbf0874429718356fac6d01431a05683b1b4b69d1",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1657994390",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x17700282592d6917f6a73d0bf8accf4d578c131e",
-      "symbol": "MOO",
-      "name": "Moola",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
-      "symbol": "mCUSD",
-      "name": "Moola interest bearing CUSD",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xdf8317b8b309eccbeee83dd21f56e5b1ff45b672",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1658040002",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xbdd31effb9e9f7509feaac5b4091b31645a47e4b",
-      "symbol": "TFBX",
-      "name": "Truefeedback Token",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x53b612b32233c80ec439a64325a29766ce95be7f",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658113292",
+    "id": "0x15689276dc6e7d2702f7e1900c42f885284ffc46",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1668727713,
     "token0": {
       "__typename": "Token",
       "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
       "symbol": "cUSD",
       "name": "Celo Dollar",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xfb42e2e90fc79cfa6a6b4eba4877d5faf4e29287",
+      "symbol": "gcUSD",
+      "name": "Green Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x4d5e9460e0ffaccb5c02d5a1310d55c8fc07344f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1669147518,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x800222f42220baadf163bce1a9a806c51f696828",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1669563908,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x0e04f5fcef61ea7ee126c82218c8889e30ed4e5f",
+      "symbol": "wBAN",
+      "name": "Wrapped Banano",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd82d5e49e4e5da877117b90b636e61503e5315c1",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1669918705,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x774b29bf6017bb36e7b7595e8dfde19de6d4c583",
+      "symbol": "USBL",
+      "name": "softbalanced.com",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x504e5ea8b0cdfc3eb559a67af8e0a6957adc1b1e",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1669919160,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x774b29bf6017bb36e7b7595e8dfde19de6d4c583",
+      "symbol": "USBL",
+      "name": "softbalanced.com",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x54fc722a66abfb6500a36d8b7b2646129d0e836a",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1670114740,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x46c9757c5497c5b1f2eb73ae79b6b67d119b0b58",
+      "symbol": "PACT",
+      "name": "impactMarket",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xc120e5142f8867cb2eeefd728af13a59c3048dc5",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1671024189,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x3efb26220fe6959561d7ede2aed947e0d761b574",
+      "symbol": "GLD",
+      "name": "Gold",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xe25c623916ee63d5b03d1ff9fc85a41e14364e0a",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1671484105,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x6e8c30f31af6a5a860acfdd1d312773cfb280b14",
+      "symbol": "FIRU",
+      "name": "Firulaix Token",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x89b9fd2f10af6084f9655c08fb733d7e07ee3fc6",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1671708719,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x65eb36f7d78ee2d435689287fa962151ba5cd123",
+      "symbol": "BUSD",
+      "name": "BUSD.bsc",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x1311d8d89e93632b1ec280d51d1ded13e311d05a",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1671708789,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x65eb36f7d78ee2d435689287fa962151ba5cd123",
+      "symbol": "BUSD",
+      "name": "BUSD.bsc",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3dbdcf5f88ae4fb08218cbe622187b02e70f3097",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1671726754,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xc16b81af351ba9e64c1a069e3ab18c244a1e3049",
+      "symbol": "agEUR",
+      "name": "agEUR",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xee81223edc6d49bad62cf6576123dbe3b6138ffb",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1672065564,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x34c11a932853ae24e845ad4b633e3cef91afe583",
+      "symbol": "cRECY",
+      "name": "cRECY",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5fb1e70b9080e3157da6d2a6364488fcb2510c3f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1672330348,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x46c9757c5497c5b1f2eb73ae79b6b67d119b0b58",
+      "symbol": "PACT",
+      "name": "impactMarket",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3420720e561f3082f1e514a4545f0f2e0c955a5d",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1673350248,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x9995cc8f20db5896943afc8ee0ba463259c931ed",
+      "symbol": "ETHIX",
+      "name": "Ethix (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3062998fc1da4596f9188de52bad524e9ff145a6",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1674132039,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x05efb437e4e97efea6450321eca8d7585a731369",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657200481,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x978799f1845c00c9a4d9fd2629b9ce18df66e488",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657218231,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xe6ccbd0d02988d6bf3db43b15d7853c111a308a8",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657218316,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x079e7a44f42e9cd2442c3b9536244be634e8f888",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657313501,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x112466c8b6e5abe42c78c47eb1b9d40baa3f943c",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657567355,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x32a9fe697a32135bfd313a6ac28792dae4d9979d",
+      "symbol": "cMCO2",
+      "name": "cMCO2",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x9b42940e8184d866aac6595a91f8d8952a59d3b9",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657569140,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x74c0c58b99b68cf16a717279ac2d056a34ba2bfe",
+      "symbol": "SOURCE",
+      "name": "Source",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x37622453c614f625d288151101ffe48fd222ced1",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657570430,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x46c9757c5497c5b1f2eb73ae79b6b67d119b0b58",
+      "symbol": "PACT",
+      "name": "impactMarket",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd88d5f9e6c10e6febc9296a454f6c2589b1e8fae",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657585516,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x1c8dafd358d308b880f71edb5170b010b106ca60",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1657587026,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xcd9a3ee56ec43a2daee9f20fce62b44b8d49f60b",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657589921,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x26a1baff7516deac409740a357c594a7709de6b9",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657590426,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xea3fb6e3313a2a90757e4ca3d6749efd0107b0b6",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1657591626,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x72dd8fe09b5b493012e5816068dfc6fb26a2a9e6",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1657592386,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x97105eb9041a73cba3d81c3fd6c5d4589d33c253",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657641546,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x122013fd7df1c6f636a5bb8f03108e876548b455",
+      "symbol": "WETH",
+      "name": "Wrapped Ether",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xbd0f6f34baa3c1329448a69bab90111a20756f01",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657665983,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
       "symbol": "KNOX",
       "name": "KnoxDAO Reserve",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x5445df81f5d84cff2a9679e7e4f9c9a5d707f7e5",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658143357",
+    "id": "0x8e4078a16b30985f0b07361c8fc8c21b0645ce86",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657666228,
     "token0": {
       "__typename": "Token",
       "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
       "symbol": "kUSD",
       "name": "kUSD",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
+      "symbol": "KNOX",
+      "name": "KnoxDAO Reserve",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xca0aa06385a42242fe9523cd7015f6d01cd8f6b2",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657666368,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
+      "symbol": "kUSD",
+      "name": "kUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xda2123291ef077e10d08916e5482dedcf5d96846",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657667073,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x193ddece1bec565226e9fda1b34ce1bbeaa2d49f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657667288,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xa81d9a2d29373777e4082d588958678a6df5645c",
       "symbol": "KNX",
       "name": "KNX",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x3198cfd32a2c42e18ebc0a781b58d8737ff1fc30",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658188317",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
-      "symbol": "mCUSD",
-      "name": "Moola interest bearing CUSD",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x524375d0c6a04439128428f400b00eae81a2e9e4",
-    "feeTier": "500",
-    "createdAtTimestamp": "1658297456",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd943d18cadb584163acab92a7be6d9bf74a2e6a0",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1658361834",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x1bfc26ce035c368503fae319cc2596716428ca44",
-      "symbol": "USDC",
-      "name": "USD Coin (PoS)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd0d3778680b0b41f34ec186504c58d3a3a095861",
-    "feeTier": "500",
-    "createdAtTimestamp": "1658495033",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xf63b45b8b2a40f7063e1d2de8bb0832de561a032",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658520968",
+    "id": "0x476fa77349bf6bdf70e2221f09e7a4cf88a1a804",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657668158,
     "token0": {
       "__typename": "Token",
       "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
       "symbol": "cUSD",
       "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x9a6b3c0864a1150923be7db6be0affbb6f8fe6a0",
-      "symbol": "CELODOGE",
-      "name": "CeloDoge",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x2d70cbabf4d8e61d5317b62cbe912935fd94e0fe",
-    "feeTier": "100",
-    "createdAtTimestamp": "1658529928",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x7e413189b1373da6f69e1f3974cf43bda0a4fb7c",
-    "feeTier": "100",
-    "createdAtTimestamp": "1658632635",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
-      "symbol": "DAI",
-      "name": "Dai Stablecoin",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xb1012c56a324e2510a81fa6d06c965b5e91fdc5b",
-    "feeTier": "500",
-    "createdAtTimestamp": "1658632950",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
-      "symbol": "DAI",
-      "name": "Dai Stablecoin",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x118a8cf9b01e4104203961f3cfa21f52c3da8e05",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658919031",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
-      "symbol": "GTPS",
-      "name": "Global Transaction Payment Solution",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x094298648c89157c5fff26dba30147d3f0eac9e0",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658919221",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
-      "symbol": "GTPS",
-      "name": "Global Transaction Payment Solution",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x03619d9737864ccf43fbdf8e25d1277da63da768",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658919421",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
-      "symbol": "GFI",
-      "name": "Gtps.Finance",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x6398fb31b09d940e0226a91e32fc1d8e6a9d877c",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1658946931",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
-      "symbol": "KNOX",
-      "name": "KnoxDAO Reserve",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x4a94130b9e8eb0a0959c2c0f1ee9583213773fd9",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1658965281",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
-      "symbol": "AVAX",
-      "name": "AVAX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xe7897065c71026fe0ff105bd2641c369d9ffa157",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659114976",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x5764fa48b74e0ebcfacc666d4b54e8cac1f84f1b",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659307086",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x2e3487f967df2ebc2f236e16f8fcaeac7091324d",
-      "symbol": "WMATIC",
-      "name": "Wrapped Matic",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x880b845015d35f86ead0c4a04921d69e6241a17e",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659508056",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
-      "symbol": "GTPS",
-      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xf7b11bac4d3ba667b5c5fc3aac2b4385833c2344",
-    "feeTier": "500",
-    "createdAtTimestamp": "1659508416",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
-      "symbol": "GTPS",
-      "name": "Global Transaction Payment Solution",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x1cfc77026d82824ae2b27f27feb693a3ae6da76c",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1659508586",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
-      "symbol": "GFI",
-      "name": "Gtps.Finance",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x5669d347e6aaf6faa252744d27b04df5db92f6e1",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659509096",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
-      "symbol": "GTPS",
-      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
-      "symbol": "GTPS",
-      "name": "Global Transaction Payment Solution",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x23af16dfea2ebfeb760c4cd3ba7913d60bbf4ae7",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659509186",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
-      "symbol": "GTPS",
-      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
-      "symbol": "GFI",
-      "name": "Gtps.Finance",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xb9812566f0fe13aac125506650a29503b9f0f16f",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659509316",
-    "token0": {
-      "__typename": "Token",
-      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
-      "symbol": "GFI",
-      "name": "Gtps.Finance",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
-      "symbol": "GTPS",
-      "name": "Global Transaction Payment Solution",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x3b19897bdfc0b7e3b9288784e939e68377dc5258",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659638314",
-    "token0": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xcf52cc96ad94f8a166fd22b4a45fbf543fd2895e",
-    "feeTier": "500",
-    "createdAtTimestamp": "1659639799",
-    "token0": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x93fb2d4c23e4e9a75e5e0ac1cb0be24b517c4063",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1659640269",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x00be915b9dcf56a3cbe739d9b9c202ca692409ec",
-      "symbol": "UBE",
-      "name": "Ubeswap",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
-      "symbol": "cREAL",
-      "name": "Celo Brazilian Real",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xc3c581ab01f3f504f936e84a9a736b0fec0dccc8",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1660739732",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
-      "symbol": "stabilUSD",
-      "name": "Stabilite USD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x1e05b9d788373f706684b4a2a244af61e7ea2f1b",
-    "feeTier": "500",
-    "createdAtTimestamp": "1660740037",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
-      "symbol": "stabilUSD",
-      "name": "Stabilite USD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd5ccb4d0f9a2fbec0f6d2b19e89caa53c4366d19",
-    "feeTier": "500",
-    "createdAtTimestamp": "1660762567",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xc668583dcbdc9ae6fa3ce46462758188adfdfc24",
-      "symbol": "stCELO",
-      "name": "Staked CELO",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xa1bc2255bff8e65f93592618959571731d9ac6f5",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1660768452",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xc668583dcbdc9ae6fa3ce46462758188adfdfc24",
-      "symbol": "stCELO",
-      "name": "Staked CELO",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x7da99753ff017f1b7afb2c8c0542718dc9f15f21",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1660850573",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x02de4766c272abc10bc88c220d214a26960a7e92",
-      "symbol": "NCT",
-      "name": "Toucan Protocol: Nature Carbon Tonne",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
-      "symbol": "cUSD",
-      "name": "Celo Dollar",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xdb24905b1b080f65dedb0ad978aad5c76363d3c6",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1660851473",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x02de4766c272abc10bc88c220d214a26960a7e92",
-      "symbol": "NCT",
-      "name": "Toucan Protocol: Nature Carbon Tonne",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x0ed413cefde954d8e5c54d981d7d182b587e98e3",
-    "feeTier": "500",
-    "createdAtTimestamp": "1660859773",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xaaedd1dcd9eaa75d4bd4c4ce4594a8bc2d414100",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1660997141",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8427bd503dd3169ccc9aff7326c15258bc305478",
-      "symbol": "SYMM",
-      "name": "Symmetric",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x249abeb13f9d8c90d338c563f643627e5e66f91d",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1662055098",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
-      "symbol": "kUSD",
-      "name": "kUSD",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
-      "symbol": "KNOX",
-      "name": "KnoxDAO Reserve",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xc33b6bdfa334f124ee670f7cda45be50bd5277ad",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1662297224",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8427bd503dd3169ccc9aff7326c15258bc305478",
-      "symbol": "SYMM",
-      "name": "Symmetric",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xaa4d7a4f975e804a4c7ccc86973b0f354e761731",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1662632820",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x195481cd051c73072d5e5966b07e020be632e32b",
-      "symbol": "MEXC",
-      "name": "MexroX",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xd4841627c38078d1946550c6b5b97a1f97073eed",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1663073313",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
-      "symbol": "AVAX",
-      "name": "AVAX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x5528d717197f5bb7f43b08dcac55600e31b59447",
-    "feeTier": "500",
-    "createdAtTimestamp": "1663073428",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x4a5f3736a1d4ae30390e95e0ac03226133937552",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1663073478",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
-      "symbol": "AVAX",
-      "name": "AVAX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x7b292bb1d00caa7788fb8c7df93b3c173b897185",
-    "feeTier": "3000",
-    "createdAtTimestamp": "1663089153",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xbad3ec9a7d0c438f65e570dc70f3b79e10bf4a2e",
-    "feeTier": "500",
-    "createdAtTimestamp": "1663089423",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
-      "symbol": "AVAX",
-      "name": "AVAX",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x70b67fdc094ed66bac772ef94b2f3357814993b0",
-    "feeTier": "500",
-    "createdAtTimestamp": "1663089483",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
-      "symbol": "USDC",
-      "name": "USD Coin (Wormhole)",
-      "decimals": "6"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-      "symbol": "cEUR",
-      "name": "Celo Euro",
-      "decimals": "18"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0x3759d24e751849c59440052df48ef68df73fca5b",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1663333507",
-    "token0": {
-      "__typename": "Token",
-      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
-      "symbol": "CELO",
-      "name": "Celo native asset",
-      "decimals": "18"
-    },
-    "token1": {
-      "__typename": "Token",
-      "id": "0x6e75c35f5e3b557b1a424f555776379ae47824c5",
-      "symbol": "SPC",
-      "name": "super coin",
-      "decimals": "8"
-    }
-  },
-  {
-    "__typename": "Pool",
-    "id": "0xedd64690d09d3d06aa8b2a7063ec6ccac7a9d900",
-    "feeTier": "500",
-    "createdAtTimestamp": "1663418569",
-    "token0": {
-      "__typename": "Token",
-      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xd629eb00deced2a080b7ec630ef6ac117e614f1b",
       "symbol": "BTC",
       "name": "Wrapped Bitcoin",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x62995e98b2a945f147fe90d92017cb9fd6713bee",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1663601354",
+    "id": "0x58de1aac0ba96ea685d9136c2dfd4c8dd8b440f3",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657724969,
     "token0": {
       "__typename": "Token",
-      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
-      "symbol": "WETH",
-      "name": "Wrapped Ether (Wormhole)",
-      "decimals": "18"
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
-      "id": "0xd71ffd0940c920786ec4dbb5a12306669b5b81ef",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x571dc585e3f9b0cff1bcff015754b41f7ce4f39a",
-    "feeTier": "100",
-    "createdAtTimestamp": "1663673104",
+    "id": "0xc402a7a7a802407e76df4d64077d4a6a6091b879",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657731184,
     "token0": {
       "__typename": "Token",
-      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
-      "id": "0xd71ffd0940c920786ec4dbb5a12306669b5b81ef",
-      "symbol": "WBTC",
-      "name": "Wrapped BTC",
-      "decimals": "8"
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
-    "id": "0x5c596cdb04de2ad0b911fa74802789dbe34c5170",
-    "feeTier": "100",
-    "createdAtTimestamp": "1663695348",
+    "id": "0x1f18cd7d1c7ba0dbe3d9abe0d3ec84ce1ad10066",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657732659,
     "token0": {
       "__typename": "Token",
       "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
       "symbol": "cUSD",
       "name": "Celo Dollar",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x723292eea7e1576ae482a5c317934054c0199e24",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657733429,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x57a68f391855f8cde418132b4280f54e3a4f4a57",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657733874,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x34c11a932853ae24e845ad4b633e3cef91afe583",
+      "symbol": "cRECY",
+      "name": "cRECY",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x93ba85033b1d7463a5732297fcf16ed4fd227e01",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1657734359,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xb4aa2986622249b1f45eb93f28cfca2b2606d809",
+      "symbol": "pUSD",
+      "name": "Poof USD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xf3550c8fad039fb17d91372d68e26ea6957cc123",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1657736244,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xb4aa2986622249b1f45eb93f28cfca2b2606d809",
+      "symbol": "pUSD",
+      "name": "Poof USD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x75aefbf98d557e90a16a74f2e1b261b6558583c8",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657738694,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
+      "symbol": "stabilUSD",
+      "name": "Stabilite USD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xf4de51e44679415088fd903e2e4a52b109ebdfd3",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657748976,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x00be915b9dcf56a3cbe739d9b9c202ca692409ec",
+      "symbol": "UBE",
+      "name": "Ubeswap",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x72c483865f5ed0795d068ed9a947aa3e3e8d966e",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657751106,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x7d00cd74ff385c955ea3d79e47bf06bd7386387d",
+      "symbol": "mCELO",
+      "name": "Moola interest bearing CELO",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x9db18957b73a1ddee52f357bed30828dcd057c8f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657843864,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3376b1425b4bc80e4b8e9b8d257ec98faf4bec3b",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657849099,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x122013fd7df1c6f636a5bb8f03108e876548b455",
+      "symbol": "WETH",
+      "name": "Wrapped Ether",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x7db5c8d3f32777685e376021c3a1c8f88f259f7f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657856948,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3eb9e9ed293a1ab13f2a882c1cc30db62ad4e4fc",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657857153,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd3f257e410dc437db809e38e9b0f1d899aa01a69",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657872041,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x173234922eb27d5138c5e481be9df5261faed450",
+      "symbol": "SOL",
+      "name": "SOL",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x9b92b38dd81ab7ac26479fe74c468ff1e8fd54cb",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657894011,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
+      "symbol": "kUSD",
+      "name": "kUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xaf39c163918fc4de91959332b4b0ad9c9d4cd63e",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1657935790,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "symbol": "AVAX",
+      "name": "AVAX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5fe85b455b32e5babf61e91f29fbaceb5dd167c6",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657987255,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x32a9fe697a32135bfd313a6ac28792dae4d9979d",
+      "symbol": "cMCO2",
+      "name": "cMCO2",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x9995cc8f20db5896943afc8ee0ba463259c931ed",
+      "symbol": "ETHIX",
+      "name": "Ethix (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x636f003a14beb16c1ccd0a477cda9d8136dd40e3",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1657993410,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe685d21b7b0fc7a248a6a8e03b8db22d013aa2ee",
+      "symbol": "IMMO",
+      "name": "Immortal",
+      "decimals": 9,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x3b9aca00"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xbf0874429718356fac6d01431a05683b1b4b69d1",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1657994390,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x17700282592d6917f6a73d0bf8accf4d578c131e",
+      "symbol": "MOO",
+      "name": "Moola",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xdf8317b8b309eccbeee83dd21f56e5b1ff45b672",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1658040002,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xbdd31effb9e9f7509feaac5b4091b31645a47e4b",
+      "symbol": "TFBX",
+      "name": "Truefeedback Token",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x53b612b32233c80ec439a64325a29766ce95be7f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658113292,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
+      "symbol": "KNOX",
+      "name": "KnoxDAO Reserve",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5445df81f5d84cff2a9679e7e4f9c9a5d707f7e5",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658143357,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
+      "symbol": "kUSD",
+      "name": "kUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xa81d9a2d29373777e4082d588958678a6df5645c",
+      "symbol": "KNX",
+      "name": "KNX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3198cfd32a2c42e18ebc0a781b58d8737ff1fc30",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658188317,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x918146359264c492bd6934071c6bd31c854edbc3",
+      "symbol": "mCUSD",
+      "name": "Moola interest bearing CUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x524375d0c6a04439128428f400b00eae81a2e9e4",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1658297456,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd943d18cadb584163acab92a7be6d9bf74a2e6a0",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1658361834,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x1bfc26ce035c368503fae319cc2596716428ca44",
+      "symbol": "USDC",
+      "name": "USD Coin (PoS)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd0d3778680b0b41f34ec186504c58d3a3a095861",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1658495033,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xf63b45b8b2a40f7063e1d2de8bb0832de561a032",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658520968,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x9a6b3c0864a1150923be7db6be0affbb6f8fe6a0",
+      "symbol": "CELODOGE",
+      "name": "CeloDoge",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x2d70cbabf4d8e61d5317b62cbe912935fd94e0fe",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1658529928,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x7e413189b1373da6f69e1f3974cf43bda0a4fb7c",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1658632635,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
+      "symbol": "DAI",
+      "name": "Dai Stablecoin",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xb1012c56a324e2510a81fa6d06c965b5e91fdc5b",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1658632950,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
+      "symbol": "DAI",
+      "name": "Dai Stablecoin",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x118a8cf9b01e4104203961f3cfa21f52c3da8e05",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658919031,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
+      "symbol": "GTPS",
+      "name": "Global Transaction Payment Solution",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x094298648c89157c5fff26dba30147d3f0eac9e0",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658919221,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
+      "symbol": "GTPS",
+      "name": "Global Transaction Payment Solution",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x03619d9737864ccf43fbdf8e25d1277da63da768",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658919421,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
+      "symbol": "GFI",
+      "name": "Gtps.Finance",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x6398fb31b09d940e0226a91e32fc1d8e6a9d877c",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1658946931,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
+      "symbol": "KNOX",
+      "name": "KnoxDAO Reserve",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x4a94130b9e8eb0a0959c2c0f1ee9583213773fd9",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1658965281,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "symbol": "AVAX",
+      "name": "AVAX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xe7897065c71026fe0ff105bd2641c369d9ffa157",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659114976,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5764fa48b74e0ebcfacc666d4b54e8cac1f84f1b",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659307086,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x2e3487f967df2ebc2f236e16f8fcaeac7091324d",
+      "symbol": "WMATIC",
+      "name": "Wrapped Matic",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x880b845015d35f86ead0c4a04921d69e6241a17e",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659508056,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
+      "symbol": "GTPS",
+      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xf7b11bac4d3ba667b5c5fc3aac2b4385833c2344",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1659508416,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
+      "symbol": "GTPS",
+      "name": "Global Transaction Payment Solution",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x1cfc77026d82824ae2b27f27feb693a3ae6da76c",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1659508586,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
+      "symbol": "GFI",
+      "name": "Gtps.Finance",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5669d347e6aaf6faa252744d27b04df5db92f6e1",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659509096,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
+      "symbol": "GTPS",
+      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
+      "symbol": "GTPS",
+      "name": "Global Transaction Payment Solution",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x23af16dfea2ebfeb760c4cd3ba7913d60bbf4ae7",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659509186,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x432ed909a144b63941ca6de62eeb549e3076e02d",
+      "symbol": "GTPS",
+      "name": "GLOBAL TRANSACTION PAYMENT SOLUT (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
+      "symbol": "GFI",
+      "name": "Gtps.Finance",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xb9812566f0fe13aac125506650a29503b9f0f16f",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659509316,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xa86d2b5574824b767d9af2a074fb4a312b0fbf18",
+      "symbol": "GFI",
+      "name": "Gtps.Finance",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xcaf9e5bb8703188a7f0a62b738479b0cbbb83899",
+      "symbol": "GTPS",
+      "name": "Global Transaction Payment Solution",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3b19897bdfc0b7e3b9288784e939e68377dc5258",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659638314,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xcf52cc96ad94f8a166fd22b4a45fbf543fd2895e",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1659639799,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x93fb2d4c23e4e9a75e5e0ac1cb0be24b517c4063",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1659640269,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x00be915b9dcf56a3cbe739d9b9c202ca692409ec",
+      "symbol": "UBE",
+      "name": "Ubeswap",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xe8537a3d056da446677b9e9d6c5db704eaab4787",
+      "symbol": "cREAL",
+      "name": "Celo Brazilian Real",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xc3c581ab01f3f504f936e84a9a736b0fec0dccc8",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1660739732,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
+      "symbol": "stabilUSD",
+      "name": "Stabilite USD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x1e05b9d788373f706684b4a2a244af61e7ea2f1b",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1660740037,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x0a60c25ef6021fc3b479914e6bca7c03c18a97f1",
+      "symbol": "stabilUSD",
+      "name": "Stabilite USD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd5ccb4d0f9a2fbec0f6d2b19e89caa53c4366d19",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1660762567,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xc668583dcbdc9ae6fa3ce46462758188adfdfc24",
+      "symbol": "stCELO",
+      "name": "Staked CELO",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xa1bc2255bff8e65f93592618959571731d9ac6f5",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1660768452,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xc668583dcbdc9ae6fa3ce46462758188adfdfc24",
+      "symbol": "stCELO",
+      "name": "Staked CELO",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x7da99753ff017f1b7afb2c8c0542718dc9f15f21",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1660850573,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x02de4766c272abc10bc88c220d214a26960a7e92",
+      "symbol": "NCT",
+      "name": "Toucan Protocol: Nature Carbon Tonne",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xdb24905b1b080f65dedb0ad978aad5c76363d3c6",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1660851473,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x02de4766c272abc10bc88c220d214a26960a7e92",
+      "symbol": "NCT",
+      "name": "Toucan Protocol: Nature Carbon Tonne",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x0ed413cefde954d8e5c54d981d7d182b587e98e3",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1660859773,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xaaedd1dcd9eaa75d4bd4c4ce4594a8bc2d414100",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1660997141,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8427bd503dd3169ccc9aff7326c15258bc305478",
+      "symbol": "SYMM",
+      "name": "Symmetric",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x249abeb13f9d8c90d338c563f643627e5e66f91d",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1662055098,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x266c13ded5a1d636e502fd56b3f76d38c3107ec2",
+      "symbol": "kUSD",
+      "name": "kUSD",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x833fd14f0fd4eaa47433a07428a46d1ac60fa591",
+      "symbol": "KNOX",
+      "name": "KnoxDAO Reserve",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xc33b6bdfa334f124ee670f7cda45be50bd5277ad",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1662297224,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8427bd503dd3169ccc9aff7326c15258bc305478",
+      "symbol": "SYMM",
+      "name": "Symmetric",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xaa4d7a4f975e804a4c7ccc86973b0f354e761731",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1662632820,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x195481cd051c73072d5e5966b07e020be632e32b",
+      "symbol": "MEXC",
+      "name": "MexroX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xd4841627c38078d1946550c6b5b97a1f97073eed",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1663073313,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "symbol": "AVAX",
+      "name": "AVAX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5528d717197f5bb7f43b08dcac55600e31b59447",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1663073428,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x4a5f3736a1d4ae30390e95e0ac03226133937552",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1663073478,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "symbol": "AVAX",
+      "name": "AVAX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x7b292bb1d00caa7788fb8c7df93b3c173b897185",
+    "feeTier": 0.003,
+    "createdAtTimestamp": 1663089153,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xbad3ec9a7d0c438f65e570dc70f3b79e10bf4a2e",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1663089423,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "symbol": "AVAX",
+      "name": "AVAX",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x70b67fdc094ed66bac772ef94b2f3357814993b0",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1663089483,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x37f750b7cc259a2f741af45294f6a16572cf5cad",
+      "symbol": "USDC",
+      "name": "USD Coin (Wormhole)",
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+      "symbol": "cEUR",
+      "name": "Celo Euro",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x3759d24e751849c59440052df48ef68df73fca5b",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1663333507,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x471ece3750da237f93b8e339c536989b8978a438",
+      "symbol": "CELO",
+      "name": "Celo native asset",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0x6e75c35f5e3b557b1a424f555776379ae47824c5",
+      "symbol": "SPC",
+      "name": "super coin",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0xedd64690d09d3d06aa8b2a7063ec6ccac7a9d900",
+    "feeTier": 0.0005,
+    "createdAtTimestamp": 1663418569,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd629eb00deced2a080b7ec630ef6ac117e614f1b",
+      "symbol": "BTC",
+      "name": "Wrapped Bitcoin",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x62995e98b2a945f147fe90d92017cb9fd6713bee",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1663601354,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x66803fb87abd4aac3cbb3fad7c3aa01f6f3fb207",
+      "symbol": "WETH",
+      "name": "Wrapped Ether (Wormhole)",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd71ffd0940c920786ec4dbb5a12306669b5b81ef",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x571dc585e3f9b0cff1bcff015754b41f7ce4f39a",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1663673104,
+    "token0": {
+      "__typename": "Token",
+      "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    },
+    "token1": {
+      "__typename": "Token",
+      "id": "0xd71ffd0940c920786ec4dbb5a12306669b5b81ef",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
+    }
+  },
+  {
+    "__typename": "Pool",
+    "id": "0x5c596cdb04de2ad0b911fa74802789dbe34c5170",
+    "feeTier": 0.0001,
+    "createdAtTimestamp": 1663695348,
+    "token0": {
+      "__typename": "Token",
+      "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
+      "symbol": "cUSD",
+      "name": "Celo Dollar",
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xef4229c8c3250c675f21bcefa42f58efbff6002a",
       "symbol": "USDC",
       "name": "USD Coin",
-      "decimals": "6"
+      "decimals": 6,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0f4240"
+      }
     }
   },
   {
     "__typename": "Pool",
     "id": "0x68f3379522bf3da2ed56764b308a7148a0be83a8",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1663975023",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1663975023,
     "token0": {
       "__typename": "Token",
       "id": "0x34c11a932853ae24e845ad4b633e3cef91afe583",
       "symbol": "cRECY",
       "name": "cRECY",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
       "symbol": "cUSD",
       "name": "Celo Dollar",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
     "id": "0x71557fce3d25531792412f4c73a3030f2744c531",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1664360280",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1664360280,
     "token0": {
       "__typename": "Token",
       "id": "0x471ece3750da237f93b8e339c536989b8978a438",
       "symbol": "CELO",
       "name": "Celo native asset",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b",
       "symbol": "WBTC",
       "name": "Wrapped BTC",
-      "decimals": "8"
+      "decimals": 8,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x05f5e100"
+      }
     }
   },
   {
     "__typename": "Pool",
     "id": "0xa6be55d1b1645d1d3f523141af3d9de6afab7bbc",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1664730371",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1664730371,
     "token0": {
       "__typename": "Token",
       "id": "0x07a988ea0e06756896fd3593f481486222f794d3",
       "symbol": "SPTC",
       "name": "Spiritnetic Coin",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0x471ece3750da237f93b8e339c536989b8978a438",
       "symbol": "CELO",
       "name": "Celo native asset",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
     "id": "0x2e7bacc4e472654dfbd41b4f13d4746961b1544e",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1665328779",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1665328779,
     "token0": {
       "__typename": "Token",
       "id": "0x471ece3750da237f93b8e339c536989b8978a438",
       "symbol": "CELO",
       "name": "Celo native asset",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xab26aff8d014b0ebd8e6bb19f9f6bfffed96af33",
       "symbol": "Wavy",
       "name": "Wavy",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   },
   {
     "__typename": "Pool",
     "id": "0xacc0a26e8cf95311d7e3137ae52bbadce866f2b8",
-    "feeTier": "10000",
-    "createdAtTimestamp": "1665329289",
+    "feeTier": 0.01,
+    "createdAtTimestamp": 1665329289,
     "token0": {
       "__typename": "Token",
       "id": "0x765de816845861e75a25fca122bb6898b8b1282a",
       "symbol": "cUSD",
       "name": "Celo Dollar",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     },
     "token1": {
       "__typename": "Token",
       "id": "0xab26aff8d014b0ebd8e6bb19f9f6bfffed96af33",
       "symbol": "Wavy",
       "name": "Wavy",
-      "decimals": "18"
+      "decimals": 18,
+      "precision": {
+        "type": "BigNumber",
+        "hex": "0x0de0b6b3a7640000"
+      }
     }
   }
 ]

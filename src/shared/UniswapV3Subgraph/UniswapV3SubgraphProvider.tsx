@@ -143,6 +143,11 @@ export const UniswapV3SubgraphProvider: FC<UniswapV3SubgraphProviderProps> = ({
       const tokens = [...queriedTokens, ...storedTokens];
       const pools = [...queriedPools, ...storedPools];
 
+      console.log(
+        `${chain} pools cache successfully generated. Copy and paste the following object in src/shared/UniswapV3Subgraph/Cache/${chain.toLowerCase()}.json to update the cache.`,
+        pools
+      );
+
       const tokenService = new TokenService(tokens);
       setTokenService(tokenService);
       setUniswapPoolService(new UniswapPoolService(pools, tokenService));
