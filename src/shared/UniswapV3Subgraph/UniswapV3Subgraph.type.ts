@@ -37,15 +37,15 @@ export interface TokenResponse {
   id: string; // ID!
   symbol: string; // String!
   name: string; // String!
-  decimals: string; // BigInt!
+  decimals: number | string; // BigInt!
 }
 
 export interface PoolResponse {
   id: string;
   token0: TokenResponse;
   token1: TokenResponse;
-  feeTier: string;
-  createdAtTimestamp: string;
+  feeTier: number | string;
+  createdAtTimestamp: number | string;
 }
 
 export type TokensQueryResponse = BatchQueryResponse<TokenResponse>;

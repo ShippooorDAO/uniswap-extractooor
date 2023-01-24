@@ -67,7 +67,8 @@ export function getSubgraphUrl(chain: Chain): string {
 export function getCache(chain: Chain): PoolResponse[] {
     switch (chain) {
       case Chain.POLYGON:
-        return polygonCache
+        // @ts-ignore: File is too big to infer type
+        return polygonCache;
       case Chain.OPTIMISM:
         return optimismCache;
       case Chain.ARBITRUM:
@@ -76,6 +77,7 @@ export function getCache(chain: Chain): PoolResponse[] {
         return celoCache;
       case Chain.ETHEREUM:
       default:
+        // @ts-ignore: File is too big to infer type
         return ethereumCache;
     }
 }
